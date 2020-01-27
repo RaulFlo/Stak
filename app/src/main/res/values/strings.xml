@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">StakDice</string>
+    <string name="placeholder_zero">0</string>
+    <string name="placeholder_switch">Switch</string>
+    <string name="placeholder_updown">UP/Down</string>
+    <string name="placeholder_flip">Flip</string>
+    <string name="placeholder_reroll">Reroll</string>
+    <string name="card_image_view_image">Card Image</string>
+    <string name="card_name">CARD NAME</string>
+    <string name="play_matt">play matt</string>
 </resources>
