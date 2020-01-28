@@ -9,6 +9,7 @@
     <color name="colorBlue">#0000ff</color>
     <color name="colorYellow">#b45f06</color>
     <color name="colorPurple">#674ea7</color>
-    <color name="colorBackgroundAccent">#f1ddc4</color>
-    <color name="colorBackground">#d7b784</color>
+    <color name="colorBackgroundAccent">#56C2F0</color>
+    <color name="colorBackground">#1a252f</color>
+    <color name="colorBackgroundsecondAccent">#61a1a8</color>
 </resources>

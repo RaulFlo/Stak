@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GameMatt"
-    android:background="@color/colorBackground">
+    android:background="@color/colorBackground"
+    tools:context=".GameMatt">
 
 
     <ImageView
@@ -14,34 +14,40 @@
         android:layout_height="120dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/card_image_view_image"
         android:src="@drawable/ic_launcher_background"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintEnd_toStartOf="@+id/text_view_strength"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/card_image_view_image" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView26"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="168dp"
         android:layout_marginBottom="18dp"
         android:autoSizeTextType="uniform"
         android:text="@string/card_name"
         app:layout_constraintBottom_toTopOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_toughness" />
 
     <TextView
         android:id="@+id/text_view_strength"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="43dp"
-        android:layout_marginBottom="13dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="2dp"
         android:autoSizeTextType="uniform"
         android:background="@drawable/strength_border"
         android:gravity="center"
         android:text="@string/placeholder_zero"
-        app:layout_constraintBottom_toTopOf="@+id/textView26"
+        app:layout_constraintEnd_toStartOf="@+id/text_view_toughness"
         app:layout_constraintStart_toEndOf="@+id/image_Card"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,13 +55,13 @@
         android:id="@+id/text_view_toughness"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:layout_marginTop="43dp"
-        android:layout_marginBottom="13dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="2dp"
         android:autoSizeTextType="uniform"
         android:background="@drawable/toughness_border"
         android:gravity="center"
         android:text="@string/placeholder_zero"
-        app:layout_constraintBottom_toTopOf="@+id/textView26"
         app:layout_constraintEnd_toStartOf="@+id/text_view_agility"
         app:layout_constraintStart_toEndOf="@+id/text_view_strength"
         app:layout_constraintTop_toTopOf="parent" />
@@ -64,13 +70,13 @@
         android:id="@+id/text_view_agility"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:layout_marginTop="43dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="2dp"
         android:autoSizeTextType="uniform"
         android:background="@drawable/agility_border"
         android:gravity="center"
         android:text="@string/placeholder_zero"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toStartOf="@+id/text_view_knowledge"
         app:layout_constraintStart_toEndOf="@+id/text_view_toughness"
         app:layout_constraintTop_toTopOf="parent" />
@@ -79,14 +85,13 @@
         android:id="@+id/text_view_knowledge"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:layout_marginTop="43dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="50dp"
         android:autoSizeTextType="uniform"
         android:background="@drawable/knowledge_border"
         android:gravity="center"
         android:text="@string/placeholder_zero"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/text_view_agility"
         app:layout_constraintTop_toTopOf="parent" />
@@ -97,13 +102,15 @@
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        android:background="@color/colorBackgroundAccent"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorBackgroundsecondAccent"
+        android:contentDescription="@string/play_matt"
         app:layout_constraintBottom_toTopOf="@+id/button_switch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:contentDescription="@string/play_matt" />
+        app:layout_constraintTop_toBottomOf="@+id/image_Card" />
 
     <TextView
         android:id="@+id/textView_strength_row_1"
@@ -123,13 +130,14 @@
         android:id="@+id/textView_strength_row_3"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_marginStart="24dp"
         android:layout_marginBottom="20dp"
         android:autoSizeTextType="uniform"
         android:background="@drawable/strength_border"
         android:gravity="center"
         android:text="@string/placeholder_zero"
         app:layout_constraintBottom_toTopOf="@+id/textView_strength_row_2"
-        app:layout_constraintStart_toStartOf="@+id/textView_strength_row_2" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/button_switch"
@@ -137,10 +145,10 @@
         android:layout_height="50dp"
         android:layout_marginStart="24dp"
         android:layout_marginBottom="8dp"
-        android:textSize="18sp"
         android:background="@drawable/strength_border"
         android:gravity="center"
         android:text="@string/placeholder_switch"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/textView_strength_row_3"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -148,160 +156,193 @@
         android:id="@+id/textView_strength_row_2"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_marginStart="24dp"
         android:layout_marginBottom="20dp"
         android:autoSizeTextType="uniform"
         android:background="@drawable/strength_border"
         android:gravity="center"
         android:text="@string/placeholder_zero"
         app:layout_constraintBottom_toTopOf="@+id/textView_strength_row_1"
-        app:layout_constraintStart_toStartOf="@+id/textView_strength_row_1" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView_agility_row_2"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="20dp"
         android:autoSizeTextType="uniform"
         android:background="@drawable/agility_border"
         android:gravity="center"
         android:text="@string/placeholder_zero"
-        app:layout_constraintBottom_toBottomOf="@+id/textView_toughness_row_2"
-        app:layout_constraintStart_toStartOf="@+id/textView_agility_row_1" />
+        app:layout_constraintBottom_toTopOf="@+id/textView_agility_row_1"
+        app:layout_constraintEnd_toStartOf="@+id/textView_knowledge_row_2"
+        app:layout_constraintStart_toStartOf="@+id/guideline" />
 
     <TextView
         android:id="@+id/textView_knowledge_row_2"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="20dp"
         android:autoSizeTextType="uniform"
         android:background="@drawable/knowledge_border"
         android:gravity="center"
         android:text="@string/placeholder_zero"
-        app:layout_constraintBottom_toBottomOf="@+id/textView_agility_row_2"
-        app:layout_constraintEnd_toEndOf="@+id/textView_knowledge_row_3"
-        app:layout_constraintStart_toEndOf="@+id/textView_agility_row_2" />
+        app:layout_constraintBottom_toTopOf="@+id/textView_knowledge_row_1"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/textView_knowledge_row_1"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="40dp"
         android:autoSizeTextType="uniform"
         android:background="@drawable/knowledge_border"
         android:gravity="center"
         android:text="@string/placeholder_zero"
-        app:layout_constraintBottom_toBottomOf="@+id/textView_agility_row_1"
-        app:layout_constraintEnd_toEndOf="@+id/textView_knowledge_row_2"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView_agility_row_1" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/textView_agility_row_1"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="40dp"
         android:autoSizeTextType="uniform"
         android:background="@drawable/agility_border"
         android:gravity="center"
         android:text="@string/placeholder_zero"
-        app:layout_constraintBottom_toBottomOf="@+id/textView_toughness_row_1"
-        app:layout_constraintStart_toEndOf="@+id/textView_toughness_row_1" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textView_knowledge_row_1"
+        app:layout_constraintStart_toStartOf="@+id/guideline" />
 
     <TextView
         android:id="@+id/textView_toughness_row_1"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="40dp"
         android:autoSizeTextType="uniform"
         android:background="@drawable/toughness_border"
         android:gravity="center"
         android:text="@string/placeholder_zero"
-        app:layout_constraintBottom_toBottomOf="@+id/textView_strength_row_1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toEndOf="@+id/textView_strength_row_1" />
 
     <TextView
         android:id="@+id/textView_toughness_row_2"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="20dp"
         android:autoSizeTextType="uniform"
         android:background="@drawable/toughness_border"
         android:gravity="center"
         android:text="@string/placeholder_zero"
-        app:layout_constraintBottom_toBottomOf="@+id/textView_strength_row_2"
-        app:layout_constraintStart_toStartOf="@+id/textView_toughness_row_1" />
+        app:layout_constraintBottom_toTopOf="@+id/textView_toughness_row_1"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toEndOf="@+id/textView_strength_row_2" />
 
     <TextView
         android:id="@+id/button_updown"
         android:layout_width="80dp"
         android:layout_height="50dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-       android:textSize="16sp"
         android:background="@drawable/toughness_border"
         android:gravity="center"
         android:text="@string/placeholder_updown"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/textView_toughness_row_3"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toEndOf="@+id/button_switch" />
 
     <TextView
         android:id="@+id/textView_toughness_row_3"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="20dp"
         android:autoSizeTextType="uniform"
         android:background="@drawable/toughness_border"
         android:gravity="center"
         android:text="@string/placeholder_zero"
-        app:layout_constraintBottom_toBottomOf="@+id/textView_strength_row_3"
-        app:layout_constraintStart_toStartOf="@+id/textView_toughness_row_2" />
+        app:layout_constraintBottom_toTopOf="@+id/textView_toughness_row_2"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toEndOf="@+id/textView_strength_row_3" />
 
     <TextView
         android:id="@+id/textView_agility_row_3"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="20dp"
         android:autoSizeTextType="uniform"
         android:background="@drawable/agility_border"
         android:gravity="center"
         android:text="@string/placeholder_zero"
-        app:layout_constraintBottom_toBottomOf="@+id/textView_toughness_row_3"
-        app:layout_constraintStart_toStartOf="@+id/textView_agility_row_2" />
+        app:layout_constraintBottom_toTopOf="@+id/textView_agility_row_2"
+        app:layout_constraintEnd_toStartOf="@+id/textView_knowledge_row_3"
+        app:layout_constraintStart_toStartOf="@+id/guideline" />
 
     <TextView
         android:id="@+id/textView_knowledge_row_3"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="20dp"
         android:autoSizeTextType="uniform"
         android:background="@drawable/knowledge_border"
         android:gravity="center"
         android:text="@string/placeholder_zero"
-        app:layout_constraintBottom_toBottomOf="@+id/textView_agility_row_3"
-        app:layout_constraintStart_toEndOf="@+id/textView_agility_row_3" />
+        app:layout_constraintBottom_toTopOf="@+id/textView_knowledge_row_2"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/button_flip"
         android:layout_width="80dp"
         android:layout_height="50dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:textSize="20sp"
         android:background="@drawable/agility_border"
         android:gravity="center"
         android:text="@string/placeholder_flip"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/textView_agility_row_3"
-        app:layout_constraintStart_toEndOf="@+id/button_updown" />
+        app:layout_constraintEnd_toStartOf="@+id/button_reroll"
+        app:layout_constraintStart_toStartOf="@+id/guideline" />
 
     <Button
         android:id="@+id/button_reroll"
         android:layout_width="80dp"
         android:layout_height="50dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginBottom="8dp"
-        android:textSize="20sp"
         android:background="@drawable/knowledge_border"
         android:gravity="center"
         android:text="@string/placeholder_reroll"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/textView_knowledge_row_3"
-        app:layout_constraintStart_toEndOf="@+id/button_flip" />
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
