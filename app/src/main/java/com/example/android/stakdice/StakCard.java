@@ -1,29 +1,31 @@
 package com.example.android.stakdice;
 
-public class StakCard {
+import java.io.Serializable;
 
-    private String mImage;
+public class StakCard implements Serializable {
+
+    private int mImageResource;
     private String mCardName;
     private int mStrength;
-    private int mAgility;
     private int mToughness;
+    private int mAgility;
     private int mKnowledge;
 
-    public StakCard(String mImage, String mCardName, int mStrength, int mAgility, int mToughness, int mKnowledge) {
-        this.mImage = mImage;
+    public StakCard(int mImageResource, String mCardName, int mStrength, int mToughness,int mAgility, int mKnowledge) {
+        this.mImageResource = mImageResource;
         this.mCardName = mCardName;
         this.mStrength = mStrength;
-        this.mAgility = mAgility;
         this.mToughness = mToughness;
+        this.mAgility = mAgility;
         this.mKnowledge = mKnowledge;
     }
 
-    public String getmImage() {
-        return mImage;
+    public int getmImageResource() {
+        return mImageResource;
     }
 
-    public void setmImage(String mImage) {
-        this.mImage = mImage;
+    public void setmImageResource(int mImageResource) {
+        this.mImageResource = mImageResource;
     }
 
     public String getmCardName() {
