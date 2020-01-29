@@ -17,21 +17,23 @@ public class GameMatt extends AppCompatActivity {
         Intent intent = getIntent();
       StakCard stakCard= (StakCard) intent.getSerializableExtra("StakCard");
 
-        int imageExtra = stakCard.getmImageResource();
-        String nameExtra = stakCard.getmCardName();
-        int strengthExtra = stakCard.getmStrength();
-        int toughnessExtra = stakCard.getmToughness();
-        int agilityExtra = stakCard.getmAgility();
-        int knowledgeExtra = stakCard.getmKnowledge();
+        int imageExtra = stakCard.getImageResource();
+        String nameExtra = stakCard.getCardName();
+        int strengthExtra = stakCard.getStrength();
+        int toughnessExtra = stakCard.getToughness();
+        int agilityExtra = stakCard.getAgility();
+        int knowledgeExtra = stakCard.getKnowledge();
+        String difficultyExtra = stakCard.getDifficulty();
+        boolean isBeatenExtra = stakCard.isBeaten();
 
 
         //link views
-        ImageView imageView = findViewById(R.id.image_Card);
-        TextView textViewName = findViewById(R.id.text_view_card_name);
-        TextView textViewStrength = findViewById(R.id.text_view_strength);
-        TextView textViewToughness = findViewById(R.id.text_view_toughness);
-        TextView textViewAgility= findViewById(R.id.text_view_agility);
-        TextView textViewKnowledge = findViewById(R.id.text_view_knowledge);
+        ImageView imageView = findViewById(R.id.image_stak_card);
+        TextView textViewName = findViewById(R.id.stak_view_card_name);
+        TextView textViewStrength = findViewById(R.id.stak_view_strength);
+        TextView textViewToughness = findViewById(R.id.stak_view_toughness);
+        TextView textViewAgility= findViewById(R.id.stak_view_agility);
+        TextView textViewKnowledge = findViewById(R.id.stak_view_knowledge);
 
         //link extras to views
         imageView.setImageResource(imageExtra);

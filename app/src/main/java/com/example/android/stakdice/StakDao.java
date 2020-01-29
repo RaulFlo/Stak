@@ -26,7 +26,7 @@ public interface StakDao {
     void deleteAllStaks();
 
     //gets all notes from table by priority
-    @Query("SELECT * FROM stak_table ORDER BY mCardName DESC")
+    @Query("SELECT * FROM stak_table ORDER BY cardName DESC")
     LiveData<List<StakCard>> getAllStaks();
 
 

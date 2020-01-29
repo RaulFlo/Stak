@@ -9,7 +9,7 @@
 
 
     <ImageView
-        android:id="@+id/image_Card"
+        android:id="@+id/image_stak_card"
         android:layout_width="125dp"
         android:layout_height="120dp"
         android:layout_marginStart="8dp"
@@ -19,12 +19,12 @@
         android:contentDescription="@string/card_image_view_image"
         android:src="@drawable/ic_launcher_background"
         app:layout_constraintBottom_toTopOf="@+id/imageView"
-        app:layout_constraintEnd_toStartOf="@+id/text_view_strength"
+        app:layout_constraintEnd_toStartOf="@+id/stak_view_strength"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/text_view_card_name"
+        android:id="@+id/stak_view_card_name"
         android:layout_width="206dp"
         android:layout_height="40dp"
         android:layout_marginTop="16dp"
@@ -36,11 +36,11 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_toughness"
+        app:layout_constraintTop_toBottomOf="@+id/stak_view_toughness"
         app:layout_constraintVertical_bias="0.857" />
 
     <TextView
-        android:id="@+id/text_view_strength"
+        android:id="@+id/stak_view_strength"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_marginStart="4dp"
@@ -50,12 +50,12 @@
         android:background="@drawable/strength_border"
         android:gravity="center"
         android:text="@string/placeholder_zero"
-        app:layout_constraintEnd_toStartOf="@+id/text_view_toughness"
-        app:layout_constraintStart_toEndOf="@+id/image_Card"
+        app:layout_constraintEnd_toStartOf="@+id/stak_view_toughness"
+        app:layout_constraintStart_toEndOf="@+id/image_stak_card"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/text_view_toughness"
+        android:id="@+id/stak_view_toughness"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_marginStart="2dp"
@@ -65,12 +65,12 @@
         android:background="@drawable/toughness_border"
         android:gravity="center"
         android:text="@string/placeholder_zero"
-        app:layout_constraintEnd_toStartOf="@+id/text_view_agility"
-        app:layout_constraintStart_toEndOf="@+id/text_view_strength"
+        app:layout_constraintEnd_toStartOf="@+id/stak_view_agility"
+        app:layout_constraintStart_toEndOf="@+id/stak_view_strength"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/text_view_agility"
+        android:id="@+id/stak_view_agility"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_marginStart="2dp"
@@ -80,12 +80,12 @@
         android:background="@drawable/agility_border"
         android:gravity="center"
         android:text="@string/placeholder_zero"
-        app:layout_constraintEnd_toStartOf="@+id/text_view_knowledge"
-        app:layout_constraintStart_toEndOf="@+id/text_view_toughness"
+        app:layout_constraintEnd_toStartOf="@+id/stak_view_knowledge"
+        app:layout_constraintStart_toEndOf="@+id/stak_view_toughness"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/text_view_knowledge"
+        android:id="@+id/stak_view_knowledge"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_marginStart="2dp"
@@ -96,7 +96,7 @@
         android:gravity="center"
         android:text="@string/placeholder_zero"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/text_view_agility"
+        app:layout_constraintStart_toEndOf="@+id/stak_view_agility"
         app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -113,7 +113,7 @@
         app:layout_constraintBottom_toTopOf="@+id/button_switch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_Card" />
+        app:layout_constraintTop_toBottomOf="@+id/image_stak_card" />
 
     <TextView
         android:id="@+id/textView_strength_row_1"
