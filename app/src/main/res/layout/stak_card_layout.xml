@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:background="@color/colorBackground"
     android:id="@+id/stak_card_view">
 
@@ -13,7 +13,7 @@
         android:layout_width="125dp"
         android:layout_height="120dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="4dp"
         android:contentDescription="@string/card_image_view_image"
         android:src="@drawable/ic_launcher_background"
@@ -23,24 +23,24 @@
 
     <TextView
         android:id="@+id/stak_view_card_name"
-        android:layout_width="179dp"
-        android:layout_height="64dp"
+        android:layout_width="177dp"
+        android:layout_height="35dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="18dp"
+        android:layout_marginBottom="8dp"
         android:autoSizeTextType="uniform"
         android:text="@string/card_name"
         android:textColor="@color/colorWhite"
         android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image_stak_card"
-        app:layout_constraintTop_toBottomOf="@+id/stak_view_toughness"
-        app:layout_constraintVertical_bias="0.857" />
+        app:layout_constraintTop_toBottomOf="@+id/stak_view_toughness" />
 
     <TextView
         android:id="@+id/stak_view_difficulty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:autoSizeTextType="uniform"
         android:text="@string/string_difficulty"
