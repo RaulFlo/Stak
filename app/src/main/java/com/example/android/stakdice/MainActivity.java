@@ -12,7 +12,7 @@ import java.io.Serializable;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btnEasy,btnMedium,btnHard;
+    Button btnEasy, btnMedium, btnHard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
                         14,
                         12);
                 Intent intent = new Intent(MainActivity.this, GameMatt.class);
-               intent.putExtra("StakCard", easyCard);
+                intent.putExtra("StakCard", easyCard);
                 startActivity(intent);
             }
 

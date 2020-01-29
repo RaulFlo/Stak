@@ -1,8 +1,15 @@
 package com.example.android.stakdice;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.io.Serializable;
 
+@Entity(tableName = "stak_table")
 public class StakCard implements Serializable {
+
+    @PrimaryKey(autoGenerate = true)
+    private int id;
 
     private int mImageResource;
     private String mCardName;
@@ -11,13 +18,21 @@ public class StakCard implements Serializable {
     private int mAgility;
     private int mKnowledge;
 
-    public StakCard(int mImageResource, String mCardName, int mStrength, int mToughness,int mAgility, int mKnowledge) {
+    public StakCard(int mImageResource, String mCardName, int mStrength, int mToughness, int mAgility, int mKnowledge) {
         this.mImageResource = mImageResource;
         this.mCardName = mCardName;
         this.mStrength = mStrength;
         this.mToughness = mToughness;
         this.mAgility = mAgility;
         this.mKnowledge = mKnowledge;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public int getmImageResource() {
