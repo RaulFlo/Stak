@@ -17,14 +17,20 @@ public class StakCard implements Serializable {
     private int mToughness;
     private int mAgility;
     private int mKnowledge;
+    private String mDifficulty;
+    private boolean isBeaten;
 
-    public StakCard(int mImageResource, String mCardName, int mStrength, int mToughness, int mAgility, int mKnowledge) {
+    public StakCard(int mImageResource, String mCardName,
+                    int mStrength, int mToughness, int mAgility,
+                    int mKnowledge, String mDifficulty,boolean isBeaten) {
         this.mImageResource = mImageResource;
         this.mCardName = mCardName;
         this.mStrength = mStrength;
         this.mToughness = mToughness;
         this.mAgility = mAgility;
         this.mKnowledge = mKnowledge;
+        this.mDifficulty = mDifficulty;
+        this.isBeaten = isBeaten;
     }
 
     public void setId(int id) {
@@ -81,5 +87,21 @@ public class StakCard implements Serializable {
 
     public void setmKnowledge(int mKnowledge) {
         this.mKnowledge = mKnowledge;
+    }
+
+    public String getmDifficulty() {
+        return mDifficulty;
+    }
+
+    public void setmDifficulty(String mDifficulty) {
+        this.mDifficulty = mDifficulty;
+    }
+
+    public boolean isBeaten() {
+        return isBeaten;
+    }
+
+    public void setBeaten(boolean beaten) {
+        isBeaten = beaten;
     }
 }

@@ -49,9 +49,12 @@ public abstract class StakDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            stakDao.insert(new StakCard(R.drawable.ic_face_black_24dp, "BlueSlime", 12,14,12,10));
-            stakDao.insert(new StakCard(R.drawable.ic_face_black_24dp, "RedSkeleton", 2,12,13,11));
-            stakDao.insert(new StakCard(R.drawable.ic_face_black_24dp, "BlackKnight", 12,14,16,14));
+            stakDao.insert(new StakCard(R.drawable.ic_face_black_24dp, "BlueSlime",
+                    12,14,12,10,"Easy",false));
+            stakDao.insert(new StakCard(R.drawable.ic_face_black_24dp, "RedSkeleton",
+                    2,12,13,11,"Medium",false));
+            stakDao.insert(new StakCard(R.drawable.ic_face_black_24dp, "BlackKnight",
+                    12,14,16,14,"Hard",false));
             return null;
         }
     }

@@ -8,4 +8,8 @@
     <string name="card_image_view_image">Card Image</string>
     <string name="card_name">CARD NAME</string>
     <string name="play_matt">play matt</string>
+    <string name="string_difficulty_easy">Easy</string>
+    <string name="string_difficulty_medium">Medium</string>
+    <string name="string_difficulty_hard">Hard</string>
+    <string name="string_difficulty">Difficulty</string>
 </resources>

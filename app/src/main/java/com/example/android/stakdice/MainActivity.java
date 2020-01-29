@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
                         10,
                         12,
                         14,
-                        12);
+                        12,"Easy",false);
                 Intent intent = new Intent(MainActivity.this, GameMatt.class);
                 intent.putExtra("StakCard", easyCard);
                 startActivity(intent);
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                         10,
                         15,
                         14,
-                        15);
+                        15,"Medium", false);
                 Intent intent = new Intent(MainActivity.this, GameMatt.class);
                 intent.putExtra("StakCard", mediumCard);
                 startActivity(intent);
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                         14,
                         16,
                         14,
-                        15);
+                        15,"Hard",false);
                 Intent intent = new Intent(MainActivity.this, GameMatt.class);
                 intent.putExtra("StakCard", hardCard);
                 startActivity(intent);
