@@ -32,8 +32,7 @@
         app:layout_constraintBottom_toTopOf="@+id/button_switch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_stak_card" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView_strength_row_1"
@@ -272,7 +271,7 @@
         android:layout_width="49dp"
         android:layout_height="176dp"
         android:layout_marginEnd="8dp"
-        android:text="R\no\nl\nl"
+        android:text="@string/roll"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView" />
@@ -285,7 +284,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        app:layout_constraintTop_toTopOf="@+id/imageView"
+        android:contentDescription="@string/roll_dice_image" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
