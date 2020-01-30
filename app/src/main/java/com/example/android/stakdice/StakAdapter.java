@@ -11,14 +11,18 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class StakAdapter extends ListAdapter<StakCard, StakAdapter.StakHolder> {
+public class StakAdapter extends ListAdapter<StakCard, StakHolder> implements StakHolder.StakHolderListener {
 
-    private static OnItemClickListener listener;
+    //interface to be able to click on notes in recycle view
+    public interface OnItemClickListener {
+        void onItemClick(StakCard stakCard);
+    }
 
-    public StakAdapter() {
+    private OnItemClickListener listener;
+
+    public StakAdapter(OnItemClickListener listener) {
         super(DIFF_CALLBACK);
-
-
+        this.listener = listener;
     }
 
     private static final DiffUtil.ItemCallback<StakCard> DIFF_CALLBACK = new DiffUtil.ItemCallback<StakCard>() {
@@ -41,7 +45,7 @@ public class StakAdapter extends ListAdapter<StakCard, StakAdapter.StakHolder> {
     public StakHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.layout_listitem, parent, false);
-        return new StakHolder(itemView);
+        return new StakHolder(itemView, this);
     }
 
     @Override
@@ -50,49 +54,18 @@ public class StakAdapter extends ListAdapter<StakCard, StakAdapter.StakHolder> {
         holder.mainMenuImage.setImageResource(currentStakCard.getImageResource());
         holder.mainMenuCardName.setText(currentStakCard.getCardName());
         holder.mainMenuDifficulty.setText(currentStakCard.getDifficulty());
-
-
     }
 
 
-    public StakCard getStakAt(int position){
+    public StakCard getStakAt(int position) {
         return getItem(position);
     }
 
 
-    class StakHolder extends RecyclerView.ViewHolder {
-
-        public ImageView mainMenuImage;
-        public TextView mainMenuCardName;
-        public TextView mainMenuDifficulty;
-
-        public StakHolder(@NonNull View itemView) {
-            super(itemView);
-
-            mainMenuImage = itemView.findViewById(R.id.main_menu_image_view);
-            mainMenuCardName = itemView.findViewById(R.id.main_menu_text_view_card_name);
-            mainMenuDifficulty = itemView.findViewById(R.id.main_menu_text_view_difficulty);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int position = getAdapterPosition();
-                    if (listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.onItemClick(getItem(position));
-                    }
-                }
-            });
-
-        }
+    @Override
+    public void onItemClicked(int adapterPosition) {
+        listener.onItemClick(getStakAt(adapterPosition));
     }
 
-    //interface to be able to click on notes in recycle view
-    public interface OnItemClickListener {
-        void onItemClick(StakCard stakCard);
-    }
-
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        this.listener = listener;
-    }
 
 }

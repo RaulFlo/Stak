@@ -16,7 +16,7 @@ import android.widget.Button;
 import java.io.Serializable;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity {
 
 
     private StakViewModel stakViewModel;
@@ -34,7 +34,14 @@ public class MainActivity extends AppCompatActivity  {
         recyclerView.setLayoutManager(horizontalLayoutManager);
         recyclerView.setHasFixedSize(true);
         //Adapter link to RecyclerView
-        final StakAdapter adapter = new StakAdapter();
+        final StakAdapter adapter = new StakAdapter(new StakAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(StakCard stakCard) {
+                Intent intent = new Intent(MainActivity.this, GameMatt.class);
+                intent.putExtra("StakCard", stakCard);
+                startActivity(intent);
+            }
+        });
         recyclerView.setAdapter(adapter);
 
         //ask sys for new ViewModel, scopes it to this activity and destroys when this activity destroyed
@@ -46,20 +53,6 @@ public class MainActivity extends AppCompatActivity  {
                 adapter.submitList(stakCards);
             }
         });
-
-
-
-        adapter.setOnItemClickListener(new StakAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(StakCard stakCard) {
-                Intent intent = new Intent(MainActivity.this, GameMatt.class);
-                intent.putExtra("StakCard", stakCard);
-                startActivity(intent);
-            }
-        });
-
-
-
     }
 
 }
