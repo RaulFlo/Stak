@@ -12,8 +12,6 @@
         android:id="@+id/stak_card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,235 +27,10 @@
         android:layout_marginBottom="8dp"
         android:background="@color/colorBackgroundsecondAccent"
         android:contentDescription="@string/play_matt"
-        app:layout_constraintBottom_toTopOf="@+id/button_switch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textView_strength_row_1"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="40dp"
-        android:autoSizeTextType="uniform"
-        android:background="@drawable/strength_border"
-        android:gravity="center"
-        android:text="@string/placeholder_zero"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/textView_strength_row_3"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="20dp"
-        android:autoSizeTextType="uniform"
-        android:background="@drawable/strength_border"
-        android:gravity="center"
-        android:text="@string/placeholder_zero"
-        app:layout_constraintBottom_toTopOf="@+id/textView_strength_row_2"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/button_switch"
-        android:layout_width="80dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/strength_border"
-        android:gravity="center"
-        android:text="@string/placeholder_switch"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView_strength_row_3"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textView_strength_row_2"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="20dp"
-        android:autoSizeTextType="uniform"
-        android:background="@drawable/strength_border"
-        android:gravity="center"
-        android:text="@string/placeholder_zero"
-        app:layout_constraintBottom_toTopOf="@+id/textView_strength_row_1"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textView_agility_row_2"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="20dp"
-        android:autoSizeTextType="uniform"
-        android:background="@drawable/agility_border"
-        android:gravity="center"
-        android:text="@string/placeholder_zero"
-        app:layout_constraintBottom_toTopOf="@+id/textView_agility_row_1"
-        app:layout_constraintEnd_toStartOf="@+id/textView_knowledge_row_2"
-        app:layout_constraintStart_toStartOf="@+id/guideline" />
-
-    <TextView
-        android:id="@+id/textView_knowledge_row_2"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="20dp"
-        android:autoSizeTextType="uniform"
-        android:background="@drawable/knowledge_border"
-        android:gravity="center"
-        android:text="@string/placeholder_zero"
-        app:layout_constraintBottom_toTopOf="@+id/textView_knowledge_row_1"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/textView_knowledge_row_1"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="40dp"
-        android:autoSizeTextType="uniform"
-        android:background="@drawable/knowledge_border"
-        android:gravity="center"
-        android:text="@string/placeholder_zero"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/textView_agility_row_1"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="40dp"
-        android:autoSizeTextType="uniform"
-        android:background="@drawable/agility_border"
-        android:gravity="center"
-        android:text="@string/placeholder_zero"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textView_knowledge_row_1"
-        app:layout_constraintStart_toStartOf="@+id/guideline" />
-
-    <TextView
-        android:id="@+id/textView_toughness_row_1"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="40dp"
-        android:autoSizeTextType="uniform"
-        android:background="@drawable/toughness_border"
-        android:gravity="center"
-        android:text="@string/placeholder_zero"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintStart_toEndOf="@+id/textView_strength_row_1" />
-
-    <TextView
-        android:id="@+id/textView_toughness_row_2"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="20dp"
-        android:autoSizeTextType="uniform"
-        android:background="@drawable/toughness_border"
-        android:gravity="center"
-        android:text="@string/placeholder_zero"
-        app:layout_constraintBottom_toTopOf="@+id/textView_toughness_row_1"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintStart_toEndOf="@+id/textView_strength_row_2" />
-
-    <TextView
-        android:id="@+id/button_updown"
-        android:layout_width="80dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/toughness_border"
-        android:gravity="center"
-        android:text="@string/placeholder_updown"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView_toughness_row_3"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintStart_toEndOf="@+id/button_switch" />
-
-    <TextView
-        android:id="@+id/textView_toughness_row_3"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="20dp"
-        android:autoSizeTextType="uniform"
-        android:background="@drawable/toughness_border"
-        android:gravity="center"
-        android:text="@string/placeholder_zero"
-        app:layout_constraintBottom_toTopOf="@+id/textView_toughness_row_2"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintStart_toEndOf="@+id/textView_strength_row_3" />
-
-    <TextView
-        android:id="@+id/textView_agility_row_3"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="20dp"
-        android:autoSizeTextType="uniform"
-        android:background="@drawable/agility_border"
-        android:gravity="center"
-        android:text="@string/placeholder_zero"
-        app:layout_constraintBottom_toTopOf="@+id/textView_agility_row_2"
-        app:layout_constraintEnd_toStartOf="@+id/textView_knowledge_row_3"
-        app:layout_constraintStart_toStartOf="@+id/guideline" />
-
-    <TextView
-        android:id="@+id/textView_knowledge_row_3"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="20dp"
-        android:autoSizeTextType="uniform"
-        android:background="@drawable/knowledge_border"
-        android:gravity="center"
-        android:text="@string/placeholder_zero"
-        app:layout_constraintBottom_toTopOf="@+id/textView_knowledge_row_2"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/button_flip"
-        android:layout_width="80dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/agility_border"
-        android:gravity="center"
-        android:text="@string/placeholder_flip"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView_agility_row_3"
-        app:layout_constraintEnd_toStartOf="@+id/button_reroll"
-        app:layout_constraintStart_toStartOf="@+id/guideline" />
-
-    <Button
-        android:id="@+id/button_reroll"
-        android:layout_width="80dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/knowledge_border"
-        android:gravity="center"
-        android:text="@string/placeholder_reroll"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView_knowledge_row_3"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/stak_card_view" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -280,12 +53,56 @@
         android:id="@+id/image_view_dice"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:contentDescription="@string/roll_dice_image"
         android:src="@drawable/dice1"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView"
-        android:contentDescription="@string/roll_dice_image" />
+        app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+    <EditText
+        android:id="@+id/s_debug"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:layout_constraintEnd_toStartOf="@id/t_debug"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageView" />
+
+    <EditText
+        android:id="@+id/t_debug"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:layout_constraintEnd_toStartOf="@id/a_debug"
+        app:layout_constraintStart_toEndOf="@id/s_debug"
+        app:layout_constraintTop_toBottomOf="@id/imageView" />
+
+    <EditText
+        android:id="@+id/a_debug"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:layout_constraintEnd_toStartOf="@id/k_debug"
+        app:layout_constraintStart_toEndOf="@id/t_debug"
+        app:layout_constraintTop_toBottomOf="@id/imageView" />
+
+    <EditText
+        android:id="@+id/k_debug"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/a_debug"
+        app:layout_constraintTop_toBottomOf="@id/imageView" />
+
+    <Button
+        android:id="@+id/debug_validate_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/validate"
+        app:layout_constraintTop_toBottomOf="@id/s_debug" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
