@@ -25,33 +25,14 @@ public class GameMatt extends AppCompatActivity {
         Intent intent = getIntent();
         StakCard stakCard = (StakCard) intent.getSerializableExtra("StakCard");
 
-        int imageExtra = stakCard.getImageResource();
-        String nameExtra = stakCard.getCardName();
-        int strengthExtra = stakCard.getStrength();
-        int toughnessExtra = stakCard.getToughness();
-        int agilityExtra = stakCard.getAgility();
-        int knowledgeExtra = stakCard.getKnowledge();
-        String difficultyExtra = stakCard.getDifficulty();
-        boolean isBeatenExtra = stakCard.isBeaten();
+
+        StakCardView cardView = findViewById(R.id.stak_card_view);
+
+        cardView.setStakCard(stakCard);
 
 
-        //link views
-        ImageView imageView = findViewById(R.id.image_stak_card);
-        TextView textViewName = findViewById(R.id.stak_view_card_name);
-        TextView textViewStrength = findViewById(R.id.stak_view_strength);
-        TextView textViewToughness = findViewById(R.id.stak_view_toughness);
-        TextView textViewAgility = findViewById(R.id.stak_view_agility);
-        TextView textViewKnowledge = findViewById(R.id.stak_view_knowledge);
         imageViewDice = findViewById(R.id.image_view_dice);
         rollButton = findViewById(R.id.button_roll);
-
-        //link extras to views
-        imageView.setImageResource(imageExtra);
-        textViewName.setText(nameExtra);
-        textViewStrength.setText(String.valueOf(strengthExtra));
-        textViewToughness.setText(String.valueOf(toughnessExtra));
-        textViewAgility.setText(String.valueOf(agilityExtra));
-        textViewKnowledge.setText(String.valueOf(knowledgeExtra));
 
         rollButton.setOnClickListener(new View.OnClickListener() {
             @Override

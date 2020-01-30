@@ -12,7 +12,7 @@
         android:id="@+id/image_stak_card"
         android:layout_width="125dp"
         android:layout_height="120dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="4dp"
         android:contentDescription="@string/card_image_view_image"
