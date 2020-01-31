@@ -7,49 +7,17 @@
     tools:context=".MainActivity"
     android:background="@color/colorBackground">
 
-    <Button
-        android:id="@+id/btnEasy"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:text="Easy"
-        android:textAllCaps="false"
-        android:textColor="#FFF"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.4" />
 
-    <Button
-        android:id="@+id/btnMedium"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:text="Medium"
-        android:textAllCaps="false"
-        android:textColor="#FFF"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="132dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.517" />
-
-    <Button
-        android:id="@+id/btnHard"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:text="Hard"
-        android:textAllCaps="false"
-        android:textColor="#FFF"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.631" />
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
