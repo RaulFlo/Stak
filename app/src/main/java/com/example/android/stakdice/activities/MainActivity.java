@@ -1,4 +1,4 @@
-package com.example.android.stakdice;
+package com.example.android.stakdice.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,11 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.android.stakdice.R;
+import com.example.android.stakdice.StakAdapter;
+import com.example.android.stakdice.StakCard;
+import com.example.android.stakdice.StakViewModel;
 
 import java.util.List;
 

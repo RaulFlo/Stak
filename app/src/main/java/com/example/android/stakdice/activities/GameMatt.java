@@ -1,4 +1,4 @@
-package com.example.android.stakdice;
+package com.example.android.stakdice.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.android.stakdice.R;
+import com.example.android.stakdice.StakCard;
+import com.example.android.stakdice.StakCardView;
 import com.example.android.stakdice.models.attribute.Attribute;
 
 import java.util.Random;
@@ -54,6 +57,8 @@ public class GameMatt extends AppCompatActivity {
         imageViewDice.setVisibility(View.INVISIBLE);
         rollButton = findViewById(R.id.button_roll);
 
+        validateBtn.setVisibility(View.INVISIBLE);
+
         rollButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,6 +66,7 @@ public class GameMatt extends AppCompatActivity {
                 isClicked();
             }
         });
+
 
         validateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +77,7 @@ public class GameMatt extends AppCompatActivity {
 
 
     }
+
 
     private void isValid(StakCard stakCard) {
         Attribute stakCardStrength = stakCard.getStrength();
@@ -97,10 +104,18 @@ public class GameMatt extends AppCompatActivity {
 
     }
 
+    public void revealValidateButton() {
+        if (currentClicks == 10) {
+            validateBtn.setVisibility(View.VISIBLE);
+        }
+    }
+
+
     private void isClicked() {
 
         if (currentClicks == maxClicks) {
             rollButton.setEnabled(false);
+            revealValidateButton();
         } else {
 
             roundView.setText(String.valueOf(currentClicks + 1));
