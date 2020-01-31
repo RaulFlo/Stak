@@ -61,10 +61,11 @@ public class StakCardView extends LinearLayout {
         cardName.setText(card.getCardName());
         imageCard.setImageResource(card.getImageResource());
         stakDifficulty.setText(card.getDifficulty());
-       attributeStrength.setText(String.valueOf(card.getStrength()));
-        attributeToughness.setText(String.valueOf(card.getToughness()));
-        attributeAgility.setText(String.valueOf(card.getAgility()));
-        attributeKnowledge.setText(String.valueOf(card.getKnowledge()));
+
+        attributeStrength.setText(card.getStrength().getDisplayString());
+        attributeToughness.setText(card.getToughness().getDisplayString());
+        attributeAgility.setText(card.getAgility().getDisplayString());
+        attributeKnowledge.setText(card.getKnowledge().getDisplayString());
 
 
     }

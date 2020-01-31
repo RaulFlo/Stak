@@ -8,6 +8,8 @@ import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.android.stakdice.models.attribute.SimpleValueAttribute;
+
 import java.io.Serializable;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,10 +33,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 StakCard easyCard = new StakCard(R.drawable.ic_face_black_24dp,
                         "Slime",
-                        10,
-                        12,
-                        14,
-                        12,"Easy",false);
+                        new SimpleValueAttribute(10),
+                        new SimpleValueAttribute(12),
+                        new SimpleValueAttribute(14),
+                        new SimpleValueAttribute(12), "Easy", false);
                 Intent intent = new Intent(MainActivity.this, GameMatt.class);
                 intent.putExtra("StakCard", easyCard);
                 startActivity(intent);
@@ -46,10 +48,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 StakCard mediumCard = new StakCard(R.drawable.ic_face_black_24dp,
                         "Skeleton",
-                        10,
-                        15,
-                        14,
-                        15,"Medium", false);
+                        new SimpleValueAttribute(10),
+                        new SimpleValueAttribute(15),
+                        new SimpleValueAttribute(14),
+                        new SimpleValueAttribute(15), "Medium", false);
                 Intent intent = new Intent(MainActivity.this, GameMatt.class);
                 intent.putExtra("StakCard", mediumCard);
                 startActivity(intent);
@@ -60,10 +62,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 StakCard hardCard = new StakCard(R.drawable.ic_face_black_24dp,
                         "Knight",
-                        14,
-                        16,
-                        14,
-                        15,"Hard",false);
+                        new SimpleValueAttribute(14),
+                        new SimpleValueAttribute(16),
+                        new SimpleValueAttribute(14),
+                        new SimpleValueAttribute(15), "Hard", false);
                 Intent intent = new Intent(MainActivity.this, GameMatt.class);
                 intent.putExtra("StakCard", hardCard);
                 startActivity(intent);
