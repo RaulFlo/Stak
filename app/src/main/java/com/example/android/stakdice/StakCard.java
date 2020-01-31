@@ -3,6 +3,8 @@ package com.example.android.stakdice;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.example.android.stakdice.models.attribute.Attribute;
+
 import java.io.Serializable;
 
 @Entity(tableName = "stak_table")
@@ -13,15 +15,15 @@ public class StakCard implements Serializable {
 
     private int imageResource;
     private String cardName;
-    private int strength;
-    private int toughness;
-    private int agility;
-    private int knowledge;
+    private Attribute strength;
+    private Attribute toughness;
+    private Attribute agility;
+    private Attribute knowledge;
     private String difficulty;
     private boolean isBeaten;
 
-    public StakCard(int imageResource, String cardName, int strength, int toughness,
-                    int agility, int knowledge,String difficulty, boolean isBeaten) {
+    public StakCard(int imageResource, String cardName, Attribute strength, Attribute toughness,
+                    Attribute agility, Attribute knowledge,String difficulty, boolean isBeaten) {
         this.imageResource = imageResource;
         this.cardName = cardName;
         this.strength = strength;
@@ -50,19 +52,19 @@ public class StakCard implements Serializable {
         return cardName;
     }
 
-    public int getStrength() {
+    public Attribute getStrength() {
         return strength;
     }
 
-    public int getToughness() {
+    public Attribute getToughness() {
         return toughness;
     }
 
-    public int getAgility() {
+    public Attribute getAgility() {
         return agility;
     }
 
-    public int getKnowledge() {
+    public Attribute getKnowledge() {
         return knowledge;
     }
 

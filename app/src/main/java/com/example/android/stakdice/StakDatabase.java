@@ -8,9 +8,14 @@ import androidx.room.Dao;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.example.android.stakdice.converters.StakConverters;
+import com.example.android.stakdice.models.attribute.SimpleValueAttribute;
+
 @Database(entities = {StakCard.class}, version = 1)
+@TypeConverters({StakConverters.class})
 public abstract class StakDatabase extends RoomDatabase {
 
 
@@ -50,11 +55,11 @@ public abstract class StakDatabase extends RoomDatabase {
         @Override
         protected Void doInBackground(Void... voids) {
             stakDao.insert(new StakCard(R.drawable.ic_face_black_24dp, "BlueSlime",
-                    12,14,12,10,"Easy",false));
+                    new SimpleValueAttribute(12), new SimpleValueAttribute(14), new SimpleValueAttribute(12), new SimpleValueAttribute(10), "Easy", false));
             stakDao.insert(new StakCard(R.drawable.ic_face_black_24dp, "RedSkeleton",
-                    2,12,13,11,"Medium",false));
+                    new SimpleValueAttribute(2), new SimpleValueAttribute(12), new SimpleValueAttribute(13), new SimpleValueAttribute(11), "Medium", false));
             stakDao.insert(new StakCard(R.drawable.ic_face_black_24dp, "BlackKnight",
-                    12,14,16,14,"Hard",false));
+                    new SimpleValueAttribute(12), new SimpleValueAttribute(14), new SimpleValueAttribute(16), new SimpleValueAttribute(14), "Hard", false));
             return null;
         }
     }
