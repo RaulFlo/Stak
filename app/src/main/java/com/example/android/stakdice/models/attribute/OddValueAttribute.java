@@ -11,7 +11,7 @@ public class OddValueAttribute implements Attribute{
 
     @Override
     public boolean isValid(int value) {
-        { return (value & 0x01) != 0; }
+         return (value % 2) != 0;
     }
 
     @Override
