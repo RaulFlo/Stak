@@ -4,10 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.android.stakdice.models.attribute.Attribute;
 
 import java.util.Random;
 
@@ -20,7 +24,11 @@ public class GameMatt extends AppCompatActivity {
     private Button rollButton;
     private int maxClicks = 10;
     private int currentClicks = 0;
-
+    private Button validateBtn;
+    private EditText sEditText;
+    private EditText tEditText;
+    private EditText aEditText;
+    private EditText kEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,13 +36,19 @@ public class GameMatt extends AppCompatActivity {
         setContentView(R.layout.activity_game_matt);
 
         Intent intent = getIntent();
-        StakCard stakCard = (StakCard) intent.getSerializableExtra("StakCard");
+        final StakCard stakCard = (StakCard) intent.getSerializableExtra("StakCard");
 
 
         StakCardView cardView = findViewById(R.id.stak_card_view);
 
         cardView.setStakCard(stakCard);
 
+        //link views
+        validateBtn = findViewById(R.id.debug_validate_btn);
+        sEditText = findViewById(R.id.s_debug);
+        tEditText = findViewById(R.id.t_debug);
+        aEditText = findViewById(R.id.a_debug);
+        kEditText = findViewById(R.id.k_debug);
         roundView = findViewById(R.id.game_matt_text_view_round);
         imageViewDice = findViewById(R.id.image_view_dice);
         imageViewDice.setVisibility(View.INVISIBLE);
@@ -48,23 +62,53 @@ public class GameMatt extends AppCompatActivity {
             }
         });
 
+        validateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isValid(stakCard);
+            }
+        });
+
 
     }
 
-    private void isClicked(){
+    private void isValid(StakCard stakCard) {
+        Attribute stakCardStrength = stakCard.getStrength();
+        Attribute stakCardToughness = stakCard.getToughness();
+        Attribute stakCardAgility = stakCard.getAgility();
+        Attribute stakCardKnowledge = stakCard.getKnowledge();
 
-        if(currentClicks == maxClicks){
+        int sValue = Integer.parseInt(sEditText.getText().toString());
+        int tValue = Integer.parseInt(tEditText.getText().toString());
+        int aValue = Integer.parseInt(aEditText.getText().toString());
+        int kValue = Integer.parseInt(kEditText.getText().toString());
+
+
+        if (stakCardStrength.isValid(sValue) && stakCardToughness.isValid(tValue)
+                && stakCardAgility.isValid(aValue) && stakCardKnowledge.isValid(kValue)) {
+
+            Toast.makeText(this, "Passed", Toast.LENGTH_SHORT).show();
+
+            //Change the isBeaten on the card to true, commented out for now
+            //stakCard.setBeaten(true);
+        } else {
+            Toast.makeText(this, "failed", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private void isClicked() {
+
+        if (currentClicks == maxClicks) {
             rollButton.setEnabled(false);
-        }else {
+        } else {
 
-            roundView.setText(String.valueOf(currentClicks +1));
+            roundView.setText(String.valueOf(currentClicks + 1));
             rollDice();
             currentClicks++;
         }
 
     }
-
-
 
 
     private void rollDice() {
