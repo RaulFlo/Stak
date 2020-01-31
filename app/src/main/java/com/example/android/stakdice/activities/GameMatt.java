@@ -38,14 +38,11 @@ public class GameMatt extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_matt);
 
+        //get intent
         Intent intent = getIntent();
         final StakCard stakCard = (StakCard) intent.getSerializableExtra("StakCard");
 
-
         StakCardView cardView = findViewById(R.id.stak_card_view);
-
-        cardView.setStakCard(stakCard);
-
         //link views
         validateBtn = findViewById(R.id.debug_validate_btn);
         sEditText = findViewById(R.id.s_debug);
@@ -54,11 +51,16 @@ public class GameMatt extends AppCompatActivity {
         kEditText = findViewById(R.id.k_debug);
         roundView = findViewById(R.id.game_matt_text_view_round);
         imageViewDice = findViewById(R.id.image_view_dice);
-        imageViewDice.setVisibility(View.INVISIBLE);
         rollButton = findViewById(R.id.button_roll);
 
+        //Visibility
+        imageViewDice.setVisibility(View.INVISIBLE);
         validateBtn.setVisibility(View.INVISIBLE);
 
+        //set current stakCard to view
+        cardView.setStakCard(stakCard);
+
+        //buttons
         rollButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,15 +120,21 @@ public class GameMatt extends AppCompatActivity {
             revealValidateButton();
         } else {
 
-            roundView.setText(String.valueOf(currentClicks + 1));
-            rollDice();
+            roundView.setText("Round: " + (currentClicks + 1));
+            int rollValue = rollDice();
+            copyRollDiceValue(rollValue);
             currentClicks++;
         }
 
     }
 
+    public void copyRollDiceValue(int diceValue) {
 
-    private void rollDice() {
+
+    }
+
+
+    private int rollDice() {
         int randomNumber = rng.nextInt(6) + 1;
 
         switch (randomNumber) {
@@ -149,5 +157,6 @@ public class GameMatt extends AppCompatActivity {
                 imageViewDice.setImageResource(R.drawable.dice6);
                 break;
         }
+        return randomNumber;
     }
 }
