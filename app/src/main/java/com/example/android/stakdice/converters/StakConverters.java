@@ -18,7 +18,7 @@ public class StakConverters {
     @TypeConverter
     public static String attributeToString(Attribute attr) {
         Gson gson = getGson();
-        return gson.toJson(attr);
+        return gson.toJson(attr, Attribute.class);
     }
 
     private static Gson getGson() {
