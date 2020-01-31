@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
-import androidx.room.Dao;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
@@ -12,6 +11,11 @@ import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.android.stakdice.converters.StakConverters;
+import com.example.android.stakdice.models.attribute.EvenValueAttribute;
+import com.example.android.stakdice.models.attribute.GreaterThanValueAttribute;
+import com.example.android.stakdice.models.attribute.LesserThanValueAttribute;
+import com.example.android.stakdice.models.attribute.OddValueAttribute;
+import com.example.android.stakdice.models.attribute.RangeValueAttribute;
 import com.example.android.stakdice.models.attribute.SimpleValueAttribute;
 
 @Database(entities = {StakCard.class}, version = 1)
@@ -59,7 +63,9 @@ public abstract class StakDatabase extends RoomDatabase {
             stakDao.insert(new StakCard(R.drawable.ic_face_black_24dp, "RedSkeleton",
                     new SimpleValueAttribute(2), new SimpleValueAttribute(12), new SimpleValueAttribute(13), new SimpleValueAttribute(11), "Medium", false));
             stakDao.insert(new StakCard(R.drawable.ic_face_black_24dp, "BlackKnight",
-                    new SimpleValueAttribute(12), new SimpleValueAttribute(14), new SimpleValueAttribute(16), new SimpleValueAttribute(14), "Hard", false));
+                    new LesserThanValueAttribute(12), new SimpleValueAttribute(14), new SimpleValueAttribute(16), new SimpleValueAttribute(14), "Hard", false));
+            stakDao.insert(new StakCard(R.drawable.ic_face_black_24dp, "Ranger",
+                    new RangeValueAttribute(12,13),new OddValueAttribute("Odd"),new EvenValueAttribute("Even"), new GreaterThanValueAttribute(15),"Hard",false));
             return null;
         }
     }
