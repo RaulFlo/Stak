@@ -6,7 +6,7 @@ import com.example.android.stakdice.gsonconverters.PropertyBasedInterfaceMarshal
 import com.example.android.stakdice.models.attribute.Attribute;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
+ 
 public class StakConverters {
 
     @TypeConverter
