@@ -75,4 +75,8 @@ public class StakCard implements Serializable {
     public boolean isBeaten() {
         return isBeaten;
     }
+
+    public void setBeaten(boolean beaten) {
+        isBeaten = beaten;
+    }
 }
