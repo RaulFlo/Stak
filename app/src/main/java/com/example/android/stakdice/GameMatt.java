@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,9 +13,13 @@ import java.util.Random;
 
 public class GameMatt extends AppCompatActivity {
 
+
     private ImageView imageViewDice;
+    private TextView roundView;
     private Random rng = new Random();
     private Button rollButton;
+    private int maxClicks = 10;
+    private int currentClicks = 0;
 
 
     @Override
@@ -30,7 +35,7 @@ public class GameMatt extends AppCompatActivity {
 
         cardView.setStakCard(stakCard);
 
-
+        roundView = findViewById(R.id.game_matt_text_view_round);
         imageViewDice = findViewById(R.id.image_view_dice);
         imageViewDice.setVisibility(View.INVISIBLE);
         rollButton = findViewById(R.id.button_roll);
@@ -39,12 +44,27 @@ public class GameMatt extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 imageViewDice.setVisibility(View.VISIBLE);
-                rollDice();
+                isClicked();
             }
         });
 
 
     }
+
+    private void isClicked(){
+
+        if(currentClicks == maxClicks){
+            rollButton.setEnabled(false);
+        }else {
+
+            roundView.setText(String.valueOf(currentClicks +1));
+            rollDice();
+            currentClicks++;
+        }
+
+    }
+
+
 
 
     private void rollDice() {
