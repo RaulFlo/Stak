@@ -18,17 +18,17 @@ public class StakRepo {
 
     }
 
-    public void insert(StakCard note) {
-        new InsertStakAsyncTask(stakDao).execute(note);
+    public void insert(StakCard stakCard) {
+        new InsertStakAsyncTask(stakDao).execute(stakCard);
     }
 
-    public void update(StakCard note) {
-        new UpdateStakAsyncTask(stakDao).execute(note);
+    public void update(StakCard stakCard) {
+        new UpdateStakAsyncTask(stakDao).execute(stakCard);
     }
 
 
-    public void delete(StakCard note) {
-        new DeleteStakAsyncTask(stakDao).execute(note);
+    public void delete(StakCard stakCard) {
+        new DeleteStakAsyncTask(stakDao).execute(stakCard);
     }
 
     public void deleteAllStaks() {
@@ -37,6 +37,10 @@ public class StakRepo {
 
     public LiveData<List<StakCard>> getAllStaks() {
         return allStaks;
+    }
+
+    public LiveData<StakCard> getSingleStak(int id) {
+        return stakDao.getSingleStak(id);
     }
 
 

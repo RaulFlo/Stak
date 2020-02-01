@@ -1,5 +1,6 @@
 package com.example.android.stakdice.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,7 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
+import com.example.android.stakdice.GameMattViewModel;
 import com.example.android.stakdice.R;
 import com.example.android.stakdice.StakCard;
 import com.example.android.stakdice.StakCardView;
@@ -20,6 +24,15 @@ import java.util.Random;
 
 public class GameMatt extends AppCompatActivity {
 
+    private static String STAK_CARD_ID_EXTRA = "StakCardID";
+
+    private GameMattViewModel gameMattViewModel;
+
+    public static Intent newIntent(Context context, StakCard stakCard) {
+        Intent intent = new Intent(context, GameMatt.class);
+        intent.putExtra(STAK_CARD_ID_EXTRA, stakCard.getId());
+        return intent;
+    }
 
     private ImageView imageViewDice;
     private TextView roundView;
@@ -38,11 +51,7 @@ public class GameMatt extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_matt);
 
-        //get intent
-        Intent intent = getIntent();
-        final StakCard stakCard = (StakCard) intent.getSerializableExtra("StakCard");
-
-        StakCardView cardView = findViewById(R.id.stak_card_view);
+        final StakCardView cardView = findViewById(R.id.stak_card_view);
         //link views
         validateBtn = findViewById(R.id.debug_validate_btn);
         sEditText = findViewById(R.id.s_debug);
@@ -53,12 +62,39 @@ public class GameMatt extends AppCompatActivity {
         imageViewDice = findViewById(R.id.image_view_dice);
         rollButton = findViewById(R.id.button_roll);
 
+
+        //get intent
+        Intent intent = getIntent();
+        final int stakCardId = intent.getIntExtra(STAK_CARD_ID_EXTRA, -1);
+
+        // get view model
+        // viewModel.getSingleStak(stakCardId).observe
+
+        //ask sys for new ViewModel, scopes it to this activity and destroys when this activity destroyed
+        gameMattViewModel = ViewModelProviders.of(this).get(GameMattViewModel.class);
+
+        gameMattViewModel.getSingleStak(4).observe(this, new Observer<StakCard>() {
+            @Override
+            public void onChanged(final StakCard stakCard) {
+                stakCard.getCardName();
+                //set current stakCard to view
+                cardView.setStakCard(stakCard);
+
+                validateBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        isValid(stakCard);
+                    }
+                });
+
+
+            }
+        });
+
         //Visibility
         imageViewDice.setVisibility(View.INVISIBLE);
         validateBtn.setVisibility(View.INVISIBLE);
 
-        //set current stakCard to view
-        cardView.setStakCard(stakCard);
 
         //buttons
         rollButton.setOnClickListener(new View.OnClickListener() {
@@ -70,12 +106,7 @@ public class GameMatt extends AppCompatActivity {
         });
 
 
-        validateBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                isValid(stakCard);
-            }
-        });
+
 
 
     }

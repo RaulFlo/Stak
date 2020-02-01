@@ -1,6 +1,5 @@
 package com.example.android.stakdice.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,9 +36,7 @@ public class MainActivity extends AppCompatActivity {
         final StakAdapter adapter = new StakAdapter(new StakAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(StakCard stakCard) {
-                Intent intent = new Intent(MainActivity.this, GameMatt.class);
-                intent.putExtra("StakCard", stakCard);
-                startActivity(intent);
+                startActivity(GameMatt.newIntent(MainActivity.this, stakCard));
             }
         });
 
@@ -54,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
                 adapter.submitList(stakCards);
             }
         });
+
+
     }
 
 }

@@ -38,4 +38,6 @@ public class StakViewModel extends AndroidViewModel {
     public LiveData<List<StakCard>> getAllStaks() {
         return allStaks;
     }
+
+
 }
