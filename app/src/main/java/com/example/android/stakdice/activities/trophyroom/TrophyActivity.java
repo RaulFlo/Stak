@@ -47,7 +47,7 @@ public class TrophyActivity extends AppCompatActivity {
 
          //ask sys for new ViewModel, scopes it to this activity and destroys when this activity destroyed
         trophyRoomViewModel = ViewModelProviders.of(this).get(TrophyRoomViewModel.class);
-        trophyRoomViewModel.getAllStaks().observe(this, new Observer<List<StakCard>>() {
+        trophyRoomViewModel.getAllBeatenStaks().observe(this, new Observer<List<StakCard>>() {
             @Override
             public void onChanged(List<StakCard> stakCards) {
                 //update RecyclerView. Every time onChanged is triggered which is every time the data in the table changes

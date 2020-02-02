@@ -15,17 +15,17 @@ public class TrophyRoomViewModel extends AndroidViewModel {
 
 
     private StakRepo repository;
-    private LiveData<List<StakCard>> allStaks;
+    private LiveData<List<StakCard>> allBeatenStaks;
 
 
     public TrophyRoomViewModel(@NonNull Application application) {
         super(application);
         repository = new StakRepo(application);
-        allStaks = repository.getAllStaks();
+        allBeatenStaks = repository.getAllBeatenStaks();
     }
 
-    public LiveData<List<StakCard>> getAllStaks() {
-        return allStaks;
+    public LiveData<List<StakCard>> getAllBeatenStaks() {
+        return allBeatenStaks;
     }
 
 }

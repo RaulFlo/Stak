@@ -14,11 +14,13 @@ import java.util.List;
 public class StakRepo {
     private StakDao stakDao;
     private LiveData<List<StakCard>> allStaks;
+    private LiveData<List<StakCard>> allBeatenStaks;
 
     public StakRepo(Application application) {
         StakDatabase database = StakDatabase.getInstance(application);
         stakDao = database.stakDao();
         allStaks = stakDao.getAllStaks();
+        allBeatenStaks = stakDao.getAllBeatenStaks();
 
     }
 
@@ -41,6 +43,10 @@ public class StakRepo {
 
     public LiveData<List<StakCard>> getAllStaks() {
         return allStaks;
+    }
+
+    public LiveData<List<StakCard>> getAllBeatenStaks() {
+        return allBeatenStaks;
     }
 
     public LiveData<StakCard> getSingleStak(int id) {
