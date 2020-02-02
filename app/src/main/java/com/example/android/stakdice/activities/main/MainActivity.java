@@ -1,6 +1,8 @@
 package com.example.android.stakdice.activities.main;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.stakdice.R;
 import com.example.android.stakdice.activities.gamematt.GameMatt;
+import com.example.android.stakdice.activities.trophyroom.TrophyActivity;
 import com.example.android.stakdice.adapter.StakAdapter;
 import com.example.android.stakdice.models.StakCard;
 
@@ -19,12 +22,21 @@ public class MainActivity extends AppCompatActivity {
 
 
     private StakViewModel stakViewModel;
-
+    private ImageView trophyImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //link view
+        trophyImageView = findViewById(R.id.image_view_trophy_main_menu);
+        trophyImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(TrophyActivity.newIntent(MainActivity.this));
+            }
+        });
 
         //reference to the RecyclerView
         final RecyclerView recyclerView = findViewById(R.id.recycler_view);
