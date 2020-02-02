@@ -1,4 +1,4 @@
-package com.example.android.stakdice.activities;
+package com.example.android.stakdice.activities.main;
 
 import android.os.Bundle;
 
@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.stakdice.R;
-import com.example.android.stakdice.StakAdapter;
-import com.example.android.stakdice.StakCard;
-import com.example.android.stakdice.StakViewModel;
+import com.example.android.stakdice.activities.gamematt.GameMatt;
+import com.example.android.stakdice.adapter.StakAdapter;
+import com.example.android.stakdice.models.StakCard;
 
 import java.util.List;
 

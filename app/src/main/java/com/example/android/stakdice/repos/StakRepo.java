@@ -1,9 +1,13 @@
-package com.example.android.stakdice;
+package com.example.android.stakdice.repos;
 
 import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
+
+import com.example.android.stakdice.models.StakCard;
+import com.example.android.stakdice.database.StakDao;
+import com.example.android.stakdice.database.StakDatabase;
 
 import java.util.List;
 

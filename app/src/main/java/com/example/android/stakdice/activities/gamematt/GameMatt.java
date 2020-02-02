@@ -1,4 +1,4 @@
-package com.example.android.stakdice.activities;
+package com.example.android.stakdice.activities.gamematt;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,10 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.android.stakdice.GameMattViewModel;
 import com.example.android.stakdice.R;
-import com.example.android.stakdice.StakCard;
-import com.example.android.stakdice.StakCardView;
+import com.example.android.stakdice.models.StakCard;
+import com.example.android.stakdice.customviews.StakCardView;
 import com.example.android.stakdice.models.attribute.Attribute;
 
 import java.util.Random;

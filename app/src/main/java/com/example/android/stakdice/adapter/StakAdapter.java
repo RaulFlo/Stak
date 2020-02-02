@@ -1,15 +1,15 @@
-package com.example.android.stakdice;
+package com.example.android.stakdice.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
-import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.android.stakdice.R;
+import com.example.android.stakdice.models.StakCard;
 
 public class StakAdapter extends ListAdapter<StakCard, StakHolder> implements StakHolder.StakHolderListener {
 
