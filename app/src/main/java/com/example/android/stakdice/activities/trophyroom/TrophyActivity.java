@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.stakdice.R;
+import com.example.android.stakdice.activities.trophydetail.TrophyDetail;
 import com.example.android.stakdice.adapter.TrophyAdapter;
 import com.example.android.stakdice.models.StakCard;
 
@@ -38,7 +39,7 @@ public class TrophyActivity extends AppCompatActivity {
         final TrophyAdapter adapter = new TrophyAdapter(new TrophyAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(StakCard stakCard) {
-
+                startActivity(TrophyDetail.newIntent(TrophyActivity.this,stakCard));
             }
         });
         recyclerView.setAdapter(adapter);
