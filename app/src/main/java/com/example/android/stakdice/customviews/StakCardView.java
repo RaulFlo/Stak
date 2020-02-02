@@ -1,4 +1,4 @@
-package com.example.android.stakdice;
+package com.example.android.stakdice.customviews;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -8,6 +8,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+
+import com.example.android.stakdice.R;
+import com.example.android.stakdice.models.StakCard;
 
 public class StakCardView extends LinearLayout {
 

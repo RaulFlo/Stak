@@ -1,4 +1,4 @@
-package com.example.android.stakdice;
+package com.example.android.stakdice.database;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -10,7 +10,9 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.example.android.stakdice.R;
 import com.example.android.stakdice.converters.StakConverters;
+import com.example.android.stakdice.models.StakCard;
 import com.example.android.stakdice.models.attribute.EvenValueAttribute;
 import com.example.android.stakdice.models.attribute.GreaterThanValueAttribute;
 import com.example.android.stakdice.models.attribute.LesserThanValueAttribute;

@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
-    tools:context=".activities.GameMatt">
+    tools:context=".activities.gamematt.GameMatt">
 
 
-    <com.example.android.stakdice.StakCardView
+    <com.example.android.stakdice.customviews.StakCardView
         android:id="@+id/stak_card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -1,4 +1,4 @@
-package com.example.android.stakdice;
+package com.example.android.stakdice.models;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

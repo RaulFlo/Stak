@@ -1,4 +1,4 @@
-package com.example.android.stakdice;
+package com.example.android.stakdice.adapter;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -6,6 +6,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.android.stakdice.R;
 
 class StakHolder extends RecyclerView.ViewHolder {
 
