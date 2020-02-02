@@ -66,13 +66,11 @@ public class GameMatt extends AppCompatActivity {
         Intent intent = getIntent();
         final int stakCardId = intent.getIntExtra(STAK_CARD_ID_EXTRA, -1);
 
-        // get view model
-        // viewModel.getSingleStak(stakCardId).observe
 
         //ask sys for new ViewModel, scopes it to this activity and destroys when this activity destroyed
         gameMattViewModel = ViewModelProviders.of(this).get(GameMattViewModel.class);
 
-        gameMattViewModel.getSingleStak(4).observe(this, new Observer<StakCard>() {
+        gameMattViewModel.getSingleStak(stakCardId).observe(this, new Observer<StakCard>() {
             @Override
             public void onChanged(final StakCard stakCard) {
                 stakCard.getCardName();
