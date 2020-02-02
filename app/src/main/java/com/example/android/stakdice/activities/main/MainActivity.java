@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(GameMatt.newIntent(MainActivity.this, stakCard));
             }
         });
-
         recyclerView.setAdapter(adapter);
 
         //ask sys for new ViewModel, scopes it to this activity and destroys when this activity destroyed
