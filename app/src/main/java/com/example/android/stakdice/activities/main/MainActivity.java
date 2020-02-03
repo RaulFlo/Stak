@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         //ask sys for new ViewModel, scopes it to this activity and destroys when this activity destroyed
         stakViewModel = ViewModelProviders.of(this).get(StakViewModel.class);
-        stakViewModel.getAllStaks().observe(this, new Observer<List<StakCard>>() {
+        stakViewModel.getAllNotBeatenStaks().observe(this, new Observer<List<StakCard>>() {
             @Override
             public void onChanged(List<StakCard> stakCards) {
                 //update RecyclerView. Every time onChanged is triggered which is every time the data in the table changes

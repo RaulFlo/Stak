@@ -38,6 +38,9 @@ public interface StakDao {
     @Query("Select * From stak_table where isBeaten = 1")
     LiveData<List<StakCard>> getAllBeatenStaks();
 
+    @Query("Select * From stak_table where isBeaten = 0")
+    LiveData<List<StakCard>> getAllNotBeatenStaks();
+
 
 
 

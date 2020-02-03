@@ -15,12 +15,14 @@ public class StakRepo {
     private StakDao stakDao;
     private LiveData<List<StakCard>> allStaks;
     private LiveData<List<StakCard>> allBeatenStaks;
+    private LiveData<List<StakCard>> allNotBeatenStaks;
 
     public StakRepo(Application application) {
         StakDatabase database = StakDatabase.getInstance(application);
         stakDao = database.stakDao();
         allStaks = stakDao.getAllStaks();
         allBeatenStaks = stakDao.getAllBeatenStaks();
+        allNotBeatenStaks = stakDao.getAllNotBeatenStaks();
 
     }
 
@@ -47,6 +49,10 @@ public class StakRepo {
 
     public LiveData<List<StakCard>> getAllBeatenStaks() {
         return allBeatenStaks;
+    }
+
+    public LiveData<List<StakCard>> getAllNotBeatenStaks(){
+        return allNotBeatenStaks;
     }
 
     public LiveData<StakCard> getSingleStak(int id) {
