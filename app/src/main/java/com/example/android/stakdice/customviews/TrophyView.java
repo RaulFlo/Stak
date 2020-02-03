@@ -21,6 +21,7 @@ public class TrophyView extends LinearLayout {
     private TextView attributeToughness;
     private TextView attributeAgility;
     private TextView attributeKnowledge;
+    private TextView description;
 
     public TrophyView (Context context){
         super(context);
@@ -52,6 +53,7 @@ public class TrophyView extends LinearLayout {
         attributeToughness = findViewById(R.id.trophy_detail_toughness);
         attributeAgility = findViewById(R.id.trophy_detail_agility);
         attributeKnowledge = findViewById(R.id.trophy_detail_knowledge);
+        description = findViewById(R.id.description_detail_page);
     }
 
     @Override
@@ -67,7 +69,7 @@ public class TrophyView extends LinearLayout {
         attributeToughness.setText(card.getToughness().getDisplayString());
         attributeAgility.setText(card.getAgility().getDisplayString());
         attributeKnowledge.setText(card.getKnowledge().getDisplayString());
-
+        description.setText(card.getDescription());
 
     }
 
