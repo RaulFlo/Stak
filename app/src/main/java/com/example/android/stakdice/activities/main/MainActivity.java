@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     private StakViewModel stakViewModel;
-    private ImageView trophyImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //link view
-        trophyImageView = findViewById(R.id.image_view_trophy_main_menu);
+        ImageView trophyImageView = findViewById(R.id.image_view_trophy_main_menu);
         trophyImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
