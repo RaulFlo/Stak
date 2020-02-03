@@ -23,4 +23,9 @@ public class GameMattViewModel extends AndroidViewModel {
         return repository.getSingleStak(id);
     }
 
+
+    public void update(StakCard stakCard) {
+        repository.update(stakCard);
+    }
+
 }

@@ -124,7 +124,8 @@ public class GameMatt extends AppCompatActivity {
             Toast.makeText(this, "Passed", Toast.LENGTH_SHORT).show();
 
             //Change the isBeaten on the card to true, commented out for now
-            //stakCard.setBeaten(true);
+            stakCard.setBeaten(true);
+            gameMattViewModel.update(stakCard);
         } else {
             Toast.makeText(this, "failed", Toast.LENGTH_SHORT).show();
         }
