@@ -14,6 +14,7 @@
         android:layout_height="250dp"
         android:layout_marginTop="150dp"
         android:orientation="horizontal"
+        android:background="@drawable/white_border"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,9 +24,10 @@
         android:id="@+id/image_view_trophy_main_menu"
         android:layout_width="150dp"
         android:layout_height="200dp"
-        android:src="@drawable/ic_placeholder_trophy"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/white_border"
+        android:src="@drawable/ic_library_books_black_24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@color/colorBlack"
         app:layout_constraintTop_toBottomOf="@+id/recycler_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

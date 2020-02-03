@@ -16,6 +16,7 @@ public class TrophyView extends LinearLayout {
 
     private TextView cardName;
     private ImageView imageView;
+    private TextView difficulty;
     private TextView attributeStrength;
     private TextView attributeToughness;
     private TextView attributeAgility;
@@ -45,6 +46,7 @@ public class TrophyView extends LinearLayout {
     private void init(Context context) {
         View root = inflate(context, R.layout.trophy_detail_custom_view,this);
         cardName = root.findViewById(R.id.trophy_room_detail_name);
+        difficulty = root.findViewById(R.id.difficulty_detail_page);
         imageView = root.findViewById(R.id.trophy_room_detail_image);
         attributeStrength = findViewById(R.id.trophy_detail_strength);
         attributeToughness = findViewById(R.id.trophy_detail_toughness);
@@ -60,7 +62,7 @@ public class TrophyView extends LinearLayout {
     public void setStakCard(StakCard card) {
         cardName.setText(card.getCardName());
         imageView.setImageResource(card.getImageResource());
-
+        difficulty.setText(card.getDifficulty());
         attributeStrength.setText(card.getStrength().getDisplayString());
         attributeToughness.setText(card.getToughness().getDisplayString());
         attributeAgility.setText(card.getAgility().getDisplayString());

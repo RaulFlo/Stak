@@ -75,6 +75,9 @@ public abstract class StakDatabase extends RoomDatabase {
                     new LesserThanValueAttribute(12), new ThreeValueAttribute(14,15,16), new SimpleValueAttribute(16), new SimpleValueAttribute(14), "Hard", false));
             stakDao.insert(new StakCard(R.drawable.ic_face_black_24dp, "Ranger",
                     new RangeValueAttribute(12,13),new OddValueAttribute("Odd"),new EvenValueAttribute("Even"), new GreaterThanValueAttribute(15),"Hard",false));
+
+            stakDao.insert(new StakCard(R.drawable.ic_face_black_24dp, "LongNamekjlkdjflasdkjfl;adksjflkadsjfldskajflkadsjfl;kdjflkjSlime",
+                    new SimpleValueAttribute(12), new SimpleValueAttribute(14), new SimpleValueAttribute(12), new SimpleValueAttribute(10), "Easy", true));
             return null;
         }
     }

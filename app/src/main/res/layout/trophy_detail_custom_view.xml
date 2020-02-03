@@ -12,12 +12,30 @@
         android:layout_gravity="center"
         android:layout_margin="32dp" />
 
-    <TextView
-        android:id="@+id/trophy_room_detail_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+
+    <LinearLayout
+        android:layout_width="249dp"
+        android:layout_height="165dp"
         android:layout_gravity="center"
-        android:text="@string/card_name" />
+        android:layout_margin="32dp"
+        android:orientation="vertical"
+        android:background="@drawable/grey_panel">
+
+        <TextView
+            android:id="@+id/trophy_room_detail_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/card_name" />
+
+        <TextView
+            android:id="@+id/difficulty_detail_page"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/string_difficulty" />
+
+    </LinearLayout>
 
 
     <LinearLayout
@@ -30,7 +48,6 @@
             android:id="@+id/trophy_detail_strength"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:layout_marginTop="32dp"
             android:layout_marginEnd="2dp"
             android:background="@drawable/strength_border"
             android:gravity="center"
@@ -41,7 +58,6 @@
             android:id="@+id/trophy_detail_toughness"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:layout_marginTop="32dp"
             android:layout_marginEnd="2dp"
             android:background="@drawable/toughness_border"
             android:gravity="center"
@@ -52,7 +68,6 @@
             android:id="@+id/trophy_detail_agility"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:layout_marginTop="32dp"
             android:layout_marginEnd="2dp"
             android:background="@drawable/agility_border"
             android:gravity="center"
@@ -63,7 +78,7 @@
             android:id="@+id/trophy_detail_knowledge"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:layout_marginTop="32dp"
+
             android:background="@drawable/knowledge_border"
             android:gravity="center"
             android:text="@string/placeholder_zero"
