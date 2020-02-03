@@ -1,4 +1,4 @@
-package com.example.android.stakdice.activities.main;
+package com.example.android.stakdice.activities.trophyroom;
 
 import android.app.Application;
 
@@ -11,22 +11,21 @@ import com.example.android.stakdice.repos.StakRepo;
 
 import java.util.List;
 
-public class StakViewModel extends AndroidViewModel {
+public class TrophyRoomViewModel extends AndroidViewModel {
+
 
     private StakRepo repository;
-    private LiveData<List<StakCard>> allNotBeatenStaks;
+    private LiveData<List<StakCard>> allBeatenStaks;
 
-    public StakViewModel(@NonNull Application application) {
+
+    public TrophyRoomViewModel(@NonNull Application application) {
         super(application);
         repository = new StakRepo(application);
-        allNotBeatenStaks = repository.getAllNotBeatenStaks();
+        allBeatenStaks = repository.getAllBeatenStaks();
     }
 
-
-
-    public LiveData<List<StakCard>>getAllNotBeatenStaks(){
-        return allNotBeatenStaks;
+    public LiveData<List<StakCard>> getAllBeatenStaks() {
+        return allBeatenStaks;
     }
-
 
 }

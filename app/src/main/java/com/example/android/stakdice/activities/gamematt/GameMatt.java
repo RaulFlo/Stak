@@ -103,9 +103,6 @@ public class GameMatt extends AppCompatActivity {
         });
 
 
-
-
-
     }
 
 
@@ -149,15 +146,9 @@ public class GameMatt extends AppCompatActivity {
         } else {
 
             roundView.setText("Round: " + (currentClicks + 1));
-            int rollValue = rollDice();
-            copyRollDiceValue(rollValue);
+            rollDice();
             currentClicks++;
         }
-
-    }
-
-    public void copyRollDiceValue(int diceValue) {
-
 
     }
 
