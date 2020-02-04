@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -14,7 +15,7 @@ import java.util.List;
 @Dao
 public interface StakDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(StakCard stakCard);
 
     @Update
@@ -33,15 +34,13 @@ public interface StakDao {
     LiveData<List<StakCard>> getAllStaks();
 
     @Query("SELECT * FROM stak_table  where id = :stakId LIMIT 1")
-    LiveData<StakCard> getSingleStak(int stakId);
+    LiveData<StakCard> getSingleStak(String stakId);
 
     @Query("Select * From stak_table where isBeaten = 1")
     LiveData<List<StakCard>> getAllBeatenStaks();
 
     @Query("Select * From stak_table where isBeaten = 0")
     LiveData<List<StakCard>> getAllNotBeatenStaks();
-
-
 
 
 }

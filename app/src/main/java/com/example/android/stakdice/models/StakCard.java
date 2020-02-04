@@ -1,5 +1,6 @@
 package com.example.android.stakdice.models;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -10,10 +11,11 @@ import java.io.Serializable;
 @Entity(tableName = "stak_table")
 public class StakCard implements Serializable {
 
-    @PrimaryKey(autoGenerate = true)
-    private int id;
+    @NonNull
+    @PrimaryKey
+    private String id;
 
-    private int imageResource;
+    private String imageResourceUrl;
     private String cardName;
     private Attribute strength;
     private Attribute toughness;
@@ -23,9 +25,10 @@ public class StakCard implements Serializable {
     private boolean isBeaten;
     private String description;
 
-    public StakCard(int imageResource, String cardName, Attribute strength, Attribute toughness,
-                    Attribute agility, Attribute knowledge,String difficulty, boolean isBeaten,String description) {
-        this.imageResource = imageResource;
+    public StakCard(@NonNull String id, String imageResourceUrl, String cardName, Attribute strength, Attribute toughness,
+                    Attribute agility, Attribute knowledge, String difficulty, boolean isBeaten, String description) {
+        this.id = id;
+        this.imageResourceUrl = imageResourceUrl;
         this.cardName = cardName;
         this.strength = strength;
         this.toughness = toughness;
@@ -37,17 +40,17 @@ public class StakCard implements Serializable {
     }
 
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
 
-    public int getImageResource() {
-        return imageResource;
+    public String getImageResourceUrl() {
+        return imageResourceUrl;
     }
 
     public String getCardName() {
@@ -78,7 +81,9 @@ public class StakCard implements Serializable {
         return isBeaten;
     }
 
-    public String getDescription(){return description;}
+    public String getDescription() {
+        return description;
+    }
 
     public void setBeaten(boolean beaten) {
         isBeaten = beaten;

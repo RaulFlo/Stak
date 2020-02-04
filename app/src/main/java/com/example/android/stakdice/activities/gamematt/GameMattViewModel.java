@@ -19,7 +19,7 @@ public class GameMattViewModel extends AndroidViewModel {
     }
 
 
-    public LiveData<StakCard> getSingleStak(int id){
+    public LiveData<StakCard> getSingleStak(String id){
         return repository.getSingleStak(id);
     }
 
