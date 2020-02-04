@@ -6,4 +6,5 @@ public class FirebaseUtils {
     public static final String COLLECTION_RANGE_VALUE_ATTRIBUTE = "range_value_attribute";
     public static final String COLLECTION_SIMPLE_VALUE_ATTRIBUTE = "simple_value_attribute";
     public static final String COLLECTION_EVEN_VALUE_ATTRIBUTE = "even_value_attribute";
+    public static final String COLLECTION_ODD_VALUE_ATTRIBUTE = "odd_value_attribute";
 }
