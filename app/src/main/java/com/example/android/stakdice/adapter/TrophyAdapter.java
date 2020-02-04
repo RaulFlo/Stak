@@ -12,6 +12,8 @@ import com.bumptech.glide.Glide;
 import com.example.android.stakdice.R;
 import com.example.android.stakdice.models.StakCard;
 
+import java.util.Objects;
+
 public class TrophyAdapter extends ListAdapter<StakCard, TrophyHolder> implements TrophyHolder.TrophyHolderListener {
 
 
@@ -37,7 +39,7 @@ public class TrophyAdapter extends ListAdapter<StakCard, TrophyHolder> implement
         @Override
         public boolean areContentsTheSame(@NonNull StakCard oldItem, @NonNull StakCard newItem) {
             return oldItem.getCardName().equals(newItem.getCardName()) &&
-                    oldItem.getImageResourceUrl() == (newItem.getImageResourceUrl());
+                    Objects.equals(oldItem.getImageResourceUrl(), newItem.getImageResourceUrl());
 
         }
     };

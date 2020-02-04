@@ -49,6 +49,7 @@ public class ConvertDocumentsToModels extends AsyncTask<DocumentSnapshot, Void, 
         listener.onStakCardsConverted(stakCards);
     }
 
+    // uses getAttributeFromDocumentReference so needs to be done on a bg thread
     private StakCard getStakCardFromDocument(DocumentSnapshot document) throws InterruptedException, ExecutionException, TimeoutException {
         return new StakCard(document.getId(),
                 document.getString("image_resource_url"),
@@ -62,16 +63,16 @@ public class ConvertDocumentsToModels extends AsyncTask<DocumentSnapshot, Void, 
                 document.getString("description"));
     }
 
-    // because I use documentReference.get().getResult() ,it's a blocking call so have to do this on a background thread
+    // uses tasks.await so needs to be done on a background thread
     private Attribute getAttributeFromDocumentReference(DocumentReference documentReference) throws InterruptedException, ExecutionException, TimeoutException {
         DocumentSnapshot documentSnapshot = Tasks.await(documentReference.get(), 500, TimeUnit.SECONDS);
 
         if (documentSnapshot != null) {
             String type = documentSnapshot.getString("type");
             switch (type) {
-                case "simple_value_attribute":
+                case FirebaseUtils.COLLECTION_SIMPLE_VALUE_ATTRIBUTE:
                     return getSimpleValueAttribute(documentSnapshot);
-                case "range_value_attribute":
+                case FirebaseUtils.COLLECTION_RANGE_VALUE_ATTRIBUTE:
                     return getRangeValueAttribute(documentSnapshot);
                 default:
                     return new SimpleValueAttribute(0);
