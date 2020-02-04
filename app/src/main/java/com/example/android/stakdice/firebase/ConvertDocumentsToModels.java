@@ -25,6 +25,7 @@ public class ConvertDocumentsToModels extends AsyncTask<DocumentSnapshot, Void, 
     }
 
     private Listener listener;
+    private Attribute defaultAttribute = new SimpleValueAttribute(0);
 
     public ConvertDocumentsToModels(Listener listener) {
         this.listener = listener;
@@ -75,12 +76,12 @@ public class ConvertDocumentsToModels extends AsyncTask<DocumentSnapshot, Void, 
                 case FirebaseUtils.COLLECTION_RANGE_VALUE_ATTRIBUTE:
                     return getRangeValueAttribute(documentSnapshot);
                 default:
-                    return new SimpleValueAttribute(0);
+                    return defaultAttribute;
 
             }
         }
 
-        return new SimpleValueAttribute(3);
+        return defaultAttribute;
     }
 
     private SimpleValueAttribute getSimpleValueAttribute(DocumentSnapshot documentSnapshot) {
