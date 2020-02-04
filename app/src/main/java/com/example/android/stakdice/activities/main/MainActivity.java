@@ -1,9 +1,11 @@
 package com.example.android.stakdice.activities.main;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -14,7 +16,13 @@ import com.example.android.stakdice.R;
 import com.example.android.stakdice.activities.gamematt.GameMatt;
 import com.example.android.stakdice.activities.trophyroom.TrophyActivity;
 import com.example.android.stakdice.adapter.StakAdapter;
+import com.example.android.stakdice.firebase.FirebaseUtils;
 import com.example.android.stakdice.models.StakCard;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.List;
 
@@ -63,6 +71,29 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("simple_value_attribute")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        Log.d("jxf", "success!");
+                        List<DocumentSnapshot> documents = queryDocumentSnapshots.getDocuments();
+                        // convert DocumentSnapshot to our models
+                        for (DocumentSnapshot document : documents) {
+                            StakCard stakCard = FirebaseUtils.getStakCardFromDocument(document);
+                            int imageRes = stakCard.getImageResource();
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("jxf", "onFailure: " + e);
+                    }
+                });
     }
 
 }
+

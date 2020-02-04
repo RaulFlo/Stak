@@ -61,24 +61,24 @@ public abstract class StakDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            stakDao.insert(new StakCard(R.drawable.ic_face_black_24dp, "BlueSlime",
-                    new SimpleValueAttribute(12), new SimpleValueAttribute(14), new SimpleValueAttribute(12), new SimpleValueAttribute(10), "Easy", false, " slime"));
-            stakDao.insert(new StakCard(R.drawable.ic_face_black_24dp, "RedSlime",
-                    new SimpleValueAttribute(12), new SimpleValueAttribute(14), new SimpleValueAttribute(12), new SimpleValueAttribute(10), "Easy", true,"small slime"));
-            stakDao.insert(new StakCard(R.drawable.ic_face_black_24dp, "YellowSlime",
-                    new SimpleValueAttribute(12), new SimpleValueAttribute(14), new SimpleValueAttribute(12), new SimpleValueAttribute(10), "Easy", true, "small slime"));
-            stakDao.insert(new StakCard(R.drawable.ic_face_black_24dp, "GreenSlime",
-                    new SimpleValueAttribute(12), new SimpleValueAttribute(14), new SimpleValueAttribute(12), new SimpleValueAttribute(10), "Easy", true, "creature description"));
-            stakDao.insert(new StakCard(R.drawable.ic_face_black_24dp, "RedSkeleton",
-                    new SimpleValueAttribute(2), new SimpleValueAttribute(12), new SimpleValueAttribute(13), new SimpleValueAttribute(11), "Medium", false,"creature description"));
-            stakDao.insert(new StakCard(R.drawable.ic_face_black_24dp, "BlackKnight",
-                    new LesserThanValueAttribute(12), new ThreeValueAttribute(14,15,16), new SimpleValueAttribute(16), new SimpleValueAttribute(14), "Hard", false,"Black knight description"));
-            stakDao.insert(new StakCard(R.drawable.ic_face_black_24dp, "Ranger",
-                    new RangeValueAttribute(12,13),new OddValueAttribute("Odd"),new EvenValueAttribute("Even"), new GreaterThanValueAttribute(15),"Hard",false,"Ranger Description"));
-
-            stakDao.insert(new StakCard(R.drawable.ic_face_black_24dp, "LongNamekjlkdjflasdkjfl;adksjflkadsjfldskajflkadsjfl;kdjflkjSlime",
-                    new SimpleValueAttribute(12), new SimpleValueAttribute(14), new SimpleValueAttribute(12), new SimpleValueAttribute(10), "Easy", true,"A very long descriotino of a creature so i can see the bou" +
-                    "boundaries of the boardsers of the 9-patch asset . this creature will be deleted in the future. "));
+//            stakDao.insert(new StakCard(R.drawable.ic_face_black_24dp, "BlueSlime",
+//                    new SimpleValueAttribute(12), new SimpleValueAttribute(14), new SimpleValueAttribute(12), new SimpleValueAttribute(10), "Easy", false, " slime"));
+//            stakDao.insert(new StakCard(R.drawable.ic_face_black_24dp, "RedSlime",
+//                    new SimpleValueAttribute(12), new SimpleValueAttribute(14), new SimpleValueAttribute(12), new SimpleValueAttribute(10), "Easy", true,"small slime"));
+//            stakDao.insert(new StakCard(R.drawable.ic_face_black_24dp, "YellowSlime",
+//                    new SimpleValueAttribute(12), new SimpleValueAttribute(14), new SimpleValueAttribute(12), new SimpleValueAttribute(10), "Easy", true, "small slime"));
+//            stakDao.insert(new StakCard(R.drawable.ic_face_black_24dp, "GreenSlime",
+//                    new SimpleValueAttribute(12), new SimpleValueAttribute(14), new SimpleValueAttribute(12), new SimpleValueAttribute(10), "Easy", true, "creature description"));
+//            stakDao.insert(new StakCard(R.drawable.ic_face_black_24dp, "RedSkeleton",
+//                    new SimpleValueAttribute(2), new SimpleValueAttribute(12), new SimpleValueAttribute(13), new SimpleValueAttribute(11), "Medium", false,"creature description"));
+//            stakDao.insert(new StakCard(R.drawable.ic_face_black_24dp, "BlackKnight",
+//                    new LesserThanValueAttribute(12), new ThreeValueAttribute(14,15,16), new SimpleValueAttribute(16), new SimpleValueAttribute(14), "Hard", false,"Black knight description"));
+//            stakDao.insert(new StakCard(R.drawable.ic_face_black_24dp, "Ranger",
+//                    new RangeValueAttribute(12,13),new OddValueAttribute("Odd"),new EvenValueAttribute("Even"), new GreaterThanValueAttribute(15),"Hard",false,"Ranger Description"));
+//
+//            stakDao.insert(new StakCard(R.drawable.ic_face_black_24dp, "LongNamekjlkdjflasdkjfl;adksjflkadsjfldskajflkadsjfl;kdjflkjSlime",
+//                    new SimpleValueAttribute(12), new SimpleValueAttribute(14), new SimpleValueAttribute(12), new SimpleValueAttribute(10), "Easy", true,"A very long descriotino of a creature so i can see the bou" +
+//                    "boundaries of the boardsers of the 9-patch asset . this creature will be deleted in the future. "));
             return null;
         }
     }

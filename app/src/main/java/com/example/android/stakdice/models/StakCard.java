@@ -1,5 +1,6 @@
 package com.example.android.stakdice.models;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -10,8 +11,9 @@ import java.io.Serializable;
 @Entity(tableName = "stak_table")
 public class StakCard implements Serializable {
 
-    @PrimaryKey(autoGenerate = true)
-    private int id;
+    @NonNull
+    @PrimaryKey
+    private String id;
 
     private int imageResource;
     private String cardName;
@@ -23,7 +25,7 @@ public class StakCard implements Serializable {
     private boolean isBeaten;
     private String description;
 
-    public StakCard(int imageResource, String cardName, Attribute strength, Attribute toughness,
+    public StakCard(String id, int imageResource, String cardName, Attribute strength, Attribute toughness,
                     Attribute agility, Attribute knowledge,String difficulty, boolean isBeaten,String description) {
         this.imageResource = imageResource;
         this.cardName = cardName;
@@ -37,11 +39,11 @@ public class StakCard implements Serializable {
     }
 
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
