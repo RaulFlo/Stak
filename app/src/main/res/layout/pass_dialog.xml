@@ -14,25 +14,26 @@
 
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/game_matt_main_menu_button"
-            android:layout_width="wrap_content"
+            android:layout_width="175dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
+            android:layout_weight="1"
             android:background="@drawable/buttonlong_grey_redone"
             android:text="@string/main_menu" />
 
         <Button
-            android:layout_width="wrap_content"
+            android:id="@+id/game_matt_stack_card_button"
+            android:layout_width="175dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="48dp"
+            android:layout_weight="1"
             android:background="@drawable/buttonlong_grey_redone"
-            android:text="@string/stakCard" />
+            android:text="@string/trophy_room" />
 
     </LinearLayout>
 

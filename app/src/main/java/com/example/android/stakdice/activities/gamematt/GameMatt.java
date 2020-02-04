@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.android.stakdice.PassedDialog;
 import com.example.android.stakdice.R;
 import com.example.android.stakdice.models.StakCard;
 import com.example.android.stakdice.customviews.StakCardView;
@@ -32,6 +33,8 @@ public class GameMatt extends AppCompatActivity {
         intent.putExtra(STAK_CARD_ID_EXTRA, stakCard.getId());
         return intent;
     }
+
+
 
     private ImageView imageViewDice;
     private TextView roundView;
@@ -121,7 +124,6 @@ public class GameMatt extends AppCompatActivity {
         if (stakCardStrength.isValid(sValue) && stakCardToughness.isValid(tValue)
                 && stakCardAgility.isValid(aValue) && stakCardKnowledge.isValid(kValue)) {
 
-            Toast.makeText(this, "Passed", Toast.LENGTH_SHORT).show();
 
             openPassDialog();
 
@@ -135,7 +137,8 @@ public class GameMatt extends AppCompatActivity {
     }
 
     private void openPassDialog() {
-
+        PassedDialog passedDialog = new PassedDialog();
+        passedDialog.show(getSupportFragmentManager(), "passed dialog");
 
     }
 
