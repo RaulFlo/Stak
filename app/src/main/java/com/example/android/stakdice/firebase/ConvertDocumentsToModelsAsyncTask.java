@@ -18,7 +18,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-public class ConvertDocumentsToModels extends AsyncTask<DocumentSnapshot, Void, List<StakCard>> {
+public class ConvertDocumentsToModelsAsyncTask extends AsyncTask<DocumentSnapshot, Void, List<StakCard>> {
 
     public interface Listener {
         void onStakCardsConverted(List<StakCard> stakCards);
@@ -27,7 +27,7 @@ public class ConvertDocumentsToModels extends AsyncTask<DocumentSnapshot, Void, 
     private Listener listener;
     private Attribute defaultAttribute = new SimpleValueAttribute(0);
 
-    public ConvertDocumentsToModels(Listener listener) {
+    public ConvertDocumentsToModelsAsyncTask(Listener listener) {
         this.listener = listener;
     }
 

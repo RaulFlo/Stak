@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.android.stakdice.firebase.ConvertDocumentsToModels;
+import com.example.android.stakdice.firebase.ConvertDocumentsToModelsAsyncTask;
 import com.example.android.stakdice.firebase.FirebaseUtils;
 import com.example.android.stakdice.models.StakCard;
 import com.example.android.stakdice.repos.StakRepo;
@@ -60,7 +60,7 @@ public class StakViewModel extends AndroidViewModel {
         Log.d(StakViewModel.class.getSimpleName(), "Getting stak monsters: On Success, docs: " + documents.size());
 
         // convert DocumentSnapshot to our models
-        new ConvertDocumentsToModels(new ConvertDocumentsToModels.Listener() {
+        new ConvertDocumentsToModelsAsyncTask(new ConvertDocumentsToModelsAsyncTask.Listener() {
             @Override
             public void onStakCardsConverted(List<StakCard> stakCards) {
                 // on success insert it to our repository
