@@ -8,6 +8,7 @@ import com.example.android.stakdice.models.StakCard;
 import com.example.android.stakdice.models.attribute.Attribute;
 import com.example.android.stakdice.models.attribute.EvenValueAttribute;
 import com.example.android.stakdice.models.attribute.GreaterThanValueAttribute;
+import com.example.android.stakdice.models.attribute.LesserThanValueAttribute;
 import com.example.android.stakdice.models.attribute.OddValueAttribute;
 import com.example.android.stakdice.models.attribute.RangeValueAttribute;
 import com.example.android.stakdice.models.attribute.SimpleValueAttribute;
@@ -84,6 +85,8 @@ public class ConvertDocumentsToModelsAsyncTask extends AsyncTask<DocumentSnapsho
                     return getOddValueAttribute(documentSnapshot);
                 case FirebaseUtils.COLLECTION_GREATERTHAN_VALUE_ATTRIBUTE:
                     return getGreaterThanValueAttribute(documentSnapshot);
+                case   FirebaseUtils.COLLECTION_LESSTHAN_VALUE_ATTRIBUTE:
+                    return getLessThanValueAttribute(documentSnapshot);
                 default:
                     return defaultAttribute;
 
@@ -109,6 +112,9 @@ public class ConvertDocumentsToModelsAsyncTask extends AsyncTask<DocumentSnapsho
     }
     private GreaterThanValueAttribute getGreaterThanValueAttribute(DocumentSnapshot documentSnapshot){
         return new GreaterThanValueAttribute(documentSnapshot.getLong("greaterThan").intValue());
+    }
+    private LesserThanValueAttribute getLessThanValueAttribute(DocumentSnapshot documentSnapshot){
+        return new LesserThanValueAttribute(documentSnapshot.getLong("lessThan").intValue());
     }
 
 

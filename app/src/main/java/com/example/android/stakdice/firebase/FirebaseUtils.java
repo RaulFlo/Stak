@@ -8,4 +8,5 @@ public class FirebaseUtils {
     public static final String COLLECTION_EVEN_VALUE_ATTRIBUTE = "even_value_attribute";
     public static final String COLLECTION_ODD_VALUE_ATTRIBUTE = "odd_value_attribute";
     public static final String COLLECTION_GREATERTHAN_VALUE_ATTRIBUTE = "greaterThan_value_attribute";
+    public static final String COLLECTION_LESSTHAN_VALUE_ATTRIBUTE = "lessThan_value_attribute";
 }
