@@ -8,16 +8,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.android.stakdice.FailedDialog;
 import com.example.android.stakdice.PassedDialog;
 import com.example.android.stakdice.R;
-import com.example.android.stakdice.models.StakCard;
 import com.example.android.stakdice.customviews.StakCardView;
+import com.example.android.stakdice.models.StakCard;
 import com.example.android.stakdice.models.attribute.Attribute;
 
 import java.util.Random;
@@ -131,9 +131,14 @@ public class GameMatt extends AppCompatActivity {
             stakCard.setBeaten(true);
             gameMattViewModel.update(stakCard);
         } else {
-            Toast.makeText(this, "failed", Toast.LENGTH_SHORT).show();
+           openFailDialog();
         }
 
+    }
+
+    private void openFailDialog() {
+        FailedDialog failedDialog = new FailedDialog();
+        failedDialog.show(getSupportFragmentManager(), "failed dialog");
     }
 
     private void openPassDialog() {
