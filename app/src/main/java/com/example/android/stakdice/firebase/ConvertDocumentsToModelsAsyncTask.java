@@ -62,7 +62,7 @@ public class ConvertDocumentsToModelsAsyncTask extends AsyncTask<DocumentSnapsho
                 document.getString("name"),
                 getAttributeFromDocumentReference(document.getDocumentReference("strength_attribute")),
                 getAttributeFromDocumentReference(document.getDocumentReference("toughness_attribute")),
-                getAttributeFromDocumentReference(document.getDocumentReference("attack_attribute")),
+                getAttributeFromDocumentReference(document.getDocumentReference("agility_attribute")),
                 getAttributeFromDocumentReference(document.getDocumentReference("knowledge_attribute")),
                 document.getString("difficulty"),
                 false,
