@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.android.stakdice.activities.main.MainActivity;
 import com.example.android.stakdice.models.StakCard;
 import com.example.android.stakdice.models.attribute.Attribute;
+import com.example.android.stakdice.models.attribute.EvenValueAttribute;
 import com.example.android.stakdice.models.attribute.RangeValueAttribute;
 import com.example.android.stakdice.models.attribute.SimpleValueAttribute;
 import com.google.android.gms.tasks.Tasks;
@@ -75,6 +76,8 @@ public class ConvertDocumentsToModelsAsyncTask extends AsyncTask<DocumentSnapsho
                     return getSimpleValueAttribute(documentSnapshot);
                 case FirebaseUtils.COLLECTION_RANGE_VALUE_ATTRIBUTE:
                     return getRangeValueAttribute(documentSnapshot);
+                case FirebaseUtils.COLLECTION_EVEN_VALUE_ATTRIBUTE:
+                    return getEvenValueAttribute(documentSnapshot);
                 default:
                     return defaultAttribute;
 
@@ -91,4 +94,10 @@ public class ConvertDocumentsToModelsAsyncTask extends AsyncTask<DocumentSnapsho
     private RangeValueAttribute getRangeValueAttribute(DocumentSnapshot documentSnapshot) {
         return new RangeValueAttribute(documentSnapshot.getLong("startRange").intValue(), documentSnapshot.getLong("endRange").intValue());
     }
+
+    private EvenValueAttribute getEvenValueAttribute(DocumentSnapshot documentSnapshot){
+        return new EvenValueAttribute(documentSnapshot.getString("attributeValue"));
+    }
+
+
 }
