@@ -8,8 +8,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
+import com.bumptech.glide.Glide;
 import com.example.android.stakdice.R;
 import com.example.android.stakdice.models.StakCard;
+
+import java.util.Objects;
 
 public class StakAdapter extends ListAdapter<StakCard, StakHolder> implements StakHolder.StakHolderListener {
 
@@ -34,7 +37,7 @@ public class StakAdapter extends ListAdapter<StakCard, StakHolder> implements St
         @Override
         public boolean areContentsTheSame(@NonNull StakCard oldItem, @NonNull StakCard newItem) {
             return oldItem.getCardName().equals(newItem.getCardName()) &&
-                    oldItem.getImageResource() == (newItem.getImageResource()) &&
+                    Objects.equals(oldItem.getImageResourceUrl(), newItem.getImageResourceUrl()) &&
                     oldItem.getDifficulty().equals(newItem.getDifficulty());
         }
     };
@@ -51,7 +54,9 @@ public class StakAdapter extends ListAdapter<StakCard, StakHolder> implements St
     @Override
     public void onBindViewHolder(@NonNull StakHolder holder, int position) {
         StakCard currentStakCard = getItem(position);
-        holder.mainMenuImage.setImageResource(currentStakCard.getImageResource());
+        Glide.with(holder.itemView.getContext())
+                .load(currentStakCard.getImageResourceUrl())
+                .into(holder.mainMenuImage);
         holder.mainMenuCardName.setText(currentStakCard.getCardName());
         holder.mainMenuDifficulty.setText(currentStakCard.getDifficulty());
     }

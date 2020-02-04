@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
+import com.bumptech.glide.Glide;
 import com.example.android.stakdice.R;
 import com.example.android.stakdice.models.StakCard;
 
@@ -21,7 +22,7 @@ public class TrophyAdapter extends ListAdapter<StakCard, TrophyHolder> implement
 
     private OnItemClickListener listener;
 
-    public TrophyAdapter(OnItemClickListener listener){
+    public TrophyAdapter(OnItemClickListener listener) {
         super(DIFF_CALLBACK);
         this.listener = listener;
     }
@@ -36,7 +37,7 @@ public class TrophyAdapter extends ListAdapter<StakCard, TrophyHolder> implement
         @Override
         public boolean areContentsTheSame(@NonNull StakCard oldItem, @NonNull StakCard newItem) {
             return oldItem.getCardName().equals(newItem.getCardName()) &&
-                    oldItem.getImageResource() == (newItem.getImageResource());
+                    oldItem.getImageResourceUrl() == (newItem.getImageResourceUrl());
 
         }
     };
@@ -46,14 +47,16 @@ public class TrophyAdapter extends ListAdapter<StakCard, TrophyHolder> implement
     @Override
     public TrophyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.trophy_item,parent,false);
+                .inflate(R.layout.trophy_item, parent, false);
         return new TrophyHolder(itemView, this);
     }
 
     @Override
     public void onBindViewHolder(@NonNull TrophyHolder holder, int position) {
         StakCard currentStakCard = getItem(position);
-        holder.trophyRoomImage.setImageResource(currentStakCard.getImageResource());
+        Glide.with(holder.itemView.getContext())
+                .load(currentStakCard.getImageResourceUrl())
+                .into(holder.trophyRoomImage);
         holder.trophyRoomName.setText(currentStakCard.getCardName());
 
     }

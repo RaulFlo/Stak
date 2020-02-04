@@ -50,9 +50,8 @@ public class ConvertDocumentsToModels extends AsyncTask<DocumentSnapshot, Void, 
     }
 
     private StakCard getStakCardFromDocument(DocumentSnapshot document) throws InterruptedException, ExecutionException, TimeoutException {
-//        key.getKey().path.canonicalString()
         return new StakCard(document.getId(),
-                0,
+                document.getString("image_resource_url"),
                 document.getString("name"),
                 getAttributeFromDocumentReference(document.getDocumentReference("strength_attribute")),
                 getAttributeFromDocumentReference(document.getDocumentReference("toughness_attribute")),

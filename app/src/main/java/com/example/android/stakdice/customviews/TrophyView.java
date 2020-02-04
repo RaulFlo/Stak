@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
 import com.example.android.stakdice.R;
 import com.example.android.stakdice.models.StakCard;
 
@@ -23,7 +24,7 @@ public class TrophyView extends LinearLayout {
     private TextView attributeKnowledge;
     private TextView description;
 
-    public TrophyView (Context context){
+    public TrophyView(Context context) {
         super(context);
         init(context);
     }
@@ -45,7 +46,7 @@ public class TrophyView extends LinearLayout {
     }
 
     private void init(Context context) {
-        View root = inflate(context, R.layout.trophy_detail_custom_view,this);
+        View root = inflate(context, R.layout.trophy_detail_custom_view, this);
         cardName = root.findViewById(R.id.trophy_room_detail_name);
         difficulty = root.findViewById(R.id.difficulty_detail_page);
         imageView = root.findViewById(R.id.trophy_room_detail_image);
@@ -63,7 +64,11 @@ public class TrophyView extends LinearLayout {
 
     public void setStakCard(StakCard card) {
         cardName.setText(card.getCardName());
-        imageView.setImageResource(card.getImageResource());
+
+        Glide.with(cardName.getContext())
+                .load(card.getImageResourceUrl())
+                .into(imageView);
+
         difficulty.setText(card.getDifficulty());
         attributeStrength.setText(card.getStrength().getDisplayString());
         attributeToughness.setText(card.getToughness().getDisplayString());

@@ -15,7 +15,7 @@ public class StakCard implements Serializable {
     @PrimaryKey
     private String id;
 
-    private int imageResource;
+    private String imageResourceUrl;
     private String cardName;
     private Attribute strength;
     private Attribute toughness;
@@ -25,10 +25,10 @@ public class StakCard implements Serializable {
     private boolean isBeaten;
     private String description;
 
-    public StakCard(String id, int imageResource, String cardName, Attribute strength, Attribute toughness,
+    public StakCard(@NonNull String id, String imageResourceUrl, String cardName, Attribute strength, Attribute toughness,
                     Attribute agility, Attribute knowledge, String difficulty, boolean isBeaten, String description) {
         this.id = id;
-        this.imageResource = imageResource;
+        this.imageResourceUrl = imageResourceUrl;
         this.cardName = cardName;
         this.strength = strength;
         this.toughness = toughness;
@@ -49,8 +49,8 @@ public class StakCard implements Serializable {
     }
 
 
-    public int getImageResource() {
-        return imageResource;
+    public String getImageResourceUrl() {
+        return imageResourceUrl;
     }
 
     public String getCardName() {

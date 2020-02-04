@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
 import com.example.android.stakdice.R;
 import com.example.android.stakdice.models.StakCard;
 
@@ -62,7 +63,10 @@ public class StakCardView extends LinearLayout {
 
     public void setStakCard(StakCard card) {
         cardName.setText(card.getCardName());
-        imageCard.setImageResource(card.getImageResource());
+
+        Glide.with(cardName.getContext())
+                .load(card.getImageResourceUrl())
+                .into(imageCard);
         stakDifficulty.setText(card.getDifficulty());
 
         attributeStrength.setText(card.getStrength().getDisplayString());
