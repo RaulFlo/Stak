@@ -38,7 +38,7 @@ public class ConvertDocumentsToModelsAsyncTask extends AsyncTask<DocumentSnapsho
             try {
                 stakCards.add(getStakCardFromDocument(documentSnapshot));
             } catch (Exception e) {
-                Log.d(MainActivity.class.getSimpleName(), "Error converting firebase cards to local cards");
+                Log.d(MainActivity.class.getSimpleName(), "Error converting firebase cards to local cards: " + e.toString());
             }
         }
         return stakCards;
