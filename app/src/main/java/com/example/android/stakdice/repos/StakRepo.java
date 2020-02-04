@@ -26,17 +26,17 @@ public class StakRepo {
 
     }
 
-    public void insert(StakCard stakCard) {
-        new InsertStakAsyncTask(stakDao).execute(stakCard);
+    public void insert(StakCard... stakCards) {
+        new InsertStakAsyncTask(stakDao).execute(stakCards);
     }
 
-    public void update(StakCard stakCard) {
-        new UpdateStakAsyncTask(stakDao).execute(stakCard);
+    public void update(StakCard... stakCards) {
+        new UpdateStakAsyncTask(stakDao).execute(stakCards);
     }
 
 
-    public void delete(StakCard stakCard) {
-        new DeleteStakAsyncTask(stakDao).execute(stakCard);
+    public void delete(StakCard... stakCards) {
+        new DeleteStakAsyncTask(stakDao).execute(stakCards);
     }
 
     public void deleteAllStaks() {
@@ -51,11 +51,11 @@ public class StakRepo {
         return allBeatenStaks;
     }
 
-    public LiveData<List<StakCard>> getAllNotBeatenStaks(){
+    public LiveData<List<StakCard>> getAllNotBeatenStaks() {
         return allNotBeatenStaks;
     }
 
-    public LiveData<StakCard> getSingleStak(int id) {
+    public LiveData<StakCard> getSingleStak(String id) {
         return stakDao.getSingleStak(id);
     }
 
@@ -71,7 +71,9 @@ public class StakRepo {
 
         @Override
         protected Void doInBackground(StakCard... stakCards) {
-            stakDao.insert(stakCards[0]);
+            for (StakCard stakCard : stakCards) {
+                stakDao.insert(stakCard);
+            }
             return null;
         }
     }
@@ -85,7 +87,9 @@ public class StakRepo {
 
         @Override
         protected Void doInBackground(StakCard... stakCards) {
-            stakDao.update(stakCards[0]);
+            for (StakCard stakCard : stakCards) {
+                stakDao.update(stakCard);
+            }
             return null;
         }
     }
@@ -99,7 +103,9 @@ public class StakRepo {
 
         @Override
         protected Void doInBackground(StakCard... stakCards) {
-            stakDao.delete(stakCards[0]);
+            for (StakCard stakCard : stakCards) {
+                stakDao.delete(stakCard);
+            }
             return null;
         }
     }

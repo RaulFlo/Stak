@@ -33,22 +33,17 @@ public class TrophyDetail extends AppCompatActivity {
 
         //get intent
         Intent intent = getIntent();
-        final int stakcardId = intent.getIntExtra(STAK_CARD_ID_EXTRA, -1);
+        final String stakcardId = intent.getStringExtra(STAK_CARD_ID_EXTRA);
 
         trophyDetailViewModel = ViewModelProviders.of(this).get(TrophyDetailViewModel.class);
 
         trophyDetailViewModel.getSingleStak(stakcardId).observe(this, new Observer<StakCard>() {
             @Override
             public void onChanged(final StakCard stakCard) {
-                stakCard.getCardName();
                 //set current stakCard to view
                 trophyView.setStakCard(stakCard);
-
-
-
             }
         });
-
 
 
     }

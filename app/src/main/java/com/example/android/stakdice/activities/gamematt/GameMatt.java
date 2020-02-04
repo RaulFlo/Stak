@@ -64,7 +64,7 @@ public class GameMatt extends AppCompatActivity {
 
         //get intent
         Intent intent = getIntent();
-        final int stakCardId = intent.getIntExtra(STAK_CARD_ID_EXTRA, -1);
+        final String stakCardId = intent.getStringExtra(STAK_CARD_ID_EXTRA);
 
 
         //ask sys for new ViewModel, scopes it to this activity and destroys when this activity destroyed

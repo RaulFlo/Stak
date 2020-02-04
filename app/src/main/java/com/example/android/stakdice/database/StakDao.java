@@ -33,15 +33,13 @@ public interface StakDao {
     LiveData<List<StakCard>> getAllStaks();
 
     @Query("SELECT * FROM stak_table  where id = :stakId LIMIT 1")
-    LiveData<StakCard> getSingleStak(int stakId);
+    LiveData<StakCard> getSingleStak(String stakId);
 
     @Query("Select * From stak_table where isBeaten = 1")
     LiveData<List<StakCard>> getAllBeatenStaks();
 
     @Query("Select * From stak_table where isBeaten = 0")
     LiveData<List<StakCard>> getAllNotBeatenStaks();
-
-
 
 
 }
