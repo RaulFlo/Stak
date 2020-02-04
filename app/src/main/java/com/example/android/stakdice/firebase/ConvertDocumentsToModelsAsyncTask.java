@@ -12,6 +12,7 @@ import com.example.android.stakdice.models.attribute.LesserThanValueAttribute;
 import com.example.android.stakdice.models.attribute.OddValueAttribute;
 import com.example.android.stakdice.models.attribute.RangeValueAttribute;
 import com.example.android.stakdice.models.attribute.SimpleValueAttribute;
+import com.example.android.stakdice.models.attribute.ThreeValueAttribute;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -87,6 +88,8 @@ public class ConvertDocumentsToModelsAsyncTask extends AsyncTask<DocumentSnapsho
                     return getGreaterThanValueAttribute(documentSnapshot);
                 case   FirebaseUtils.COLLECTION_LESSTHAN_VALUE_ATTRIBUTE:
                     return getLessThanValueAttribute(documentSnapshot);
+                case FirebaseUtils.COLLECTION_THREE_VALUE_ATTRIBUTE:
+                    return getThreeValueAttribute(documentSnapshot);
                 default:
                     return defaultAttribute;
 
@@ -115,6 +118,12 @@ public class ConvertDocumentsToModelsAsyncTask extends AsyncTask<DocumentSnapsho
     }
     private LesserThanValueAttribute getLessThanValueAttribute(DocumentSnapshot documentSnapshot){
         return new LesserThanValueAttribute(documentSnapshot.getLong("lessThan").intValue());
+    }
+
+    private ThreeValueAttribute getThreeValueAttribute(DocumentSnapshot documentSnapshot){
+        return new ThreeValueAttribute(documentSnapshot.getLong("firstValue").intValue(),
+                documentSnapshot.getLong("secondValue").intValue(),
+                documentSnapshot.getLong("thirdValue").intValue());
     }
 
 
