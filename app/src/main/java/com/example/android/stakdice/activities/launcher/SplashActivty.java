@@ -34,16 +34,6 @@ public class SplashActivty extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        // after the user signs in with email link it comes back here
-        Intent intent = getIntent();
-        Uri emailLink = intent.getData();
-        String emailLinkString = null;
-
-        if (emailLink != null) {
-            emailLinkString = emailLink.toString();
-            Log.d(AUTH_TAG, "email link: " + emailLinkString);
-        }
-
         // check if the user is signed in
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -67,8 +57,12 @@ public class SplashActivty extends AppCompatActivity {
                     .createSignInIntentBuilder()
                     .setAvailableProviders(providers);
 
-            if (emailLinkString != null) {
-                authBuilder.setEmailLink(emailLinkString);
+            // after the user signs in with email link it comes back here
+            Intent intent = getIntent();
+            Uri emailLink = intent.getData();
+            if (emailLink != null) {
+                authBuilder.setEmailLink(emailLink.toString());
+                Log.d(AUTH_TAG, "email link: " + emailLink.toString());
             }
 
             startActivityForResult(authBuilder.build(), RC_SIGN_IN);
