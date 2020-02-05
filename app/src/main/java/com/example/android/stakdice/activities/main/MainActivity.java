@@ -3,6 +3,7 @@ package com.example.android.stakdice.activities.main;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -19,6 +20,7 @@ import com.example.android.stakdice.activities.launcher.SplashActivty;
 import com.example.android.stakdice.activities.trophyroom.TrophyActivity;
 import com.example.android.stakdice.adapter.StakAdapter;
 import com.example.android.stakdice.models.StakCard;
+import com.example.android.stakdice.models.UserProfile;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -78,6 +80,13 @@ public class MainActivity extends AppCompatActivity {
             public void onChanged(List<StakCard> stakCards) {
                 //update RecyclerView. Every time onChanged is triggered which is every time the data in the table changes
                 adapter.submitList(stakCards);
+            }
+        });
+
+        stakViewModel.getUserProfile().observe(this, new Observer<UserProfile>() {
+            @Override
+            public void onChanged(UserProfile userProfile) {
+                Log.d("jxf", "user profile!: " + userProfile.displayName);
             }
         });
 
