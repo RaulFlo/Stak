@@ -27,11 +27,12 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static Intent newIntent(Context context) {
-        return new Intent(context, MainActivity.class);
-    }
-
     private StakViewModel stakViewModel;
+
+    public static Intent newIntent(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
