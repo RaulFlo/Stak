@@ -13,9 +13,12 @@ import com.example.android.stakdice.models.StakCard;
 import com.example.android.stakdice.repos.StakRepo;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.auth.User;
 
 import java.util.List;
 
@@ -51,6 +54,24 @@ public class StakViewModel extends AndroidViewModel {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.d(StakViewModel.class.getSimpleName(), "Getting stak monsters: onFailure: " + e);
+                    }
+                });
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String userPath = "users/" + user.getUid();
+        Log.d("jxf", "making a call to : " + userPath);
+        db.document(userPath)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        Log.d("jxf", "on success for user table");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("jxf", "on failure for user table " + e.toString());
                     }
                 });
     }
