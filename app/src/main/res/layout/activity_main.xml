@@ -4,8 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.main.MainActivity"
-    android:background="@color/colorBackground">
+    android:background="@color/colorBackground"
+    tools:context=".activities.main.MainActivity">
+
+    <TextView
+        android:id="@+id/sign_out"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_out"
+        android:textColor="@color/colorWhite"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -13,8 +25,8 @@
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:layout_marginTop="150dp"
-        android:orientation="horizontal"
         android:background="@drawable/white_border"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
