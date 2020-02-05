@@ -37,35 +37,9 @@ public class SplashActivty extends AppCompatActivity {
         // check if the user is signed in
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            finish();
-            startActivity(MainActivity.newIntent(this));
+            onUserSignedIn();
         } else {
-            ActionCodeSettings actionCodeSettings = ActionCodeSettings.newBuilder()
-                    .setAndroidPackageName("com.example.android.stakdice", true, null)
-                    .setHandleCodeInApp(true)
-                    .setUrl("https://stakdice.page.link/signedIn") // This URL needs to be whitelisted
-                    .build();
-
-            List<AuthUI.IdpConfig> providers = Arrays.asList(
-                    new AuthUI.IdpConfig.EmailBuilder()
-                            .enableEmailLinkSignIn()
-                            .setActionCodeSettings(actionCodeSettings)
-                            .build(),
-                    new AuthUI.IdpConfig.AnonymousBuilder().build());
-
-            AuthUI.SignInIntentBuilder authBuilder = AuthUI.getInstance()
-                    .createSignInIntentBuilder()
-                    .setAvailableProviders(providers);
-
-            // after the user signs in with email link it comes back here
-            Intent intent = getIntent();
-            Uri emailLink = intent.getData();
-            if (emailLink != null) {
-                authBuilder.setEmailLink(emailLink.toString());
-                Log.d(AUTH_TAG, "email link: " + emailLink.toString());
-            }
-
-            startActivityForResult(authBuilder.build(), RC_SIGN_IN);
+            launchFirebaseUserSignInScreen();
         }
     }
 
@@ -77,10 +51,8 @@ public class SplashActivty extends AppCompatActivity {
             IdpResponse response = IdpResponse.fromResultIntent(data);
 
             if (resultCode == RESULT_OK) {
-                // Successfully signed in
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                finish();
-                startActivity(MainActivity.newIntent(this));
+                // Successfully signed in (getCurrentUser() should return a user object)
+                onUserSignedIn();
             } else {
                 // Sign in failed. If response is null the user canceled the
                 // sign-in flow using the back button. Otherwise check
@@ -88,6 +60,40 @@ public class SplashActivty extends AppCompatActivity {
                 // ...
             }
         }
+    }
+
+    private void launchFirebaseUserSignInScreen() {
+        ActionCodeSettings actionCodeSettings = ActionCodeSettings.newBuilder()
+                .setAndroidPackageName("com.example.android.stakdice", true, null)
+                .setHandleCodeInApp(true)
+                .setUrl("https://stakdice.page.link/signedIn") // This URL needs to be whitelisted
+                .build();
+
+        List<AuthUI.IdpConfig> providers = Arrays.asList(
+                new AuthUI.IdpConfig.EmailBuilder()
+                        .enableEmailLinkSignIn()
+                        .setActionCodeSettings(actionCodeSettings)
+                        .build(),
+                new AuthUI.IdpConfig.AnonymousBuilder().build());
+
+        AuthUI.SignInIntentBuilder authBuilder = AuthUI.getInstance()
+                .createSignInIntentBuilder()
+                .setAvailableProviders(providers);
+
+        // after the user signs in with email link it comes back here
+        Intent intent = getIntent();
+        Uri emailLink = intent.getData();
+        if (emailLink != null) {
+            authBuilder.setEmailLink(emailLink.toString());
+            Log.d(AUTH_TAG, "email link: " + emailLink.toString());
+        }
+
+        startActivityForResult(authBuilder.build(), RC_SIGN_IN);
+    }
+
+    private void onUserSignedIn() {
+        finish();
+        startActivity(MainActivity.newIntent(this));
     }
 }
 
