@@ -1,5 +1,7 @@
 package com.example.android.stakdice.activities.main;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -22,6 +24,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     private StakViewModel stakViewModel;
+
+    public static Intent newIntent(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
