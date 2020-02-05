@@ -1,7 +1,6 @@
 package com.example.android.stakdice;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,12 +18,6 @@ public class PassedDialog extends DialogFragment {
 
     private Button mainMenuButton;
     private Button stakCardButton;
-
-    @Nullable
-    @Override
-    public Context getContext() {
-        return super.getContext();
-    }
 
     @NonNull
     @Override

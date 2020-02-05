@@ -1,7 +1,6 @@
 package com.example.android.stakdice;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,12 +17,6 @@ public class FailedDialog extends DialogFragment {
 
     private Button mainMenuButton;
     private Button resetButton;
-
-    @Nullable
-    @Override
-    public Context getContext() {
-        return super.getContext();
-    }
 
     @NonNull
     @Override
@@ -48,7 +41,7 @@ public class FailedDialog extends DialogFragment {
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              //TODO: Reset StakCard
+                //TODO: Reset StakCard
             }
         });
 
