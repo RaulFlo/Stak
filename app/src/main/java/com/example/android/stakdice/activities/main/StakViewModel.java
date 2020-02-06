@@ -8,7 +8,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 
 import com.example.android.stakdice.models.StakCard;
-import com.example.android.stakdice.models.UserProfile;
 import com.example.android.stakdice.repos.FirebaseRepo;
 import com.example.android.stakdice.repos.StakRepo;
 
@@ -26,10 +25,6 @@ public class StakViewModel extends AndroidViewModel {
         firebaseRepo = new FirebaseRepo();
         allNotBeatenStaks = repository.getAllNotBeatenStaks();
 
-        // make db call to firebase for stak cards and user profile
-        firebaseRepo.setStakCardsFromFirebaseAndSetLiveData();
-        firebaseRepo.setUserProfileLiveData();
-
         getStakMonstersFromFirebase();
     }
 
@@ -37,11 +32,9 @@ public class StakViewModel extends AndroidViewModel {
         return allNotBeatenStaks;
     }
 
-    public LiveData<UserProfile> getUserProfile() {
-        return firebaseRepo.getUserProfileLiveData();
-    }
-
     private void getStakMonstersFromFirebase() {
+        // make db call to firebase for stak cards and user profile
+        firebaseRepo.setStakCardsFromFirebaseAndSetLiveData();
         firebaseRepo.getStakCardsLiveData()
                 .observeForever(new Observer<List<StakCard>>() {
                     @Override

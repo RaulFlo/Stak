@@ -3,7 +3,6 @@ package com.example.android.stakdice.activities.main;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -19,7 +18,6 @@ import com.example.android.stakdice.activities.profile.ProfileActivity;
 import com.example.android.stakdice.activities.trophyroom.TrophyActivity;
 import com.example.android.stakdice.adapter.StakAdapter;
 import com.example.android.stakdice.models.StakCard;
-import com.example.android.stakdice.models.UserProfile;
 
 import java.util.List;
 
@@ -79,16 +77,6 @@ public class MainActivity extends AppCompatActivity {
                 adapter.submitList(stakCards);
             }
         });
-
-        stakViewModel.getUserProfile().observe(this, new Observer<UserProfile>() {
-            @Override
-            public void onChanged(UserProfile userProfile) {
-                Log.d(MainActivity.class.getSimpleName(), "user profile!: " + userProfile.displayName);
-            }
-        });
-
     }
-
-
 }
 
