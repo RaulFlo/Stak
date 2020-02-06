@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         stakViewModel.getUserProfile().observe(this, new Observer<UserProfile>() {
             @Override
             public void onChanged(UserProfile userProfile) {
-                Log.d("jxf", "user profile!: " + userProfile.displayName);
+                Log.d(MainActivity.class.getSimpleName(), "user profile!: " + userProfile.displayName);
             }
         });
 
