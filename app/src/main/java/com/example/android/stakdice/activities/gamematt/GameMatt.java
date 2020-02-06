@@ -39,7 +39,7 @@ public class GameMatt extends AppCompatActivity {
     private TextView roundView;
     private Random rng = new Random();
     private Button rollButton;
-    private int maxClicks = 10;
+    private int maxClicks = 9;
     private int currentClicks = 0;
     private Button validateBtn;
     private EditText sEditText;
@@ -47,7 +47,10 @@ public class GameMatt extends AppCompatActivity {
     private EditText aEditText;
     private EditText kEditText;
     private TextView sTop, sMid, sBot;
-    private Button pullButton;
+    private TextView tTop,tMid, tBot;
+    private TextView aTop,aMid, aBot;
+    private TextView kTop,kMid, kBot;
+    private Button pullButton,tPullButton, aPullButton,kPullButton;
 
     private int diceResult;
 
@@ -67,9 +70,25 @@ public class GameMatt extends AppCompatActivity {
         imageViewDice = findViewById(R.id.image_view_dice);
         rollButton = findViewById(R.id.button_roll);
         pullButton = findViewById(R.id.pull_result);
+        tPullButton = findViewById(R.id.t_pull_result);
+        aPullButton = findViewById(R.id.a_pull_result);
+        kPullButton = findViewById(R.id.k_pull_result);
         sTop = findViewById(R.id.s_input_top);
         sMid = findViewById(R.id.s_input_middle);
         sBot = findViewById(R.id.s_input_bottom);
+
+        tTop = findViewById(R.id.t_input_top);
+        tMid = findViewById(R.id.t_input_middle);
+        tBot = findViewById(R.id.t_input_bottom);
+
+        aTop = findViewById(R.id.a_input_top);
+        aMid = findViewById(R.id.a_input_middle);
+        aBot = findViewById(R.id.a_input_bottom);
+
+        kTop = findViewById(R.id.k_input_top);
+        kMid = findViewById(R.id.k_input_middle);
+        kBot = findViewById(R.id.k_input_bottom);
+
 
 
         //get intent
@@ -151,14 +170,13 @@ public class GameMatt extends AppCompatActivity {
     }
 
     public void revealValidateButton() {
-        if (currentClicks == 10) {
+        if (currentClicks == 9) {
             validateBtn.setVisibility(View.VISIBLE);
         }
     }
 
 
     private void isClicked() {
-
         if (currentClicks == maxClicks) {
             rollButton.setEnabled(false);
             revealValidateButton();
@@ -167,17 +185,86 @@ public class GameMatt extends AppCompatActivity {
             roundView.setText("Round: " + (currentClicks + 1));
             diceResult = rollDice();
             currentClicks++;
-            pullResult(diceResult);
+            pullStrengthResult(diceResult);
+            pullToughnessResult(diceResult);
+            pullAgilityResult(diceResult);
+            pullKnowledgeResult(diceResult);
 
         }
 
     }
 
+    private void pullKnowledgeResult(final int diceResult) {
+        kPullButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (kBot.getText().toString().equals("")) {
+                    kBot.setText("" + diceResult);
+                    int value = (Integer.parseInt(kBot.getText().toString()));
+                    kEditText.setText(String.valueOf(value));
+                } else if (kMid.getText().toString().equals("")) {
+                    kMid.setText("" + diceResult);
+                    int value = (Integer.parseInt(kBot.getText().toString()) + Integer.parseInt(kMid.getText().toString()));
+                    kEditText.setText(String.valueOf(value));
+                } else if (kTop.getText().toString().equals("")) {
+                    kTop.setText("" + diceResult);
+                    int value = (Integer.parseInt(kBot.getText().toString()) + Integer.parseInt(kMid.getText().toString())
+                            + Integer.parseInt(kTop.getText().toString()));
+                    kEditText.setText(String.valueOf(value));
 
-    private void pullResult(final int diceResult) {
+                }
+            }
+        });
+    }
+
+    private void pullAgilityResult(final int diceResult) {
+        aPullButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (aBot.getText().toString().equals("")) {
+                    aBot.setText("" + diceResult);
+                    int value = (Integer.parseInt(aBot.getText().toString()));
+                    aEditText.setText(String.valueOf(value));
+                } else if (aMid.getText().toString().equals("")) {
+                    aMid.setText("" + diceResult);
+                    int value = (Integer.parseInt(aBot.getText().toString()) + Integer.parseInt(aMid.getText().toString()));
+                    aEditText.setText(String.valueOf(value));
+                } else if (aTop.getText().toString().equals("")) {
+                    aTop.setText("" + diceResult);
+                    int value = (Integer.parseInt(aBot.getText().toString()) + Integer.parseInt(aMid.getText().toString())
+                            + Integer.parseInt(aTop.getText().toString()));
+                    aEditText.setText(String.valueOf(value));
+
+                }
+            }
+        });
+    }
+
+    private void pullToughnessResult(final int diceResult) {
+        tPullButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (tBot.getText().toString().equals("")) {
+                    tBot.setText("" + diceResult);
+                    int value = (Integer.parseInt(tBot.getText().toString()));
+                    tEditText.setText(String.valueOf(value));
+                } else if (tMid.getText().toString().equals("")) {
+                    tMid.setText("" + diceResult);
+                    int value = (Integer.parseInt(tBot.getText().toString()) + Integer.parseInt(tMid.getText().toString()));
+                    tEditText.setText(String.valueOf(value));
+                } else if (tTop.getText().toString().equals("")) {
+                    tTop.setText("" + diceResult);
+                    int value = (Integer.parseInt(tBot.getText().toString()) + Integer.parseInt(tMid.getText().toString())
+                            + Integer.parseInt(tTop.getText().toString()));
+                    tEditText.setText(String.valueOf(value));
+
+                }
+            }
+        });
+    }
 
 
-
+    private void pullStrengthResult(final int diceResult) {
         pullButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
