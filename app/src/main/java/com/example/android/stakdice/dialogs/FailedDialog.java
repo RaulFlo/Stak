@@ -1,4 +1,4 @@
-package com.example.android.stakdice;
+package com.example.android.stakdice.dialogs;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
+import com.example.android.stakdice.R;
 import com.example.android.stakdice.activities.main.MainActivity;
 
 public class FailedDialog extends DialogFragment {

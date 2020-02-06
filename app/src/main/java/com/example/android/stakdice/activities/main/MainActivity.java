@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.android.stakdice.ProfileActivity;
+import com.example.android.stakdice.activities.profile.ProfileActivity;
 import com.example.android.stakdice.R;
 import com.example.android.stakdice.activities.gamematt.GameMatt;
 import com.example.android.stakdice.activities.trophyroom.TrophyActivity;

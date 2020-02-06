@@ -1,4 +1,4 @@
-package com.example.android.stakdice;
+package com.example.android.stakdice.activities.profile;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.android.stakdice.R;
 import com.example.android.stakdice.activities.launcher.SplashActivty;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
