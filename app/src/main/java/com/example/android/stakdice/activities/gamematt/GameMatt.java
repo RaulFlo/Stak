@@ -13,8 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.android.stakdice.FailedDialog;
-import com.example.android.stakdice.PassedDialog;
+import com.example.android.stakdice.dialogs.FailedDialog;
+import com.example.android.stakdice.dialogs.PassedDialog;
 import com.example.android.stakdice.R;
 import com.example.android.stakdice.customviews.StakCardView;
 import com.example.android.stakdice.models.StakCard;

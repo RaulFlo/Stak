@@ -24,13 +24,15 @@
             android:id="@+id/main_menu_text_view_card_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+           android:layout_gravity="center"
             android:text="@string/card_name"
             android:textColor="@android:color/black"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/main_menu_text_view_difficulty"
             android:layout_width="wrap_content"
+            android:layout_gravity="center"
             android:layout_height="wrap_content"
             android:text="@string/string_difficulty" />
 
