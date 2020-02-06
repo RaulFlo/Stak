@@ -74,24 +74,30 @@ public class FirebaseRepo {
     public void setUserProfileLiveData() {
         // get current user signed in
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String userPath = "users/" + user.getUid();
+        if (user != null) {
+            String userPath = FirebaseUtils.COLLECTION_USERS + "/" + user.getUid();
 
-        // make db call to get specific user document
-        db.document(userPath)
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        // post/set the UserProfile after converting
-                        userProfileLiveData.postValue(convertDocumentSnapshotToUserProfile(documentSnapshot));
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d(FirebaseRepo.class.getSimpleName(), "Getting user table error: " + e.toString());
-                    }
-                });
+            // make db call to get specific user document
+            db.document(userPath)
+                    .get()
+                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            // post/set the UserProfile after converting
+                            userProfileLiveData.postValue(convertDocumentSnapshotToUserProfile(documentSnapshot));
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d(FirebaseRepo.class.getSimpleName(), "Getting user table error: " + e.toString());
+                        }
+                    });
+        } else {
+            // shouldn't happen because we have the splash screen checking for auth
+            Log.d(FirebaseRepo.class.getSimpleName(), "User was somehow null here");
+        }
+
 
     }
 
