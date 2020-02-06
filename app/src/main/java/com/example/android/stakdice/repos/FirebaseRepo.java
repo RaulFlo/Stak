@@ -23,63 +23,67 @@ import java.util.List;
 
 public class FirebaseRepo {
 
-    public interface StakCardsListener {
-        void onStakCardsRetrieved(List<StakCard> stakCards);
-
-        void onError(Exception e, String errorString);
-    }
-
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private MutableLiveData<UserProfile> userProfileLiveData = new MutableLiveData<>();
-
-    public FirebaseRepo() {
-        setUserProfileLiveData();
-    }
+    private MutableLiveData<List<StakCard>> stakCardsLiveData = new MutableLiveData<>();
 
     public LiveData<UserProfile> getUserProfileLiveData() {
         return userProfileLiveData;
     }
 
-    public void getStakCards(final StakCardsListener listener) {
+    public LiveData<List<StakCard>> getStakCardsLiveData() {
+        return stakCardsLiveData;
+    }
+
+    public void setStakCardsFromFirebaseAndSetLiveData() {
+        // make db call to "stak_monsters" table asynchronously (not-blocking/listeners)
         db.collection(FirebaseUtils.COLLECTION_STAK_CARD_MONSTER)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        onSuccessGettingStakMonsters(queryDocumentSnapshots, listener);
+                        // on success handle in method
+                        onSuccessGettingStakMonsters(queryDocumentSnapshots);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        listener.onError(e, "Getting stak cards failure" + e.toString());
+                        Log.d(FirebaseRepo.class.getSimpleName(), "Getting stak cards failure" + e.toString());
                     }
                 });
     }
 
-    private void onSuccessGettingStakMonsters(QuerySnapshot queryDocumentSnapshots, final StakCardsListener listener) {
+    // handles the response from the "stak_monsters" db call
+    private void onSuccessGettingStakMonsters(QuerySnapshot queryDocumentSnapshots) {
+        // get documents
         List<DocumentSnapshot> documents = queryDocumentSnapshots.getDocuments();
         Log.d(StakViewModel.class.getSimpleName(), "Getting stak monsters: On Success, docs: " + documents.size());
 
-        // convert DocumentSnapshot to our models
+        // convert documents to our models
         new ConvertDocumentsToModelsAsyncTask(new ConvertDocumentsToModelsAsyncTask.Listener() {
             @Override
             public void onStakCardsConverted(List<StakCard> stakCards) {
-                listener.onStakCardsRetrieved(stakCards);
+                // once converted set/post value to the live data
+                stakCardsLiveData.postValue(stakCards);
             }
         }).execute(documents.toArray(new DocumentSnapshot[0]));
     }
 
-    private void setUserProfileLiveData() {
+    // will make a firebase db call to get the user document
+    public void setUserProfileLiveData() {
+        // get current user signed in
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String userPath = "users/" + user.getUid();
 
+        // make db call to get specific user document
         db.document(userPath)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        userProfileLiveData.postValue(new UserProfile(documentSnapshot.getString("display_name")));
+                        // post/set the UserProfile after converting
+                        userProfileLiveData.postValue(convertDocumentSnapshotToUserProfile(documentSnapshot));
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -89,5 +93,9 @@ public class FirebaseRepo {
                     }
                 });
 
+    }
+
+    private UserProfile convertDocumentSnapshotToUserProfile(DocumentSnapshot documentSnapshot) {
+        return new UserProfile(documentSnapshot.getString("display_name"));
     }
 }

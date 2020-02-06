@@ -1,12 +1,11 @@
 package com.example.android.stakdice.activities.main;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 
 import com.example.android.stakdice.models.StakCard;
 import com.example.android.stakdice.models.UserProfile;
@@ -27,6 +26,10 @@ public class StakViewModel extends AndroidViewModel {
         firebaseRepo = new FirebaseRepo();
         allNotBeatenStaks = repository.getAllNotBeatenStaks();
 
+        // make db call to firebase for stak cards and user profile
+        firebaseRepo.setStakCardsFromFirebaseAndSetLiveData();
+        firebaseRepo.setUserProfileLiveData();
+
         getStakMonstersFromFirebase();
     }
 
@@ -39,17 +42,12 @@ public class StakViewModel extends AndroidViewModel {
     }
 
     private void getStakMonstersFromFirebase() {
-        firebaseRepo.getStakCards(new FirebaseRepo.StakCardsListener() {
-            @Override
-            public void onStakCardsRetrieved(List<StakCard> stakCards) {
-                // on success insert it to our repository
-                repository.insert(stakCards.toArray(new StakCard[0]));
-            }
-
-            @Override
-            public void onError(Exception e, String errorString) {
-                Log.d(StakViewModel.class.getSimpleName(), errorString);
-            }
-        });
+        firebaseRepo.getStakCardsLiveData()
+                .observeForever(new Observer<List<StakCard>>() {
+                    @Override
+                    public void onChanged(List<StakCard> stakCards) {
+                        repository.insert(stakCards.toArray(new StakCard[0]));
+                    }
+                });
     }
 }
