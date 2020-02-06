@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activities.profile.ProfileActivity"></activity>
         <activity android:name=".activities.trophydetail.TrophyDetail" />
         <activity android:name=".activities.trophyroom.TrophyActivity" />
         <activity
@@ -18,9 +19,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.main.MainActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity android:name=".activities.launcher.SplashActivty">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
