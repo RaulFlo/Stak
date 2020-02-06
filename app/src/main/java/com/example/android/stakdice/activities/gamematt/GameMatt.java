@@ -13,10 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.android.stakdice.dialogs.FailedDialog;
-import com.example.android.stakdice.dialogs.PassedDialog;
 import com.example.android.stakdice.R;
 import com.example.android.stakdice.customviews.StakCardView;
+import com.example.android.stakdice.dialogs.FailedDialog;
+import com.example.android.stakdice.dialogs.PassedDialog;
 import com.example.android.stakdice.models.StakCard;
 import com.example.android.stakdice.models.attribute.Attribute;
 
@@ -35,7 +35,6 @@ public class GameMatt extends AppCompatActivity {
     }
 
 
-
     private ImageView imageViewDice;
     private TextView roundView;
     private Random rng = new Random();
@@ -47,6 +46,10 @@ public class GameMatt extends AppCompatActivity {
     private EditText tEditText;
     private EditText aEditText;
     private EditText kEditText;
+    private TextView sTop, sMid, sBot;
+    private Button pullButton;
+
+    private int diceResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,10 @@ public class GameMatt extends AppCompatActivity {
         roundView = findViewById(R.id.game_matt_text_view_round);
         imageViewDice = findViewById(R.id.image_view_dice);
         rollButton = findViewById(R.id.button_roll);
+        pullButton = findViewById(R.id.pull_result);
+        sTop = findViewById(R.id.s_input_top);
+        sMid = findViewById(R.id.s_input_middle);
+        sBot = findViewById(R.id.s_input_bottom);
 
 
         //get intent
@@ -86,8 +93,6 @@ public class GameMatt extends AppCompatActivity {
                         isValid(stakCard);
                     }
                 });
-
-
             }
         });
 
@@ -123,15 +128,13 @@ public class GameMatt extends AppCompatActivity {
 
         if (stakCardStrength.isValid(sValue) && stakCardToughness.isValid(tValue)
                 && stakCardAgility.isValid(aValue) && stakCardKnowledge.isValid(kValue)) {
-
-
             openPassDialog();
 
             //Change the isBeaten on the card to true, commented out for now
             stakCard.setBeaten(true);
             gameMattViewModel.update(stakCard);
         } else {
-           openFailDialog();
+            openFailDialog();
         }
 
     }
@@ -162,10 +165,39 @@ public class GameMatt extends AppCompatActivity {
         } else {
 
             roundView.setText("Round: " + (currentClicks + 1));
-            rollDice();
+            diceResult = rollDice();
             currentClicks++;
+            pullResult(diceResult);
+
         }
 
+    }
+
+
+    private void pullResult(final int diceResult) {
+
+
+
+        pullButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (sBot.getText().toString().equals("")) {
+                    sBot.setText("" + diceResult);
+                    int value = (Integer.parseInt(sBot.getText().toString()));
+                    sEditText.setText(String.valueOf(value));
+                } else if (sMid.getText().toString().equals("")) {
+                    sMid.setText("" + diceResult);
+                    int value = (Integer.parseInt(sBot.getText().toString()) + Integer.parseInt(sMid.getText().toString()));
+                    sEditText.setText(String.valueOf(value));
+                } else if (sTop.getText().toString().equals("")) {
+                    sTop.setText("" + diceResult);
+                    int value = (Integer.parseInt(sBot.getText().toString()) + Integer.parseInt(sMid.getText().toString())
+                            + Integer.parseInt(sTop.getText().toString()));
+                    sEditText.setText(String.valueOf(value));
+
+                }
+            }
+        });
     }
 
 
