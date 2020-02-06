@@ -3,14 +3,18 @@ package com.example.android.stakdice.activities.profile;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 
 import com.example.android.stakdice.R;
 import com.example.android.stakdice.activities.launcher.SplashActivty;
+import com.example.android.stakdice.models.UserProfile;
+import com.example.android.stakdice.repos.FirebaseRepo;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -37,8 +41,6 @@ public class ProfileActivity extends AppCompatActivity {
         emailText.setText(user.getEmail());
 
 
-
-
         View signOut = findViewById(R.id.profile_logout_button);
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,9 +49,16 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        FirebaseRepo firebaseRepo = new FirebaseRepo();
+        firebaseRepo.setUserProfileLiveData();
+        firebaseRepo.getUserProfileLiveData().observe(this, new Observer<UserProfile>() {
+            @Override
+            public void onChanged(UserProfile userProfile) {
+                Log.d("Profile", userProfile.displayName);
+            }
+        });
+
     }
-
-
 
 
     private void onSignOut() {
