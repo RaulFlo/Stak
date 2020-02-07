@@ -14,4 +14,12 @@ public class BoardSquare {
         diceRollValue = _diceRoll;
     }
 
+    public boolean getIsAvailableForSelecting() {
+        return isAvailableForSelecting;
+    }
+
+    public void setIsAvailableForSelecting(boolean _isAvailableForSelecting) {
+        isAvailableForSelecting = _isAvailableForSelecting;
+    }
+
 }

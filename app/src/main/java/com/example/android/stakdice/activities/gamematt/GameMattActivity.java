@@ -54,7 +54,7 @@ public class GameMattActivity extends AppCompatActivity {
     private EditText kEditText;
 
     private BoardSquareAdapter boardSquareAdapter;
-    private List<BoardSquare> fakeBoardSquares = new ArrayList<>();
+    SimpleGameMatt matt = new SimpleGameMatt(); // different matts for diff creatures
     private int lastDiceRolled = 0;
 
 
@@ -122,28 +122,22 @@ public class GameMattActivity extends AppCompatActivity {
                 // after they click, set the adapter to not selecting
                 boardSquareAdapter.setSelecting(false);
 
-                // do something with last dice rolled
+                // set the square to have the diced roll (TODO: need to update holder to actually show the number if it's set)
                 boardSquare.setDiceRollValue(lastDiceRolled);
-                // update board square
-                // update list given
+                // make it so it's not selectable any more
+                boardSquare.setIsAvailableForSelecting(false);
+                // update the board
+                List<BoardSquare> updatedGameMatt = matt.updateBoardSquare(boardSquare);
+                // update the adapter
+                boardSquareAdapter.setBoardSquares(updatedGameMatt);
             }
         });
 
         columnsRv.setAdapter(boardSquareAdapter);
         columnsRv.setLayoutManager(new GridLayoutManager(this, 4));
 
-        // fake data -> should be defined in a class (class SimpleGameMatt(List<BoardSquare> boardSquares))
-        fakeBoardSquares.add(new BoardSquare(false, 0));
-        fakeBoardSquares.add(new BoardSquare(false, 0));
-        fakeBoardSquares.add(new BoardSquare(false, 0));
-        fakeBoardSquares.add(new BoardSquare(false, 0));
 
-        fakeBoardSquares.add(new BoardSquare(false, 0));
-        fakeBoardSquares.add(new BoardSquare(false, 0));
-        fakeBoardSquares.add(new BoardSquare(false, 0));
-        fakeBoardSquares.add(new BoardSquare(true, 0));
-
-        boardSquareAdapter.setBoardSquares(fakeBoardSquares);
+        boardSquareAdapter.setBoardSquares(matt.getInitialBoards());
     }
 
 

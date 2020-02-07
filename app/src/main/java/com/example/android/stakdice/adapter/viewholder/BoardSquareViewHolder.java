@@ -24,7 +24,7 @@ public class BoardSquareViewHolder extends RecyclerView.ViewHolder implements Vi
     public void bind(BoardSquare boardSquare, boolean isSelecting) {
         itemView.setOnClickListener(null);
 
-        if (boardSquare.isAvailableForSelecting) {
+        if (boardSquare.getIsAvailableForSelecting()) {
             if (isSelecting) {
                 itemView.setBackgroundColor(Color.GREEN);
                 itemView.setOnClickListener(this);
