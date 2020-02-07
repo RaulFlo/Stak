@@ -12,28 +12,33 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.android.stakdice.adapter.BoardSquareAdapter;
 import com.example.android.stakdice.dialogs.FailedDialog;
 import com.example.android.stakdice.dialogs.PassedDialog;
 import com.example.android.stakdice.R;
 import com.example.android.stakdice.customviews.StakCardView;
+import com.example.android.stakdice.models.GameMatt;
 import com.example.android.stakdice.models.StakCard;
 import com.example.android.stakdice.models.attribute.Attribute;
+import com.example.android.stakdice.models.boardsquare.BoardSquare;
 
+import java.util.List;
 import java.util.Random;
 
-public class GameMatt extends AppCompatActivity {
+public class GameMattActivity extends AppCompatActivity {
 
     private static String STAK_CARD_ID_EXTRA = "StakCardID";
 
     private GameMattViewModel gameMattViewModel;
 
     public static Intent newIntent(Context context, StakCard stakCard) {
-        Intent intent = new Intent(context, GameMatt.class);
+        Intent intent = new Intent(context, GameMattActivity.class);
         intent.putExtra(STAK_CARD_ID_EXTRA, stakCard.getId());
         return intent;
     }
-
 
 
     private ImageView imageViewDice;
@@ -47,6 +52,11 @@ public class GameMatt extends AppCompatActivity {
     private EditText tEditText;
     private EditText aEditText;
     private EditText kEditText;
+
+    private BoardSquareAdapter boardSquareAdapter;
+    GameMatt matt = new SimpleGameMatt(); // different matts for diff creatures
+    private int lastDiceRolled = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +73,7 @@ public class GameMatt extends AppCompatActivity {
         roundView = findViewById(R.id.game_matt_text_view_round);
         imageViewDice = findViewById(R.id.image_view_dice);
         rollButton = findViewById(R.id.button_roll);
+        RecyclerView columnsRv = findViewById(R.id.column_rv);
 
 
         //get intent
@@ -105,7 +116,28 @@ public class GameMatt extends AppCompatActivity {
             }
         });
 
+        boardSquareAdapter = new BoardSquareAdapter(new BoardSquareAdapter.Listener() {
+            @Override
+            public void onBoardSquareClicked(BoardSquare boardSquare) {
+                // after they click, set the adapter to not selecting
+                boardSquareAdapter.setSelecting(false);
 
+                // set the square to have the diced roll (TODO: need to update holder to actually show the number if it's set)
+                boardSquare.setDiceRollValue(lastDiceRolled);
+                // make it so it's not selectable any more
+                boardSquare.setIsAvailableForSelecting(false);
+                // update the board
+                List<BoardSquare> updatedGameMatt = matt.updateBoardSquare(boardSquare);
+                // update the adapter
+                boardSquareAdapter.setBoardSquares(updatedGameMatt);
+            }
+        });
+
+        columnsRv.setAdapter(boardSquareAdapter);
+        columnsRv.setLayoutManager(new GridLayoutManager(this, 4));
+
+
+        boardSquareAdapter.setBoardSquares(matt.getInitialBoards());
     }
 
 
@@ -131,7 +163,7 @@ public class GameMatt extends AppCompatActivity {
             stakCard.setBeaten(true);
             gameMattViewModel.update(stakCard);
         } else {
-           openFailDialog();
+            openFailDialog();
         }
 
     }
@@ -162,7 +194,11 @@ public class GameMatt extends AppCompatActivity {
         } else {
 
             roundView.setText("Round: " + (currentClicks + 1));
-            rollDice();
+            // update the dice roll
+            lastDiceRolled = rollDice();
+            // tell adapter we're selecting now
+            boardSquareAdapter.setSelecting(true);
+
             currentClicks++;
         }
 
