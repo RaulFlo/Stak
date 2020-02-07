@@ -28,14 +28,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class GameMatt extends AppCompatActivity {
+public class GameMattActivity extends AppCompatActivity {
 
     private static String STAK_CARD_ID_EXTRA = "StakCardID";
 
     private GameMattViewModel gameMattViewModel;
 
     public static Intent newIntent(Context context, StakCard stakCard) {
-        Intent intent = new Intent(context, GameMatt.class);
+        Intent intent = new Intent(context, GameMattActivity.class);
         intent.putExtra(STAK_CARD_ID_EXTRA, stakCard.getId());
         return intent;
     }

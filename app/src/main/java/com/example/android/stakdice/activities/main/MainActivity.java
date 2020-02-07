@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.stakdice.R;
-import com.example.android.stakdice.activities.gamematt.GameMatt;
+import com.example.android.stakdice.activities.gamematt.GameMattActivity;
 import com.example.android.stakdice.activities.profile.ProfileActivity;
 import com.example.android.stakdice.activities.trophyroom.TrophyActivity;
 import com.example.android.stakdice.adapter.StakAdapter;
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         final StakAdapter adapter = new StakAdapter(new StakAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(StakCard stakCard) {
-                startActivity(GameMatt.newIntent(MainActivity.this, stakCard));
+                startActivity(GameMattActivity.newIntent(MainActivity.this, stakCard));
             }
         });
         recyclerView.setAdapter(adapter);

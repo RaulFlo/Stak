@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
-    tools:context=".activities.gamematt.GameMatt">
+    tools:context=".activities.gamematt.GameMattActivity">
 
 
     <com.example.android.stakdice.customviews.StakCardView
