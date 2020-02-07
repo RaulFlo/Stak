@@ -39,9 +39,12 @@ public class SimpleGameMatt implements GameMatt {
             // try to go up the column
             int rowsIndexAbove = rowsIndex - 1;
             if (rowsIndexAbove >= 0) {
+                // convert to real index
                 int boardSquareAboveIndex = getIndex(columnIndex, rowsIndexAbove, 4);
+                // get from the current list
                 BoardSquare boardSquareAbove = boardSquares.get(boardSquareAboveIndex);
-                boardSquareAbove.setIsAvailableForSelecting(true);
+                // modify it in the list
+                modifySquareAboveTheSelectedSquare(boardSquare);
             }
         }
         return boardSquares;
@@ -50,5 +53,10 @@ public class SimpleGameMatt implements GameMatt {
 
     private int getIndex(int column, int row, int columnSize) {
         return row * columnSize + column;
+    }
+
+    // called after a square below is selected
+    private void modifySquareAboveTheSelectedSquare(BoardSquare boardSquare) {
+        boardSquare.setIsAvailableForSelecting(true);
     }
 }

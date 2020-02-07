@@ -20,6 +20,7 @@ import com.example.android.stakdice.dialogs.FailedDialog;
 import com.example.android.stakdice.dialogs.PassedDialog;
 import com.example.android.stakdice.R;
 import com.example.android.stakdice.customviews.StakCardView;
+import com.example.android.stakdice.models.GameMatt;
 import com.example.android.stakdice.models.StakCard;
 import com.example.android.stakdice.models.attribute.Attribute;
 import com.example.android.stakdice.models.boardsquare.BoardSquare;
@@ -53,7 +54,7 @@ public class GameMattActivity extends AppCompatActivity {
     private EditText kEditText;
 
     private BoardSquareAdapter boardSquareAdapter;
-    SimpleGameMatt matt = new SimpleGameMatt(); // different matts for diff creatures
+    GameMatt matt = new SimpleGameMatt(); // different matts for diff creatures
     private int lastDiceRolled = 0;
 
 
