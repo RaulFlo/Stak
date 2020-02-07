@@ -24,7 +24,6 @@ import com.example.android.stakdice.models.StakCard;
 import com.example.android.stakdice.models.attribute.Attribute;
 import com.example.android.stakdice.models.boardsquare.BoardSquare;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -73,7 +72,7 @@ public class GameMattActivity extends AppCompatActivity {
         roundView = findViewById(R.id.game_matt_text_view_round);
         imageViewDice = findViewById(R.id.image_view_dice);
         rollButton = findViewById(R.id.button_roll);
-        RecyclerView columnsRv = findViewById(R.id.s_column_rv);
+        RecyclerView columnsRv = findViewById(R.id.column_rv);
 
 
         //get intent
