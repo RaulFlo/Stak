@@ -77,13 +77,14 @@ public class SimpleGameMatt implements GameMatt {
         // make it so it's not selectable any more
         boardSquare.setIsAvailableForSelecting(false);
 
-        // enable the one above this board square
+        // try to enable the one above this board square
         int indexOfModifiedBoardSquare = boardSquareListToModify.indexOf(boardSquare);
-
         int nextUpBoardSquareIndex = indexOfModifiedBoardSquare - 1;
-        // is it valid
+        // if it's a valid index
         if (nextUpBoardSquareIndex >= 0) {
-            boardSquareListToModify.get(nextUpBoardSquareIndex).setIsAvailableForSelecting(true);
+            // set it as available
+            boardSquareListToModify.get(nextUpBoardSquareIndex)
+                    .setIsAvailableForSelecting(true);
         }
     }
 
