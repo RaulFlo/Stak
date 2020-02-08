@@ -5,7 +5,13 @@ import com.example.android.stakdice.models.boardsquare.BoardSquare;
 import java.util.List;
 
 public interface GameMatt {
-    List<BoardSquare> getInitialBoards();
+    List<BoardSquare> getSColumnBoards();
 
-    List<BoardSquare> updateBoardSquare(BoardSquare boardSquare);
+    List<BoardSquare> getTColumnBoards();
+
+    List<BoardSquare> getAColumnBoards();
+
+    List<BoardSquare> getKColumnBoards();
+
+    void updateBoardSquare(BoardSquare boardSquare, int diceValue);
 }

@@ -29,6 +29,7 @@ public class BoardSquareAdapter extends RecyclerView.Adapter<BoardSquareViewHold
     }
 
     public void setBoardSquares(List<BoardSquare> newBoardSquares) {
+        boardSquareList.clear();
         boardSquareList.addAll(newBoardSquares);
         notifyDataSetChanged();
     }
@@ -36,6 +37,14 @@ public class BoardSquareAdapter extends RecyclerView.Adapter<BoardSquareViewHold
     public void setSelecting(boolean isSelecting) {
         this.isSelecting = isSelecting;
         notifyDataSetChanged();
+    }
+
+    public int getColumnSum() {
+        int sum = 0;
+        for (BoardSquare boardSquare : boardSquareList) {
+            sum += boardSquare.getDiceRollValue();
+        }
+        return sum;
     }
 
     @NonNull
