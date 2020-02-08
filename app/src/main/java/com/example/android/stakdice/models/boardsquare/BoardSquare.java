@@ -14,6 +14,10 @@ public class BoardSquare {
         diceRollValue = _diceRoll;
     }
 
+    public int getDiceRollValue() {
+        return diceRollValue;
+    }
+
     public boolean getIsAvailableForSelecting() {
         return isAvailableForSelecting;
     }

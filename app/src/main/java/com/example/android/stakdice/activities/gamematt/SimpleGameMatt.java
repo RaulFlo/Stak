@@ -8,55 +8,84 @@ import java.util.List;
 
 public class SimpleGameMatt implements GameMatt {
 
-    private List<BoardSquare> boardSquares = new ArrayList<>();
+    private List<BoardSquare> sBoardSquares = new ArrayList<>();
+    private List<BoardSquare> tBoardSquares = new ArrayList<>();
+    private List<BoardSquare> aBoardSquares = new ArrayList<>();
+    private List<BoardSquare> kBoardSquares = new ArrayList<>();
 
     public SimpleGameMatt() {
-        boardSquares.add(new BoardSquare(false, 0));
-        boardSquares.add(new BoardSquare(false, 0));
-        boardSquares.add(new BoardSquare(false, 0));
-        boardSquares.add(new BoardSquare(false, 0));
+        sBoardSquares.add(new BoardSquare(false, 0));
+        sBoardSquares.add(new BoardSquare(false, 0));
+        sBoardSquares.add(new BoardSquare(false, 0));
+        sBoardSquares.add(new BoardSquare(true, 0));
 
-        boardSquares.add(new BoardSquare(false, 0));
-        boardSquares.add(new BoardSquare(true, 0));
-        boardSquares.add(new BoardSquare(true, 0));
-        boardSquares.add(new BoardSquare(true, 0));
+        tBoardSquares.add(new BoardSquare(false, 0));
+        tBoardSquares.add(new BoardSquare(false, 0));
+        tBoardSquares.add(new BoardSquare(false, 0));
+        tBoardSquares.add(new BoardSquare(true, 0));
+
+        aBoardSquares.add(new BoardSquare(false, 0));
+        aBoardSquares.add(new BoardSquare(false, 0));
+        aBoardSquares.add(new BoardSquare(false, 0));
+        aBoardSquares.add(new BoardSquare(true, 0));
+
+        kBoardSquares.add(new BoardSquare(false, 0));
+        kBoardSquares.add(new BoardSquare(false, 0));
+        kBoardSquares.add(new BoardSquare(false, 0));
+        kBoardSquares.add(new BoardSquare(true, 0));
     }
 
     @Override
-    public List<BoardSquare> getInitialBoards() {
-        return boardSquares;
+    public List<BoardSquare> getSColumnBoards() {
+        return sBoardSquares;
     }
 
-    // TODO: logic is a bit hacky/could be improved
     @Override
-    public List<BoardSquare> updateBoardSquare(BoardSquare boardSquare) {
+    public List<BoardSquare> getTColumnBoards() {
+        return tBoardSquares;
+    }
 
-        int index = boardSquares.indexOf(boardSquare);
-        if (index != -1) {
-            int columnIndex = index % 4;
-            int rowsIndex = (index / 4);
+    @Override
+    public List<BoardSquare> getAColumnBoards() {
+        return aBoardSquares;
+    }
 
-            // try to go up the column
-            int rowsIndexAbove = rowsIndex - 1;
-            if (rowsIndexAbove >= 0) {
-                // convert to real index
-                int boardSquareAboveIndex = getIndex(columnIndex, rowsIndexAbove, 4);
-                // get from the current list
-                BoardSquare boardSquareAbove = boardSquares.get(boardSquareAboveIndex);
-                // modify it in the list
-                modifySquareAboveTheSelectedSquare(boardSquare);
-            }
+    @Override
+    public List<BoardSquare> getKColumnBoards() {
+        return kBoardSquares;
+    }
+
+    @Override
+    public void updateBoardSquare(BoardSquare boardSquare, int diceValue) {
+        if (sBoardSquares.contains(boardSquare)) {
+            updateColumnData(sBoardSquares, boardSquare, diceValue);
+        } else if (tBoardSquares.contains(boardSquare)) {
+            updateColumnData(tBoardSquares, boardSquare, diceValue);
+        } else if (aBoardSquares.contains(boardSquare)) {
+            updateColumnData(aBoardSquares, boardSquare, diceValue);
+        } else if (kBoardSquares.contains(boardSquare)) {
+            updateColumnData(kBoardSquares, boardSquare, diceValue);
         }
-        return boardSquares;
     }
 
 
-    private int getIndex(int column, int row, int columnSize) {
-        return row * columnSize + column;
+    // called after one board square is clicked
+    private void updateColumnData(List<BoardSquare> boardSquareListToModify, BoardSquare boardSquare, int lastDiceRolled) {
+
+        // set the square to have the diced roll
+        boardSquare.setDiceRollValue(lastDiceRolled);
+        // make it so it's not selectable any more
+        boardSquare.setIsAvailableForSelecting(false);
+
+        // try to enable the one above this board square
+        int indexOfModifiedBoardSquare = boardSquareListToModify.indexOf(boardSquare);
+        int nextUpBoardSquareIndex = indexOfModifiedBoardSquare - 1;
+        // if it's a valid index
+        if (nextUpBoardSquareIndex >= 0) {
+            // set it as available
+            boardSquareListToModify.get(nextUpBoardSquareIndex)
+                    .setIsAvailableForSelecting(true);
+        }
     }
 
-    // called after a square below is selected
-    private void modifySquareAboveTheSelectedSquare(BoardSquare boardSquare) {
-        boardSquare.setIsAvailableForSelecting(true);
-    }
 }

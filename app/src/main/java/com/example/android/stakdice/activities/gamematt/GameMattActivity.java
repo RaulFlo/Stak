@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.stakdice.adapter.BoardSquareAdapter;
@@ -28,7 +29,7 @@ import com.example.android.stakdice.models.boardsquare.BoardSquare;
 import java.util.List;
 import java.util.Random;
 
-public class GameMattActivity extends AppCompatActivity {
+public class GameMattActivity extends AppCompatActivity implements BoardSquareAdapter.Listener {
 
     private static String STAK_CARD_ID_EXTRA = "StakCardID";
 
@@ -53,7 +54,10 @@ public class GameMattActivity extends AppCompatActivity {
     private EditText aEditText;
     private EditText kEditText;
 
-    private BoardSquareAdapter boardSquareAdapter;
+    private BoardSquareAdapter sBoardSquareAdapter;
+    private BoardSquareAdapter tBoardSquareAdapter;
+    private BoardSquareAdapter aBoardSquareAdapter;
+    private BoardSquareAdapter kBoardSquareAdapter;
     GameMatt matt = new SimpleGameMatt(); // different matts for diff creatures
     private int lastDiceRolled = 0;
 
@@ -73,7 +77,10 @@ public class GameMattActivity extends AppCompatActivity {
         roundView = findViewById(R.id.game_matt_text_view_round);
         imageViewDice = findViewById(R.id.image_view_dice);
         rollButton = findViewById(R.id.button_roll);
-        RecyclerView columnsRv = findViewById(R.id.column_rv);
+        RecyclerView sColumnsRv = findViewById(R.id.s_column_rv);
+        RecyclerView tColumnsRv = findViewById(R.id.t_column_rv);
+        RecyclerView aColumnsRv = findViewById(R.id.a_column_rv);
+        RecyclerView kColumnsRv = findViewById(R.id.k_column_rv);
 
 
         //get intent
@@ -116,28 +123,31 @@ public class GameMattActivity extends AppCompatActivity {
             }
         });
 
-        boardSquareAdapter = new BoardSquareAdapter(new BoardSquareAdapter.Listener() {
-            @Override
-            public void onBoardSquareClicked(BoardSquare boardSquare) {
-                // after they click, set the adapter to not selecting
-                boardSquareAdapter.setSelecting(false);
-
-                // set the square to have the diced roll (TODO: need to update holder to actually show the number if it's set)
-                boardSquare.setDiceRollValue(lastDiceRolled);
-                // make it so it's not selectable any more
-                boardSquare.setIsAvailableForSelecting(false);
-                // update the board
-                List<BoardSquare> updatedGameMatt = matt.updateBoardSquare(boardSquare);
-                // update the adapter
-                boardSquareAdapter.setBoardSquares(updatedGameMatt);
-            }
-        });
-
-        columnsRv.setAdapter(boardSquareAdapter);
-        columnsRv.setLayoutManager(new GridLayoutManager(this, 4));
+        sBoardSquareAdapter = new BoardSquareAdapter(this);
+        tBoardSquareAdapter = new BoardSquareAdapter(this);
+        aBoardSquareAdapter = new BoardSquareAdapter(this);
+        kBoardSquareAdapter = new BoardSquareAdapter(this);
 
 
-        boardSquareAdapter.setBoardSquares(matt.getInitialBoards());
+        sColumnsRv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        sColumnsRv.setNestedScrollingEnabled(false);
+
+        tColumnsRv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        tColumnsRv.setNestedScrollingEnabled(false);
+
+        aColumnsRv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        aColumnsRv.setNestedScrollingEnabled(false);
+
+        kColumnsRv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        kColumnsRv.setNestedScrollingEnabled(false);
+
+        sColumnsRv.setAdapter(sBoardSquareAdapter);
+        tColumnsRv.setAdapter(tBoardSquareAdapter);
+        aColumnsRv.setAdapter(aBoardSquareAdapter);
+        kColumnsRv.setAdapter(kBoardSquareAdapter);
+
+        setAdaptersFromGameMatt(matt);
+
     }
 
 
@@ -196,8 +206,8 @@ public class GameMattActivity extends AppCompatActivity {
             roundView.setText("Round: " + (currentClicks + 1));
             // update the dice roll
             lastDiceRolled = rollDice();
-            // tell adapter we're selecting now
-            boardSquareAdapter.setSelecting(true);
+            // tell adapters we're selecting now
+            updateColumnAdaptersToSelecting(true);
 
             currentClicks++;
         }
@@ -229,5 +239,33 @@ public class GameMattActivity extends AppCompatActivity {
                 break;
         }
         return randomNumber;
+    }
+
+
+    @Override
+    public void onBoardSquareClicked(BoardSquare boardSquare) {
+        // after they click, set the adapter to not selecting
+        updateColumnAdaptersToSelecting(false);
+
+        // update the board
+        matt.updateBoardSquare(boardSquare, lastDiceRolled);
+
+        // update the adapters
+        setAdaptersFromGameMatt(matt);
+    }
+
+
+    private void updateColumnAdaptersToSelecting(boolean isSelecting) {
+        sBoardSquareAdapter.setSelecting(isSelecting);
+        tBoardSquareAdapter.setSelecting(isSelecting);
+        aBoardSquareAdapter.setSelecting(isSelecting);
+        kBoardSquareAdapter.setSelecting(isSelecting);
+    }
+
+    private void setAdaptersFromGameMatt(GameMatt gameMatt) {
+        sBoardSquareAdapter.setBoardSquares(gameMatt.getSColumnBoards());
+        tBoardSquareAdapter.setBoardSquares(gameMatt.getTColumnBoards());
+        aBoardSquareAdapter.setBoardSquares(gameMatt.getAColumnBoards());
+        kBoardSquareAdapter.setBoardSquares(gameMatt.getKColumnBoards());
     }
 }
