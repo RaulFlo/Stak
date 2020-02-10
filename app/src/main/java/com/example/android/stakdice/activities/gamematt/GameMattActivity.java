@@ -12,21 +12,19 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.android.stakdice.R;
 import com.example.android.stakdice.adapter.BoardSquareAdapter;
+import com.example.android.stakdice.customviews.StakCardView;
 import com.example.android.stakdice.dialogs.FailedDialog;
 import com.example.android.stakdice.dialogs.PassedDialog;
-import com.example.android.stakdice.R;
-import com.example.android.stakdice.customviews.StakCardView;
 import com.example.android.stakdice.models.GameMatt;
 import com.example.android.stakdice.models.StakCard;
 import com.example.android.stakdice.models.attribute.Attribute;
 import com.example.android.stakdice.models.boardsquare.BoardSquare;
 
-import java.util.List;
 import java.util.Random;
 
 public class GameMattActivity extends AppCompatActivity implements BoardSquareAdapter.Listener {
@@ -101,7 +99,7 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
                 validateBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        isValid(stakCard);
+                        validateCard(stakCard);
                     }
                 });
 
@@ -150,33 +148,6 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 
     }
 
-
-    private void isValid(StakCard stakCard) {
-        Attribute stakCardStrength = stakCard.getStrength();
-        Attribute stakCardToughness = stakCard.getToughness();
-        Attribute stakCardAgility = stakCard.getAgility();
-        Attribute stakCardKnowledge = stakCard.getKnowledge();
-
-        int sValue = Integer.parseInt(sEditText.getText().toString());
-        int tValue = Integer.parseInt(tEditText.getText().toString());
-        int aValue = Integer.parseInt(aEditText.getText().toString());
-        int kValue = Integer.parseInt(kEditText.getText().toString());
-
-
-        if (stakCardStrength.isValid(sValue) && stakCardToughness.isValid(tValue)
-                && stakCardAgility.isValid(aValue) && stakCardKnowledge.isValid(kValue)) {
-
-
-            openPassDialog();
-
-            //Change the isBeaten on the card to true, commented out for now
-            stakCard.setBeaten(true);
-            gameMattViewModel.update(stakCard);
-        } else {
-            openFailDialog();
-        }
-
-    }
 
     private void openFailDialog() {
         FailedDialog failedDialog = new FailedDialog();
@@ -267,5 +238,41 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         tBoardSquareAdapter.setBoardSquares(gameMatt.getTColumnBoards());
         aBoardSquareAdapter.setBoardSquares(gameMatt.getAColumnBoards());
         kBoardSquareAdapter.setBoardSquares(gameMatt.getKColumnBoards());
+    }
+
+    private void validateCard(StakCard stakCard) {
+        int sSumTotal = sBoardSquareAdapter.getColumnSum();
+        int tSumTotal = tBoardSquareAdapter.getColumnSum();
+        int aSumTotal = aBoardSquareAdapter.getColumnSum();
+        int kSumTotal = kBoardSquareAdapter.getColumnSum();
+
+        sEditText.setText(String.valueOf(sSumTotal));
+        tEditText.setText(String.valueOf(tSumTotal));
+        aEditText.setText(String.valueOf(aSumTotal));
+        kEditText.setText(String.valueOf(kSumTotal));
+
+
+        Attribute stakCardStrength = stakCard.getStrength();
+        Attribute stakCardToughness = stakCard.getToughness();
+        Attribute stakCardAgility = stakCard.getAgility();
+        Attribute stakCardKnowledge = stakCard.getKnowledge();
+
+        int sValue = Integer.parseInt(sEditText.getText().toString());
+        int tValue = Integer.parseInt(tEditText.getText().toString());
+        int aValue = Integer.parseInt(aEditText.getText().toString());
+        int kValue = Integer.parseInt(kEditText.getText().toString());
+
+
+        if (stakCardStrength.isValid(sValue) && stakCardToughness.isValid(tValue)
+                && stakCardAgility.isValid(aValue) && stakCardKnowledge.isValid(kValue)) {
+            openPassDialog();
+
+            //Change the isBeaten on the card to true, commented out for now
+            stakCard.setBeaten(true);
+            gameMattViewModel.update(stakCard);
+        } else {
+            openFailDialog();
+        }
+
     }
 }
