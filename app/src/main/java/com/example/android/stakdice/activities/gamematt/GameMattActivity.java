@@ -163,11 +163,15 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
     public void revealValidateButton() {
         if (currentClicks == 10) {
             validateBtn.setVisibility(View.VISIBLE);
+            hideDiceImage();
         }
     }
 
 
     private void isClicked() {
+
+        //update textview
+        updateViewTotal();
 
         if (currentClicks == maxClicks) {
             rollButton.setEnabled(false);
@@ -175,6 +179,8 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         } else {
 
             roundView.setText("Round: " + (currentClicks + 1));
+
+
             // update the dice roll
             lastDiceRolled = rollDice();
             // tell adapters we're selecting now
@@ -218,13 +224,15 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         // after they click, set the adapter to not selecting
         updateColumnAdaptersToSelecting(false);
 
+        //hide Image
+        hideDiceImage();
+
         // update the board
         matt.updateBoardSquare(boardSquare, lastDiceRolled);
 
         // update the adapters
         setAdaptersFromGameMatt(matt);
     }
-
 
     private void updateColumnAdaptersToSelecting(boolean isSelecting) {
         sBoardSquareAdapter.setSelecting(isSelecting);
@@ -241,16 +249,7 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
     }
 
     private void validateCard(StakCard stakCard) {
-        int sSumTotal = sBoardSquareAdapter.getColumnSum();
-        int tSumTotal = tBoardSquareAdapter.getColumnSum();
-        int aSumTotal = aBoardSquareAdapter.getColumnSum();
-        int kSumTotal = kBoardSquareAdapter.getColumnSum();
-
-        sEditText.setText(String.valueOf(sSumTotal));
-        tEditText.setText(String.valueOf(tSumTotal));
-        aEditText.setText(String.valueOf(aSumTotal));
-        kEditText.setText(String.valueOf(kSumTotal));
-
+        updateViewTotal();
 
         Attribute stakCardStrength = stakCard.getStrength();
         Attribute stakCardToughness = stakCard.getToughness();
@@ -274,5 +273,21 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
             openFailDialog();
         }
 
+    }
+
+    private void updateViewTotal(){
+        int sSumTotal = sBoardSquareAdapter.getColumnSum();
+        int tSumTotal = tBoardSquareAdapter.getColumnSum();
+        int aSumTotal = aBoardSquareAdapter.getColumnSum();
+        int kSumTotal = kBoardSquareAdapter.getColumnSum();
+
+        sEditText.setText(String.valueOf(sSumTotal));
+        tEditText.setText(String.valueOf(tSumTotal));
+        aEditText.setText(String.valueOf(aSumTotal));
+        kEditText.setText(String.valueOf(kSumTotal));
+    }
+
+    private void hideDiceImage(){
+        imageViewDice.setVisibility(View.INVISIBLE);
     }
 }
