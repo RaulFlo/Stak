@@ -37,11 +37,7 @@ public class BoardSquareViewHolder extends RecyclerView.ViewHolder implements Vi
         } else {
             itemView.setBackgroundColor(Color.BLACK);
         }
-
-
-        getBackgroundDiceImage(boardSquare);
-
-
+        setBackgroundDiceImage(boardSquare);
     }
 
     @Override
@@ -49,10 +45,10 @@ public class BoardSquareViewHolder extends RecyclerView.ViewHolder implements Vi
         mListener.onBoardSquareClicked(getAdapterPosition());
     }
 
-    private void getBackgroundDiceImage(BoardSquare boardSquare) {
+    private void setBackgroundDiceImage(BoardSquare boardSquare) {
         int diceValue = boardSquare.getDiceRollValue();
-       int resId= getImageRe(diceValue);
-       itemView.findViewById(R.id.board_square_item).setBackgroundResource(resId);
+        int resId = getImageRe(diceValue);
+        itemView.findViewById(R.id.board_square_item).setBackgroundResource(resId);
     }
 
     private int getImageRe(int diceValue) {
