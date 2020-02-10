@@ -27,7 +27,6 @@ public class BoardSquareViewHolder extends RecyclerView.ViewHolder implements Vi
         itemView.setOnClickListener(null);
 
 
-
         if (boardSquare.getIsAvailableForSelecting()) {
             if (isSelecting) {
                 itemView.setBackgroundColor(Color.GREEN);
@@ -40,8 +39,8 @@ public class BoardSquareViewHolder extends RecyclerView.ViewHolder implements Vi
         }
 
 
-        int diceValue = boardSquare.getDiceRollValue();
-        setImageResource(diceValue,boardSquare);
+        getBackgroundDiceImage(boardSquare);
+
 
     }
 
@@ -50,27 +49,31 @@ public class BoardSquareViewHolder extends RecyclerView.ViewHolder implements Vi
         mListener.onBoardSquareClicked(getAdapterPosition());
     }
 
-    private void setImageResource(int diceValue,BoardSquare boardSquare) {
+    private void getBackgroundDiceImage(BoardSquare boardSquare) {
+        int diceValue = boardSquare.getDiceRollValue();
+       int resId= getImageRe(diceValue);
+       itemView.findViewById(R.id.board_square_item).setBackgroundResource(resId);
+    }
+
+    private int getImageRe(int diceValue) {
 
         switch (diceValue) {
             case 1:
-                boardSquare.setImageResource(R.drawable.dice1);
-                break;
+                return (R.drawable.dice1);
             case 2:
-                boardSquare.setImageResource(R.drawable.dice2);
-                break;
+                return (R.drawable.dice2);
             case 3:
-                boardSquare.setImageResource(R.drawable.dice3);
-                break;
+                return (R.drawable.dice3);
             case 4:
-                boardSquare.setImageResource(R.drawable.dice4);
-                break;
+                return (R.drawable.dice4);
             case 5:
-                boardSquare.setImageResource(R.drawable.dice5);
-                break;
+                return (R.drawable.dice5);
             case 6:
-                boardSquare.setImageResource(R.drawable.dice6);
-                break;
+                return (R.drawable.dice6);
+            default:
+                return (R.drawable.ic_face_black_24dp);
+
         }
+
     }
 }

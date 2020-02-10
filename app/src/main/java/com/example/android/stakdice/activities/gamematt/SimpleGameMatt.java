@@ -16,20 +16,18 @@ public class SimpleGameMatt implements GameMatt {
     public SimpleGameMatt() {
         sBoardSquares.add(new BoardSquare(false, 0));
         sBoardSquares.add(new BoardSquare(false, 0));
-        sBoardSquares.add(new BoardSquare(false, 0));
         sBoardSquares.add(new BoardSquare(true, 0));
 
         tBoardSquares.add(new BoardSquare(false, 0));
         tBoardSquares.add(new BoardSquare(false, 0));
-        tBoardSquares.add(new BoardSquare(false, 0));
         tBoardSquares.add(new BoardSquare(true, 0));
 
-        aBoardSquares.add(new BoardSquare(false, 0));
+
         aBoardSquares.add(new BoardSquare(false, 0));
         aBoardSquares.add(new BoardSquare(false, 0));
         aBoardSquares.add(new BoardSquare(true, 0));
 
-        kBoardSquares.add(new BoardSquare(false, 0));
+
         kBoardSquares.add(new BoardSquare(false, 0));
         kBoardSquares.add(new BoardSquare(false, 0));
         kBoardSquares.add(new BoardSquare(true, 0));

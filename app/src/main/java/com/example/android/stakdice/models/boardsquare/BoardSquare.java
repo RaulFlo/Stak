@@ -4,7 +4,6 @@ public class BoardSquare {
 
     private boolean isAvailableForSelecting = false;
     private int diceRollValue = 0;
-    private int imageResource;
 
     public BoardSquare(boolean _isAvailableForSelecting, int _diceRollValue) {
         isAvailableForSelecting = _isAvailableForSelecting;
@@ -27,11 +26,4 @@ public class BoardSquare {
         isAvailableForSelecting = _isAvailableForSelecting;
     }
 
-    public void setImageResource(int imageResource) {
-        this.imageResource = imageResource;
-    }
-
-    public int getImageResource() {
-        return imageResource;
-    }
 }
