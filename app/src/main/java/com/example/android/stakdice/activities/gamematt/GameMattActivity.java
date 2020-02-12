@@ -256,10 +256,10 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         Attribute stakCardAgility = stakCard.getAgility();
         Attribute stakCardKnowledge = stakCard.getKnowledge();
 
-        int sValue = Integer.parseInt(sEditText.getText().toString());
-        int tValue = Integer.parseInt(tEditText.getText().toString());
-        int aValue = Integer.parseInt(aEditText.getText().toString());
-        int kValue = Integer.parseInt(kEditText.getText().toString());
+        int sValue = sBoardSquareAdapter.getColumnSum();
+        int tValue = tBoardSquareAdapter.getColumnSum();
+        int aValue = aBoardSquareAdapter.getColumnSum();
+        int kValue = kBoardSquareAdapter.getColumnSum();
 
 
         if (stakCardStrength.isValid(sValue) && stakCardToughness.isValid(tValue)
