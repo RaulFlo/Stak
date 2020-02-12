@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -47,10 +46,10 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
     private int maxClicks = 10;
     private int currentClicks = 0;
     private Button validateBtn;
-    private EditText sEditText;
-    private EditText tEditText;
-    private EditText aEditText;
-    private EditText kEditText;
+    private TextView sViewText;
+    private TextView tViewText;
+    private TextView aViewText;
+    private TextView kViewText;
 
     private BoardSquareAdapter sBoardSquareAdapter;
     private BoardSquareAdapter tBoardSquareAdapter;
@@ -68,10 +67,10 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         final StakCardView cardView = findViewById(R.id.stak_card_view);
         //link views
         validateBtn = findViewById(R.id.debug_validate_btn);
-        sEditText = findViewById(R.id.s_debug);
-        tEditText = findViewById(R.id.t_debug);
-        aEditText = findViewById(R.id.a_debug);
-        kEditText = findViewById(R.id.k_debug);
+        sViewText = findViewById(R.id.s_debug);
+        tViewText = findViewById(R.id.t_debug);
+        aViewText = findViewById(R.id.a_debug);
+        kViewText = findViewById(R.id.k_debug);
         roundView = findViewById(R.id.game_matt_text_view_round);
         imageViewDice = findViewById(R.id.image_view_dice);
         rollButton = findViewById(R.id.button_roll);
@@ -175,6 +174,7 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 
         if (currentClicks == maxClicks) {
             rollButton.setEnabled(false);
+            rollButton.setVisibility(View.GONE);
             revealValidateButton();
         } else {
 
@@ -281,10 +281,10 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         int aSumTotal = aBoardSquareAdapter.getColumnSum();
         int kSumTotal = kBoardSquareAdapter.getColumnSum();
 
-        sEditText.setText(String.valueOf(sSumTotal));
-        tEditText.setText(String.valueOf(tSumTotal));
-        aEditText.setText(String.valueOf(aSumTotal));
-        kEditText.setText(String.valueOf(kSumTotal));
+        sViewText.setText(String.valueOf(sSumTotal));
+        tViewText.setText(String.valueOf(tSumTotal));
+        aViewText.setText(String.valueOf(aSumTotal));
+        kViewText.setText(String.valueOf(kSumTotal));
     }
 
     private void hideDiceImage(){
