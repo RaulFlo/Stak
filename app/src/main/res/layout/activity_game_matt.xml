@@ -57,6 +57,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView" />
 
+    <Button
+        android:id="@+id/button_undo"
+        android:layout_width="49dp"
+        android:layout_height="176dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/undo"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView" />
+
     <ImageView
         android:id="@+id/image_view_dice"
         android:layout_width="100dp"
@@ -68,63 +78,75 @@
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView" />
 
-    <EditText
-        android:id="@+id/s_debug"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:inputType="number"
-        app:layout_constraintEnd_toStartOf="@id/t_debug"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageView" />
 
-    <EditText
-        android:id="@+id/t_debug"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:inputType="number"
-        app:layout_constraintEnd_toStartOf="@id/a_debug"
-        app:layout_constraintStart_toEndOf="@id/s_debug"
-        app:layout_constraintTop_toBottomOf="@id/imageView" />
-
-    <EditText
-        android:id="@+id/a_debug"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:inputType="number"
-        app:layout_constraintEnd_toStartOf="@id/k_debug"
-        app:layout_constraintStart_toEndOf="@id/t_debug"
-        app:layout_constraintTop_toBottomOf="@id/imageView" />
-
-    <EditText
-        android:id="@+id/k_debug"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/a_debug"
-        app:layout_constraintTop_toBottomOf="@id/imageView" />
 
     <Button
         android:id="@+id/debug_validate_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_width="49dp"
+        android:layout_height="176dp"
+        android:layout_marginEnd="8dp"
         android:text="@string/validate"
-        app:layout_constraintTop_toBottomOf="@id/s_debug" />
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+    <Button
+        android:id="@+id/text_view_switch"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:autoSizeTextType="uniform"
+        android:background="@drawable/strength_border"
+        android:gravity="center"
+        android:text="Switch"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageView" />
+
+    <Button
+        android:id="@+id/text_view_up_down"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="24dp"
+        android:autoSizeTextType="uniform"
+        android:background="@drawable/toughness_border"
+        android:gravity="center"
+        android:text="Up/Down"
+        app:layout_constraintStart_toEndOf="@id/text_view_switch"
+        app:layout_constraintTop_toBottomOf="@id/imageView" />
+
+    <Button
+        android:id="@+id/text_view_flip"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="24dp"
+        android:autoSizeTextType="uniform"
+        android:background="@drawable/agility_border"
+        android:gravity="center"
+        android:text="Flip"
+        app:layout_constraintStart_toEndOf="@id/text_view_up_down"
+        app:layout_constraintTop_toBottomOf="@id/imageView" />
+
+    <Button
+        android:id="@+id/text_view_reroll"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="24dp"
+        android:autoSizeTextType="uniform"
+        android:background="@drawable/knowledge_border"
+        android:gravity="center"
+        android:text="ReRoll"
+        app:layout_constraintStart_toEndOf="@id/text_view_flip"
+        app:layout_constraintTop_toBottomOf="@id/imageView" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/columns_scroll_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/colorRed"
+        android:background="@color/colorBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/debug_validate_btn">
+        app:layout_constraintTop_toBottomOf="@id/text_view_switch">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -169,6 +191,59 @@
 
 
     </androidx.core.widget.NestedScrollView>
+
+
+    <TextView
+        android:id="@+id/s_debug"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="16dp"
+        android:autoSizeTextType="uniform"
+        android:gravity="center"
+        android:background="@drawable/strength_border"
+        android:inputType="number"
+        app:layout_constraintEnd_toStartOf="@id/t_debug"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <TextView
+        android:id="@+id/t_debug"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="16dp"
+        android:autoSizeTextType="uniform"
+        android:gravity="center"
+        android:background="@drawable/toughness_border"
+        android:inputType="number"
+        app:layout_constraintEnd_toStartOf="@id/a_debug"
+        app:layout_constraintStart_toEndOf="@id/s_debug"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <TextView
+        android:id="@+id/a_debug"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="16dp"
+        android:autoSizeTextType="uniform"
+        android:gravity="center"
+        android:background="@drawable/agility_border"
+        android:inputType="number"
+        app:layout_constraintEnd_toStartOf="@id/k_debug"
+        app:layout_constraintStart_toEndOf="@id/t_debug"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <TextView
+        android:id="@+id/k_debug"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="16dp"
+        android:autoSizeTextType="uniform"
+        android:gravity="center"
+        android:background="@drawable/knowledge_border"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/a_debug"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
