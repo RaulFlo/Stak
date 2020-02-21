@@ -66,6 +66,15 @@ public class SimpleGameMatt implements GameMatt {
         }
     }
 
+    @Override
+    public void undoLastBoardSquare(BoardSquare boardSquare) {
+
+        boardSquare.setDiceRollValue(0);
+
+        boardSquare.setIsAvailableForSelecting(true);
+
+    }
+
 
     // called after one board square is clicked
     private void updateColumnData(List<BoardSquare> boardSquareListToModify, BoardSquare boardSquare, int lastDiceRolled) {

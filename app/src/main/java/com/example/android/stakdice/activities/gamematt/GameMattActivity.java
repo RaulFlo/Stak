@@ -45,7 +45,7 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
     private Button rollButton;
     private int maxClicks = 10;
     private int currentClicks = 0;
-    private Button validateBtn;
+    private Button validateBtn, undoBtn;
     private TextView sViewText;
     private TextView tViewText;
     private TextView aViewText;
@@ -58,6 +58,8 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
     GameMatt matt = new SimpleGameMatt(); // different matts for diff creatures
     private int lastDiceRolled = 0;
 
+    private BoardSquare lastBoardSquare; // for undo button
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,7 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         final StakCardView cardView = findViewById(R.id.stak_card_view);
         //link views
         validateBtn = findViewById(R.id.debug_validate_btn);
+        undoBtn = findViewById(R.id.button_undo);
         sViewText = findViewById(R.id.s_debug);
         tViewText = findViewById(R.id.t_debug);
         aViewText = findViewById(R.id.a_debug);
@@ -116,7 +119,22 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
             @Override
             public void onClick(View view) {
                 imageViewDice.setVisibility(View.VISIBLE);
-                isClicked();
+                rollBtnClicked();
+            }
+        });
+
+        undoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //make dice image reappear with last dice shown
+               imageViewDice.setVisibility(View.VISIBLE);
+
+
+               matt.undoLastBoardSquare(lastBoardSquare);
+
+               //make column able to be selected again
+                updateColumnAdaptersToSelecting(true);
+
             }
         });
 
@@ -167,7 +185,7 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
     }
 
 
-    private void isClicked() {
+    private void rollBtnClicked() {
 
         //update textview
         updateViewTotal();
@@ -226,6 +244,8 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 
         //hide Image
         hideDiceImage();
+
+        lastBoardSquare = boardSquare;
 
         // update the board
         matt.updateBoardSquare(boardSquare, lastDiceRolled);

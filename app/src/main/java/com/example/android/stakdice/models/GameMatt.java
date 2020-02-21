@@ -14,4 +14,6 @@ public interface GameMatt {
     List<BoardSquare> getKColumnBoards();
 
     void updateBoardSquare(BoardSquare boardSquare, int diceValue);
+
+    void undoLastBoardSquare(BoardSquare boardSquare);
 }
