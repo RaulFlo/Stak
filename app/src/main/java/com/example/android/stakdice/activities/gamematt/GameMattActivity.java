@@ -51,6 +51,8 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
     private TextView aViewText;
     private TextView kViewText;
 
+    private boolean squareHasBeenClicked = false;
+
     private BoardSquareAdapter sBoardSquareAdapter;
     private BoardSquareAdapter tBoardSquareAdapter;
     private BoardSquareAdapter aBoardSquareAdapter;
@@ -126,19 +128,22 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         undoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //make dice image reappear with last dice shown
-                imageViewDice.setVisibility(View.VISIBLE);
 
-                //set last boardsquare to 0 and make it able to be available for selecting
-                matt.undoLastBoardSquare(lastBoardSquare);
+                //check if a square has been selected first
+                if(squareHasBeenClicked == true) {
+                    //make dice image reappear with last dice shown
+                    imageViewDice.setVisibility(View.VISIBLE);
+
+                    //set last boardsquare to 0 and make it able to be available for selecting
+                    matt.undoLastBoardSquare(lastBoardSquare);
 
 
-                // update the adapters
-                setAdaptersFromGameMatt(matt);
+                    // update the adapters
+                    setAdaptersFromGameMatt(matt);
 
-                // make boardsquare able to be selected
-                updateColumnAdaptersToSelecting(true);
-
+                    // make boardsquare able to be selected
+                    updateColumnAdaptersToSelecting(true);
+                }
 
             }
         });
@@ -212,6 +217,8 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
             currentClicks++;
         }
 
+        squareHasBeenClicked = false;
+
     }
 
 
@@ -244,6 +251,10 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 
     @Override
     public void onBoardSquareClicked(BoardSquare boardSquare) {
+
+        //set true for undo button
+        squareHasBeenClicked = true;
+
         // after they click, set the adapter to not selecting
         updateColumnAdaptersToSelecting(false);
 
