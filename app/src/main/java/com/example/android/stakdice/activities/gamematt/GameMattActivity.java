@@ -127,13 +127,18 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
             @Override
             public void onClick(View view) {
                 //make dice image reappear with last dice shown
-               imageViewDice.setVisibility(View.VISIBLE);
+                imageViewDice.setVisibility(View.VISIBLE);
+
+                //set last boardsquare to 0 and make it able to be available for selecting
+                matt.undoLastBoardSquare(lastBoardSquare);
 
 
-               matt.undoLastBoardSquare(lastBoardSquare);
+                // update the adapters
+                setAdaptersFromGameMatt(matt);
 
-               //make column able to be selected again
+                // make boardsquare able to be selected
                 updateColumnAdaptersToSelecting(true);
+
 
             }
         });
@@ -295,7 +300,7 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 
     }
 
-    private void updateViewTotal(){
+    private void updateViewTotal() {
         int sSumTotal = sBoardSquareAdapter.getColumnSum();
         int tSumTotal = tBoardSquareAdapter.getColumnSum();
         int aSumTotal = aBoardSquareAdapter.getColumnSum();
@@ -307,7 +312,7 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         kViewText.setText(String.valueOf(kSumTotal));
     }
 
-    private void hideDiceImage(){
+    private void hideDiceImage() {
         imageViewDice.setVisibility(View.INVISIBLE);
     }
 }
