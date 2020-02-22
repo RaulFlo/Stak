@@ -93,7 +93,7 @@ public class SimpleGameMatt implements GameMatt {
         int nextUpBoardSquareIndex = indexOfModifiedBoardSquare - 1;
         // if it's a valid index
         if (nextUpBoardSquareIndex >= 0) {
-            // set it as available
+            // disable it
             boardSquareListToModify.get(nextUpBoardSquareIndex)
                     .setIsAvailableForSelecting(false);
         }

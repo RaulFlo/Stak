@@ -51,7 +51,7 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
     private TextView aViewText;
     private TextView kViewText;
 
-    private boolean squareHasBeenClicked = false;
+
 
     private BoardSquareAdapter sBoardSquareAdapter;
     private BoardSquareAdapter tBoardSquareAdapter;
@@ -128,9 +128,6 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         undoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                //check if a square has been selected first
-                if(squareHasBeenClicked == true) {
                     //make dice image reappear with last dice shown
                     imageViewDice.setVisibility(View.VISIBLE);
 
@@ -143,8 +140,6 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 
                     // make boardsquare able to be selected
                     updateColumnAdaptersToSelecting(true);
-                }
-
             }
         });
 
@@ -217,7 +212,8 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
             currentClicks++;
         }
 
-        squareHasBeenClicked = false;
+        //undo btn set to false after every round
+        undoBtn.setEnabled(false);
 
     }
 
@@ -252,8 +248,8 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
     @Override
     public void onBoardSquareClicked(BoardSquare boardSquare) {
 
-        //set true for undo button
-        squareHasBeenClicked = true;
+        //enable undo btn
+        undoBtn.setEnabled(true);
 
         // after they click, set the adapter to not selecting
         updateColumnAdaptersToSelecting(false);

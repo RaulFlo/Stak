@@ -63,6 +63,7 @@
         android:layout_height="176dp"
         android:layout_marginStart="8dp"
         android:text="@string/undo"
+        android:enabled="false"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView" />
