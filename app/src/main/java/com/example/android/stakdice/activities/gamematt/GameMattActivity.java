@@ -45,11 +45,13 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
     private Button rollButton;
     private int maxClicks = 10;
     private int currentClicks = 0;
-    private Button validateBtn;
+    private Button validateBtn, undoBtn;
     private TextView sViewText;
     private TextView tViewText;
     private TextView aViewText;
     private TextView kViewText;
+
+
 
     private BoardSquareAdapter sBoardSquareAdapter;
     private BoardSquareAdapter tBoardSquareAdapter;
@@ -57,6 +59,8 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
     private BoardSquareAdapter kBoardSquareAdapter;
     GameMatt matt = new SimpleGameMatt(); // different matts for diff creatures
     private int lastDiceRolled = 0;
+
+    private BoardSquare lastBoardSquare; // for undo button
 
 
     @Override
@@ -67,6 +71,7 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         final StakCardView cardView = findViewById(R.id.stak_card_view);
         //link views
         validateBtn = findViewById(R.id.debug_validate_btn);
+        undoBtn = findViewById(R.id.button_undo);
         sViewText = findViewById(R.id.s_debug);
         tViewText = findViewById(R.id.t_debug);
         aViewText = findViewById(R.id.a_debug);
@@ -116,7 +121,25 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
             @Override
             public void onClick(View view) {
                 imageViewDice.setVisibility(View.VISIBLE);
-                isClicked();
+                rollBtnClicked();
+            }
+        });
+
+        undoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    //make dice image reappear with last dice shown
+                    imageViewDice.setVisibility(View.VISIBLE);
+
+                    //set last boardsquare to 0 and make it able to be available for selecting
+                    matt.undoLastBoardSquare(lastBoardSquare);
+
+
+                    // update the adapters
+                    setAdaptersFromGameMatt(matt);
+
+                    // make boardsquare able to be selected
+                    updateColumnAdaptersToSelecting(true);
             }
         });
 
@@ -167,7 +190,7 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
     }
 
 
-    private void isClicked() {
+    private void rollBtnClicked() {
 
         //update textview
         updateViewTotal();
@@ -188,6 +211,9 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 
             currentClicks++;
         }
+
+        //undo btn set to false after every round
+        undoBtn.setEnabled(false);
 
     }
 
@@ -221,11 +247,17 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 
     @Override
     public void onBoardSquareClicked(BoardSquare boardSquare) {
+
+        //enable undo btn
+        undoBtn.setEnabled(true);
+
         // after they click, set the adapter to not selecting
         updateColumnAdaptersToSelecting(false);
 
         //hide Image
         hideDiceImage();
+
+        lastBoardSquare = boardSquare;
 
         // update the board
         matt.updateBoardSquare(boardSquare, lastDiceRolled);
@@ -275,7 +307,7 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 
     }
 
-    private void updateViewTotal(){
+    private void updateViewTotal() {
         int sSumTotal = sBoardSquareAdapter.getColumnSum();
         int tSumTotal = tBoardSquareAdapter.getColumnSum();
         int aSumTotal = aBoardSquareAdapter.getColumnSum();
@@ -287,7 +319,7 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         kViewText.setText(String.valueOf(kSumTotal));
     }
 
-    private void hideDiceImage(){
+    private void hideDiceImage() {
         imageViewDice.setVisibility(View.INVISIBLE);
     }
 }

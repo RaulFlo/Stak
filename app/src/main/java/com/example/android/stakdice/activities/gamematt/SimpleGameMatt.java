@@ -66,6 +66,40 @@ public class SimpleGameMatt implements GameMatt {
         }
     }
 
+    @Override
+    public void undoLastBoardSquare(BoardSquare boardSquare) {
+
+        boardSquare.setDiceRollValue(0);
+
+        boardSquare.setIsAvailableForSelecting(true);
+
+        //check the boardsquare location and disable the top boardsquare
+        if (sBoardSquares.contains(boardSquare)) {
+            undoColumnData(sBoardSquares, boardSquare);
+        } else if (tBoardSquares.contains(boardSquare)) {
+            undoColumnData(tBoardSquares, boardSquare);
+        } else if (aBoardSquares.contains(boardSquare)) {
+            undoColumnData(aBoardSquares, boardSquare);
+        } else if (kBoardSquares.contains(boardSquare)) {
+            undoColumnData(kBoardSquares, boardSquare);
+        }
+    }
+
+    private void undoColumnData(List<BoardSquare> boardSquareListToModify, BoardSquare boardSquare) {
+
+
+        // try to disable the one above this board square
+        int indexOfModifiedBoardSquare = boardSquareListToModify.indexOf(boardSquare);
+        int nextUpBoardSquareIndex = indexOfModifiedBoardSquare - 1;
+        // if it's a valid index
+        if (nextUpBoardSquareIndex >= 0) {
+            // disable it
+            boardSquareListToModify.get(nextUpBoardSquareIndex)
+                    .setIsAvailableForSelecting(false);
+        }
+
+    }
+
 
     // called after one board square is clicked
     private void updateColumnData(List<BoardSquare> boardSquareListToModify, BoardSquare boardSquare, int lastDiceRolled) {
