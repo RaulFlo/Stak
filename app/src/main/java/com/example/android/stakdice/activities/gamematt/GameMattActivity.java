@@ -45,7 +45,14 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
     private Button rollButton;
     private int maxClicks = 10;
     private int currentClicks = 0;
-    private Button validateBtn, undoBtn;
+    private Button validateBtn;
+    private Button undoBtn;
+    private Button switchBtn;
+    private Button upDownBtn;
+    private Button flipBtn;
+    private Button reRollBtn;
+
+
     private TextView sViewText;
     private TextView tViewText;
     private TextView aViewText;
@@ -143,6 +150,38 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
             }
         });
 
+        switchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        upDownBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        flipBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        reRollBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+
+
+
+        //link adapters
         sBoardSquareAdapter = new BoardSquareAdapter(this);
         tBoardSquareAdapter = new BoardSquareAdapter(this);
         aBoardSquareAdapter = new BoardSquareAdapter(this);
