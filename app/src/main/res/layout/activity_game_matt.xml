@@ -91,7 +91,7 @@
         app:layout_constraintTop_toTopOf="@+id/imageView" />
 
     <Button
-        android:id="@+id/text_view_switch"
+        android:id="@+id/btn_view_switch"
         android:layout_width="80dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
@@ -104,7 +104,7 @@
         app:layout_constraintTop_toBottomOf="@id/imageView" />
 
     <Button
-        android:id="@+id/text_view_up_down"
+        android:id="@+id/btn_view_up_down"
         android:layout_width="80dp"
         android:layout_height="50dp"
         android:layout_marginStart="24dp"
@@ -113,11 +113,11 @@
         android:enabled="false"
         android:gravity="center"
         android:text="Up/Down"
-        app:layout_constraintStart_toEndOf="@id/text_view_switch"
+        app:layout_constraintStart_toEndOf="@id/btn_view_switch"
         app:layout_constraintTop_toBottomOf="@id/imageView" />
 
     <Button
-        android:id="@+id/text_view_flip"
+        android:id="@+id/btn_view_flip"
         android:layout_width="80dp"
         android:layout_height="50dp"
         android:layout_marginStart="24dp"
@@ -126,11 +126,11 @@
         android:enabled="false"
         android:gravity="center"
         android:text="Flip"
-        app:layout_constraintStart_toEndOf="@id/text_view_up_down"
+        app:layout_constraintStart_toEndOf="@id/btn_view_up_down"
         app:layout_constraintTop_toBottomOf="@id/imageView" />
 
     <Button
-        android:id="@+id/text_view_reroll"
+        android:id="@+id/btn_view_reroll"
         android:layout_width="80dp"
         android:layout_height="50dp"
         android:layout_marginStart="24dp"
@@ -139,7 +139,7 @@
         android:enabled="false"
         android:gravity="center"
         android:text="ReRoll"
-        app:layout_constraintStart_toEndOf="@id/text_view_flip"
+        app:layout_constraintStart_toEndOf="@id/btn_view_flip"
         app:layout_constraintTop_toBottomOf="@id/imageView" />
 
     <androidx.core.widget.NestedScrollView
@@ -150,7 +150,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_view_switch">
+        app:layout_constraintTop_toBottomOf="@id/btn_view_switch">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

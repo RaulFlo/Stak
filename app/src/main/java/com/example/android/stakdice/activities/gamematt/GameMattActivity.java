@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -59,7 +60,6 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
     private TextView kViewText;
 
 
-
     private BoardSquareAdapter sBoardSquareAdapter;
     private BoardSquareAdapter tBoardSquareAdapter;
     private BoardSquareAdapter aBoardSquareAdapter;
@@ -79,6 +79,11 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         //link views
         validateBtn = findViewById(R.id.debug_validate_btn);
         undoBtn = findViewById(R.id.button_undo);
+        switchBtn = findViewById(R.id.btn_view_switch);
+        upDownBtn = findViewById(R.id.btn_view_up_down);
+        flipBtn = findViewById(R.id.btn_view_flip);
+        reRollBtn = findViewById(R.id.btn_view_reroll);
+
         sViewText = findViewById(R.id.s_debug);
         tViewText = findViewById(R.id.t_debug);
         aViewText = findViewById(R.id.a_debug);
@@ -135,38 +140,48 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         undoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    //make dice image reappear with last dice shown
-                    imageViewDice.setVisibility(View.VISIBLE);
+                // disable ability btn
+                disableAbilityBtns();
 
-                    //set last boardsquare to 0 and make it able to be available for selecting
-                    matt.undoLastBoardSquare(lastBoardSquare);
+                //make dice image reappear with last dice shown
+                imageViewDice.setVisibility(View.VISIBLE);
+
+                //set last boardsquare to 0 and make it able to be available for selecting
+                matt.undoLastBoardSquare(lastBoardSquare);
 
 
-                    // update the adapters
-                    setAdaptersFromGameMatt(matt);
+                // update the adapters
+                setAdaptersFromGameMatt(matt);
 
-                    // make boardsquare able to be selected
-                    updateColumnAdaptersToSelecting(true);
+                // make boardsquare able to be selected
+                updateColumnAdaptersToSelecting(true);
             }
         });
 
         switchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                undoBtn.setEnabled(false);
 
+                switchAbility();
             }
         });
 
         upDownBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                undoBtn.setEnabled(false);
 
+                upDownAbility();
             }
         });
 
         flipBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                undoBtn.setEnabled(false);
+
+                flipAbility();
 
             }
         });
@@ -174,11 +189,11 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         reRollBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                undoBtn.setEnabled(false);
 
+                reRollAbility();
             }
         });
-
-
 
 
         //link adapters
@@ -283,6 +298,26 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         return randomNumber;
     }
 
+    private void columnPicked() {
+
+        String lastColumn = matt.returnLastColumn(lastBoardSquare);
+
+        switch (lastColumn) {
+            case "StrengthColumn":
+                switchBtn.setEnabled(true);
+                break;
+            case "ToughnessColumn":
+                upDownBtn.setEnabled(true);
+                break;
+            case "AgilityColumn":
+                flipBtn.setEnabled(true);
+                break;
+            case "KnowledgeColumn":
+                reRollBtn.setEnabled(true);
+                break;
+        }
+    }
+
 
     @Override
     public void onBoardSquareClicked(BoardSquare boardSquare) {
@@ -300,6 +335,9 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 
         // update the board
         matt.updateBoardSquare(boardSquare, lastDiceRolled);
+
+        //column picked
+        columnPicked();
 
         // update the adapters
         setAdaptersFromGameMatt(matt);
@@ -346,6 +384,34 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 
     }
 
+    private void switchAbility() {
+
+        //TODO: SWITCH
+        Toast.makeText(GameMattActivity.this, "SWITCH", Toast.LENGTH_SHORT).show();
+        disableAbilityBtns();
+    }
+
+    private void upDownAbility() {
+
+        //TODO: UP/Down
+        Toast.makeText(GameMattActivity.this, "up/down", Toast.LENGTH_SHORT).show();
+        disableAbilityBtns();
+    }
+
+    private void flipAbility() {
+
+        //TODO: FLIP
+        Toast.makeText(GameMattActivity.this, "flip", Toast.LENGTH_SHORT).show();
+        disableAbilityBtns();
+    }
+
+    private void reRollAbility() {
+
+        //TODO: Reroll
+        Toast.makeText(GameMattActivity.this, "reroll", Toast.LENGTH_SHORT).show();
+        disableAbilityBtns();
+    }
+
     private void updateViewTotal() {
         int sSumTotal = sBoardSquareAdapter.getColumnSum();
         int tSumTotal = tBoardSquareAdapter.getColumnSum();
@@ -360,5 +426,12 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 
     private void hideDiceImage() {
         imageViewDice.setVisibility(View.INVISIBLE);
+    }
+
+    private void disableAbilityBtns() {
+        switchBtn.setEnabled(false);
+        upDownBtn.setEnabled(false);
+        flipBtn.setEnabled(false);
+        reRollBtn.setEnabled(false);
     }
 }

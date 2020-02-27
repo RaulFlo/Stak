@@ -85,6 +85,20 @@ public class SimpleGameMatt implements GameMatt {
         }
     }
 
+    @Override
+    public String returnLastColumn(BoardSquare boardSquare) {
+        if (sBoardSquares.contains(boardSquare)) {
+            return "StrengthColumn";
+        } else if (tBoardSquares.contains(boardSquare)) {
+            return "ToughnessColumn";
+        } else if (aBoardSquares.contains(boardSquare)) {
+            return "AgilityColumn";
+        } else  return  "KnowledgeColumn";
+    }
+
+
+
+
     private void undoColumnData(List<BoardSquare> boardSquareListToModify, BoardSquare boardSquare) {
 
 

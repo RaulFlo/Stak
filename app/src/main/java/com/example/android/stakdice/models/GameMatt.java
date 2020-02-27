@@ -16,4 +16,7 @@ public interface GameMatt {
     void updateBoardSquare(BoardSquare boardSquare, int diceValue);
 
     void undoLastBoardSquare(BoardSquare boardSquare);
+
+    String returnLastColumn(BoardSquare boardSquare);
+
 }
