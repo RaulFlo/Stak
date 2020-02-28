@@ -1,5 +1,6 @@
 package com.example.android.stakdice.models;
 
+import com.example.android.stakdice.activities.gamematt.SimpleGameMatt;
 import com.example.android.stakdice.models.boardsquare.BoardSquare;
 
 import java.util.List;
@@ -17,6 +18,6 @@ public interface GameMatt {
 
     void undoLastBoardSquare(BoardSquare boardSquare);
 
-    String returnLastColumn(BoardSquare boardSquare);
+    SimpleGameMatt.StakColumn returnLastColumn(BoardSquare boardSquare);
 
 }

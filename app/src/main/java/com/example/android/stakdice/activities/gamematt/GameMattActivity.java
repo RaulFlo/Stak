@@ -133,6 +133,10 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
             @Override
             public void onClick(View view) {
                 imageViewDice.setVisibility(View.VISIBLE);
+
+                //disable ability buttons
+                disableAbilityBtns();
+
                 rollBtnClicked();
             }
         });
@@ -300,19 +304,19 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 
     private void columnPicked() {
 
-        String lastColumn = matt.returnLastColumn(lastBoardSquare);
+      SimpleGameMatt.StakColumn lastColumn = matt.returnLastColumn(lastBoardSquare);
 
         switch (lastColumn) {
-            case "StrengthColumn":
+            case STRENGTH:
                 switchBtn.setEnabled(true);
                 break;
-            case "ToughnessColumn":
+            case TOUGHNESS:
                 upDownBtn.setEnabled(true);
                 break;
-            case "AgilityColumn":
+            case AGILITY:
                 flipBtn.setEnabled(true);
                 break;
-            case "KnowledgeColumn":
+            case KNOWLEDGE:
                 reRollBtn.setEnabled(true);
                 break;
         }

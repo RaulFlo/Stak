@@ -85,15 +85,22 @@ public class SimpleGameMatt implements GameMatt {
         }
     }
 
+    public enum StakColumn{
+        NONE, STRENGTH, TOUGHNESS, AGILITY, KNOWLEDGE;
+    }
+
     @Override
-    public String returnLastColumn(BoardSquare boardSquare) {
+    public StakColumn returnLastColumn(BoardSquare boardSquare) {
         if (sBoardSquares.contains(boardSquare)) {
-            return "StrengthColumn";
+            return StakColumn.STRENGTH;
         } else if (tBoardSquares.contains(boardSquare)) {
-            return "ToughnessColumn";
+            return StakColumn.TOUGHNESS;
         } else if (aBoardSquares.contains(boardSquare)) {
-            return "AgilityColumn";
-        } else  return  "KnowledgeColumn";
+            return StakColumn.AGILITY;
+        } else  if(kBoardSquares.contains(boardSquare)){
+            return StakColumn.KNOWLEDGE;
+        }
+        return StakColumn.NONE;
     }
 
 
