@@ -414,6 +414,7 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
     }
 
     private void flipAbility() {
+        //make boardsquare with dice values able to be selected
         matt.makeBoardSquareSelectableForAbility();
 
 //        switch () {
@@ -437,7 +438,7 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 //                break;
 //        }
 
-        //TODO: FLIP
+        //TODO: FLIP Get click on boardsquare dice value and run it through the switch
         Toast.makeText(GameMattActivity.this, "flip", Toast.LENGTH_SHORT).show();
         disableAbilityBtns();
     }
