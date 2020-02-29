@@ -85,7 +85,7 @@ public class SimpleGameMatt implements GameMatt {
         }
     }
 
-    public enum StakColumn{
+    public enum StakColumn {
         NONE, STRENGTH, TOUGHNESS, AGILITY, KNOWLEDGE;
     }
 
@@ -97,13 +97,43 @@ public class SimpleGameMatt implements GameMatt {
             return StakColumn.TOUGHNESS;
         } else if (aBoardSquares.contains(boardSquare)) {
             return StakColumn.AGILITY;
-        } else  if(kBoardSquares.contains(boardSquare)){
+        } else if (kBoardSquares.contains(boardSquare)) {
             return StakColumn.KNOWLEDGE;
         }
         return StakColumn.NONE;
     }
 
+    @Override
+    public void makeBoardSquareSelectableForAbility() {
 
+        for (BoardSquare bs : sBoardSquares
+        ) {
+            if (bs.getIsAvailableForSelecting() == false)
+                bs.setIsAvailableForSelecting(true);
+            else bs.setIsAvailableForSelecting(false);
+        }
+        for (BoardSquare bs : tBoardSquares
+        ) {
+            if (bs.getIsAvailableForSelecting() == false)
+                bs.setIsAvailableForSelecting(true);
+            else bs.setIsAvailableForSelecting(false);
+        }
+        for (BoardSquare bs : aBoardSquares
+        ) {
+            if (bs.getIsAvailableForSelecting() == false)
+                bs.setIsAvailableForSelecting(true);
+            else bs.setIsAvailableForSelecting(false);
+        }
+
+        for (BoardSquare bs : kBoardSquares
+        ) {
+            if (bs.getIsAvailableForSelecting() == false)
+                bs.setIsAvailableForSelecting(true);
+            else bs.setIsAvailableForSelecting(false);
+        }
+
+
+    }
 
 
     private void undoColumnData(List<BoardSquare> boardSquareListToModify, BoardSquare boardSquare) {

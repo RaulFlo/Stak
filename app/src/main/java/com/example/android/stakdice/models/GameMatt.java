@@ -20,4 +20,6 @@ public interface GameMatt {
 
     SimpleGameMatt.StakColumn returnLastColumn(BoardSquare boardSquare);
 
+    void makeBoardSquareSelectableForAbility();
+
 }

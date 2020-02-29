@@ -414,6 +414,28 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
     }
 
     private void flipAbility() {
+        matt.makeBoardSquareSelectableForAbility();
+
+//        switch () {
+//            case 6:
+//                imageViewDice.setImageResource(R.drawable.dice1);
+//                break;
+//            case 5:
+//                imageViewDice.setImageResource(R.drawable.dice2);
+//                break;
+//            case 4:
+//                imageViewDice.setImageResource(R.drawable.dice3);
+//                break;
+//            case 3:
+//                imageViewDice.setImageResource(R.drawable.dice4);
+//                break;
+//            case 2:
+//                imageViewDice.setImageResource(R.drawable.dice5);
+//                break;
+//            case 1:
+//                imageViewDice.setImageResource(R.drawable.dice6);
+//                break;
+//        }
 
         //TODO: FLIP
         Toast.makeText(GameMattActivity.this, "flip", Toast.LENGTH_SHORT).show();
