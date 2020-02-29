@@ -40,6 +40,7 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
     }
 
 
+
     private ImageView imageViewDice;
     private TextView roundView;
     private Random rng = new Random();
@@ -52,6 +53,7 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
     private Button upDownBtn;
     private Button flipBtn;
     private Button reRollBtn;
+
 
 
     private TextView sViewText;
@@ -144,6 +146,10 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         undoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                //set rollBtn to false
+                rollButton.setEnabled(false);
+
                 // disable ability btn
                 disableAbilityBtns();
 
@@ -273,6 +279,9 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         //undo btn set to false after every round
         undoBtn.setEnabled(false);
 
+        //set false cant go to next round till a boardsquare is selcted
+        rollButton.setEnabled(false);
+
     }
 
 
@@ -325,6 +334,8 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 
     @Override
     public void onBoardSquareClicked(BoardSquare boardSquare) {
+        //make rollBtn able to go to next round
+        rollButton.setEnabled(true);
 
         //enable undo btn
         undoBtn.setEnabled(true);
