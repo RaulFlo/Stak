@@ -14,23 +14,23 @@ public class SimpleGameMatt implements GameMatt {
     private List<BoardSquare> kBoardSquares = new ArrayList<>();
 
     public SimpleGameMatt() {
-        sBoardSquares.add(new BoardSquare(false, 0));
-        sBoardSquares.add(new BoardSquare(false, 0));
-        sBoardSquares.add(new BoardSquare(true, 0));
+        sBoardSquares.add(new BoardSquare(false, 0,false));
+        sBoardSquares.add(new BoardSquare(false, 0,false));
+        sBoardSquares.add(new BoardSquare(true, 0,false));
 
-        tBoardSquares.add(new BoardSquare(false, 0));
-        tBoardSquares.add(new BoardSquare(false, 0));
-        tBoardSquares.add(new BoardSquare(true, 0));
-
-
-        aBoardSquares.add(new BoardSquare(false, 0));
-        aBoardSquares.add(new BoardSquare(false, 0));
-        aBoardSquares.add(new BoardSquare(true, 0));
+        tBoardSquares.add(new BoardSquare(false, 0,false));
+        tBoardSquares.add(new BoardSquare(false, 0,false));
+        tBoardSquares.add(new BoardSquare(true, 0,false));
 
 
-        kBoardSquares.add(new BoardSquare(false, 0));
-        kBoardSquares.add(new BoardSquare(false, 0));
-        kBoardSquares.add(new BoardSquare(true, 0));
+        aBoardSquares.add(new BoardSquare(false, 0,false));
+        aBoardSquares.add(new BoardSquare(false, 0,false));
+        aBoardSquares.add(new BoardSquare(true, 0,false));
+
+
+        kBoardSquares.add(new BoardSquare(false, 0,false));
+        kBoardSquares.add(new BoardSquare(false, 0,false));
+        kBoardSquares.add(new BoardSquare(true, 0,false));
     }
 
     @Override
@@ -105,33 +105,11 @@ public class SimpleGameMatt implements GameMatt {
 
     @Override
     public void makeBoardSquareSelectableForAbility() {
-
-        for (BoardSquare bs : sBoardSquares
-        ) {
-            if (bs.getIsAvailableForSelecting() == false)
-                bs.setIsAvailableForSelecting(true);
-            else bs.setIsAvailableForSelecting(false);
-        }
-        for (BoardSquare bs : tBoardSquares
-        ) {
-            if (bs.getIsAvailableForSelecting() == false)
-                bs.setIsAvailableForSelecting(true);
-            else bs.setIsAvailableForSelecting(false);
-        }
-        for (BoardSquare bs : aBoardSquares
-        ) {
-            if (bs.getIsAvailableForSelecting() == false)
-                bs.setIsAvailableForSelecting(true);
-            else bs.setIsAvailableForSelecting(false);
-        }
-
-        for (BoardSquare bs : kBoardSquares
-        ) {
-            if (bs.getIsAvailableForSelecting() == false)
-                bs.setIsAvailableForSelecting(true);
-            else bs.setIsAvailableForSelecting(false);
-        }
-
+        //input List<BoardSquare> and check for diceValue, if so make selectable
+        makeSelectableIfValueIsFound(sBoardSquares);
+        makeSelectableIfValueIsFound(tBoardSquares);
+        makeSelectableIfValueIsFound(aBoardSquares);
+        makeSelectableIfValueIsFound(kBoardSquares);
 
     }
 
@@ -168,6 +146,18 @@ public class SimpleGameMatt implements GameMatt {
             // set it as available
             boardSquareListToModify.get(nextUpBoardSquareIndex)
                     .setIsAvailableForSelecting(true);
+        }
+    }
+
+    //helper method for makeBoardSquareSelectable for abilities
+    private void makeSelectableIfValueIsFound(List<BoardSquare> boardSquares){
+
+        //for each boardsquare in the List<BoardSquare> find out if it has a dice value, if yes
+        //make it available for selecting
+        for (BoardSquare bs : boardSquares
+        ) {
+            if (bs.getHasDiceValue() == true)
+                bs.setIsAvailableForSelecting(true);
         }
     }
 

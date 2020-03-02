@@ -165,6 +165,9 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 
                 // make boardsquare able to be selected
                 updateColumnAdaptersToSelecting(true);
+
+                //update boolean that boardsquare does not have a dice value anymore
+                lastBoardSquare.setHasDiceValue(false);
             }
         });
 
@@ -342,6 +345,9 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 
         // after they click, set the adapter to not selecting
         updateColumnAdaptersToSelecting(false);
+
+        //update boolean that boardsquare has a dice value
+        boardSquare.setHasDiceValue(true);
 
         //hide Image
         hideDiceImage();

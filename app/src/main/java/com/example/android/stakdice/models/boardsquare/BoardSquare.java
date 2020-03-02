@@ -4,10 +4,12 @@ public class BoardSquare {
 
     private boolean isAvailableForSelecting = false;
     private int diceRollValue = 0;
+    private boolean hasDiceValue;
 
-    public BoardSquare(boolean _isAvailableForSelecting, int _diceRollValue) {
+    public BoardSquare(boolean _isAvailableForSelecting, int _diceRollValue, boolean _hasDiceValue) {
         isAvailableForSelecting = _isAvailableForSelecting;
         diceRollValue = _diceRollValue;
+        hasDiceValue = _hasDiceValue;
     }
 
     public void setDiceRollValue(int _diceRoll) {
@@ -26,4 +28,11 @@ public class BoardSquare {
         isAvailableForSelecting = _isAvailableForSelecting;
     }
 
+    public boolean getHasDiceValue() {
+        return hasDiceValue;
+    }
+
+    public void setHasDiceValue(boolean _hasDiceValue) {
+        this.hasDiceValue = _hasDiceValue;
+    }
 }
