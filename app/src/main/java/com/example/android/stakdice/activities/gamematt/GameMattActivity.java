@@ -40,7 +40,6 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
     }
 
 
-
     private ImageView imageViewDice;
     private TextView roundView;
     private Random rng = new Random();
@@ -52,8 +51,8 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
     private Button switchBtn;
     private Button upDownBtn;
     private Button flipBtn;
+    private boolean isFlipBtnClicked;
     private Button reRollBtn;
-
 
 
     private TextView sViewText;
@@ -194,7 +193,15 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
             public void onClick(View view) {
                 undoBtn.setEnabled(false);
 
-                flipAbility();
+                //make boardsquare with dice values able to be selected
+                matt.makeBoardSquareSelectableForAbility();
+
+                updateColumnAdaptersToSelecting(true);
+
+
+                disableAbilityBtns();
+
+                isFlipBtnClicked = true;
 
             }
         });
@@ -316,7 +323,7 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 
     private void columnPicked() {
 
-      SimpleGameMatt.StakColumn lastColumn = matt.returnLastColumn(lastBoardSquare);
+        SimpleGameMatt.StakColumn lastColumn = matt.returnLastColumn(lastBoardSquare);
 
         switch (lastColumn) {
             case STRENGTH:
@@ -337,31 +344,51 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 
     @Override
     public void onBoardSquareClicked(BoardSquare boardSquare) {
-        //make rollBtn able to go to next round
-        rollButton.setEnabled(true);
 
-        //enable undo btn
-        undoBtn.setEnabled(true);
+        if (isFlipBtnClicked == true) {
 
-        // after they click, set the adapter to not selecting
-        updateColumnAdaptersToSelecting(false);
+            Toast.makeText(this, "FLIP!", Toast.LENGTH_SHORT).show();
+            int intValueOfBs = boardSquare.getDiceRollValue();
 
-        //update boolean that boardsquare has a dice value
-        boardSquare.setHasDiceValue(true);
+            int changedValue = flipAbility(intValueOfBs);
 
-        //hide Image
-        hideDiceImage();
+            matt.updateBoardSquare(boardSquare, changedValue);
 
-        lastBoardSquare = boardSquare;
+            setAdaptersFromGameMatt(matt);
 
-        // update the board
-        matt.updateBoardSquare(boardSquare, lastDiceRolled);
+            isFlipBtnClicked = false;
 
-        //column picked
-        columnPicked();
+        } else {
 
-        // update the adapters
-        setAdaptersFromGameMatt(matt);
+
+            //make rollBtn able to go to next round
+            rollButton.setEnabled(true);
+
+            //enable undo btn
+            undoBtn.setEnabled(true);
+
+            // after they click, set the adapter to not selecting
+            updateColumnAdaptersToSelecting(false);
+
+            //update boolean that boardsquare has a dice value
+            boardSquare.setHasDiceValue(true);
+
+            //hide Image
+            hideDiceImage();
+
+            lastBoardSquare = boardSquare;
+
+            // update the board
+            matt.updateBoardSquare(boardSquare, lastDiceRolled);
+
+            //column picked
+            columnPicked();
+
+            // update the adapters
+            setAdaptersFromGameMatt(matt);
+        }
+
+
     }
 
     private void updateColumnAdaptersToSelecting(boolean isSelecting) {
@@ -419,34 +446,31 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         disableAbilityBtns();
     }
 
-    private void flipAbility() {
-        //make boardsquare with dice values able to be selected
-        matt.makeBoardSquareSelectableForAbility();
+    private int flipAbility(int diceValueForAblity) {
 
-//        switch () {
-//            case 6:
-//                imageViewDice.setImageResource(R.drawable.dice1);
-//                break;
-//            case 5:
-//                imageViewDice.setImageResource(R.drawable.dice2);
-//                break;
-//            case 4:
-//                imageViewDice.setImageResource(R.drawable.dice3);
-//                break;
-//            case 3:
-//                imageViewDice.setImageResource(R.drawable.dice4);
-//                break;
-//            case 2:
-//                imageViewDice.setImageResource(R.drawable.dice5);
-//                break;
-//            case 1:
-//                imageViewDice.setImageResource(R.drawable.dice6);
-//                break;
-//        }
 
-        //TODO: FLIP Get click on boardsquare dice value and run it through the switch
-        Toast.makeText(GameMattActivity.this, "flip", Toast.LENGTH_SHORT).show();
-        disableAbilityBtns();
+        switch (diceValueForAblity) {
+            case 6:
+                return 1;
+            case 5:
+                return 2;
+
+            case 4:
+                return 3;
+
+            case 3:
+                return 4;
+
+            case 2:
+                return 5;
+
+            case 1:
+                return 6;
+
+
+        }
+        return 0;
+
     }
 
     private void reRollAbility() {
