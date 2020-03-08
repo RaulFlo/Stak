@@ -175,6 +175,15 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
             public void onClick(View view) {
                 undoBtn.setEnabled(false);
 
+                //make boardsquare with dice values able to be selected
+                matt.makeBoardSquareSelectableForAbility();
+
+                //make boardsquare able to be selectable
+                updateColumnAdaptersToSelecting(true);
+
+                //disable all Ability buttons
+                disableAbilityBtns();
+
                 switchAbility();
             }
         });
@@ -183,6 +192,15 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
             @Override
             public void onClick(View view) {
                 undoBtn.setEnabled(false);
+
+                //make boardsquare with dice values able to be selected
+                matt.makeBoardSquareSelectableForAbility();
+
+                //make boardsquare able to be selectable
+                updateColumnAdaptersToSelecting(true);
+
+                //disable all Ability buttons
+                disableAbilityBtns();
 
                 upDownAbility();
             }
@@ -196,9 +214,13 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
                 //make boardsquare with dice values able to be selected
                 matt.makeBoardSquareSelectableForAbility();
 
+                //make boardsquare able to be selectable
                 updateColumnAdaptersToSelecting(true);
 
+                //update adapters
+                setAdaptersFromGameMatt(matt);
 
+                //disable all Ability buttons
                 disableAbilityBtns();
 
                 isFlipBtnClicked = true;
@@ -210,6 +232,15 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
             @Override
             public void onClick(View view) {
                 undoBtn.setEnabled(false);
+
+                //make boardsquare with dice values able to be selected
+                matt.makeBoardSquareSelectableForAbility();
+
+                //make boardsquare able to be selectable
+                updateColumnAdaptersToSelecting(true);
+
+                //disable all Ability buttons
+                disableAbilityBtns();
 
                 reRollAbility();
             }
@@ -268,6 +299,9 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 
         //update textview
         updateViewTotal();
+
+        matt.enableAllSelectableSquares();
+        setAdaptersFromGameMatt(matt);
 
         if (currentClicks == maxClicks) {
             rollButton.setEnabled(false);
@@ -347,14 +381,24 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 
         if (isFlipBtnClicked == true) {
 
+
             Toast.makeText(this, "FLIP!", Toast.LENGTH_SHORT).show();
+
+            //save value of clicked boardsquare
             int intValueOfBs = boardSquare.getDiceRollValue();
 
-            int changedValue = flipAbility(intValueOfBs);
+            //input int to method and receive new flipped int
+            int flippedValue = flipAbility(intValueOfBs);
 
-            matt.updateBoardSquare(boardSquare, changedValue);
+            // after they click, set the adapter to not selecting
+            updateColumnAdaptersToSelecting(false);
 
+            // update the adapters
             setAdaptersFromGameMatt(matt);
+
+            //update boardsquare with new flipped int
+            matt.updateBoardSquare(boardSquare, flippedValue);
+
 
             isFlipBtnClicked = false;
 
@@ -446,10 +490,10 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         disableAbilityBtns();
     }
 
-    private int flipAbility(int diceValueForAblity) {
+    private int flipAbility(int diceValueForAbility) {
 
 
-        switch (diceValueForAblity) {
+        switch (diceValueForAbility) {
             case 6:
                 return 1;
             case 5:

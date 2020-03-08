@@ -22,4 +22,6 @@ public interface GameMatt {
 
     void makeBoardSquareSelectableForAbility();
 
+    void enableAllSelectableSquares();
+
 }
