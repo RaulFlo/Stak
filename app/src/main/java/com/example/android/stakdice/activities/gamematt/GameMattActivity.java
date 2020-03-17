@@ -52,6 +52,7 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
     private Button upDownBtn;
     private Button flipBtn;
     private boolean isFlipBtnClicked;
+    private boolean isReRollBtnClicked;
     private Button reRollBtn;
 
 
@@ -239,10 +240,13 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
                 //make boardsquare able to be selectable
                 updateColumnAdaptersToSelecting(true);
 
+                //update adapters
+                setAdaptersFromGameMatt(matt);
+
                 //disable all Ability buttons
                 disableAbilityBtns();
 
-                reRollAbility();
+                isReRollBtnClicked = true;
             }
         });
 
@@ -402,7 +406,30 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 
             isFlipBtnClicked = false;
 
-        } else {
+        } else if (isReRollBtnClicked == true){
+
+            Toast.makeText(this, "REROLL!!", Toast.LENGTH_SHORT).show();
+
+
+            //input int to method and receive new reroll int
+            int reRolledValue = rollDice();
+
+            // after they click, set the adapter to not selecting
+            updateColumnAdaptersToSelecting(false);
+
+            // update the adapters
+            setAdaptersFromGameMatt(matt);
+
+            //update boardsquare with new flipped int
+            matt.updateBoardSquare(boardSquare, reRolledValue);
+
+
+            isReRollBtnClicked = false;
+
+
+        }
+
+        else {
 
 
             //make rollBtn able to go to next round
@@ -517,12 +544,6 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 
     }
 
-    private void reRollAbility() {
-
-        //TODO: Reroll
-        Toast.makeText(GameMattActivity.this, "reroll", Toast.LENGTH_SHORT).show();
-        disableAbilityBtns();
-    }
 
     private void updateViewTotal() {
         int sSumTotal = sBoardSquareAdapter.getColumnSum();
