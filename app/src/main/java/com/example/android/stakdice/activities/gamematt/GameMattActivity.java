@@ -51,9 +51,15 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
     private Button switchBtn;
     private Button upDownBtn;
     private Button flipBtn;
+    private Button abilityUpBtn;
+    private Button abilityDownBtn;
     private boolean isFlipBtnClicked;
     private boolean isReRollBtnClicked;
+    private boolean upDownBtnClicked;
     private Button reRollBtn;
+
+    private boolean isUpBtnPressed;
+    private boolean isDownBtnPressed;
 
 
     private TextView sViewText;
@@ -85,6 +91,8 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         upDownBtn = findViewById(R.id.btn_view_up_down);
         flipBtn = findViewById(R.id.btn_view_flip);
         reRollBtn = findViewById(R.id.btn_view_reroll);
+        abilityUpBtn = findViewById(R.id.ability_up_button);
+        abilityDownBtn = findViewById(R.id.ability_down_button);
 
         sViewText = findViewById(R.id.s_debug);
         tViewText = findViewById(R.id.t_debug);
@@ -203,7 +211,27 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
                 //disable all Ability buttons
                 disableAbilityBtns();
 
-                upDownAbility();
+
+                abilityUpBtn.setVisibility(View.VISIBLE);
+                abilityDownBtn.setVisibility(View.VISIBLE);
+
+
+                abilityUpBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        isUpBtnPressed = true;
+                    }
+                });
+
+                abilityDownBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        isDownBtnPressed = true;
+                    }
+                });
+
+                upDownBtnClicked = true;
+
             }
         });
 
@@ -406,7 +434,7 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 
             isFlipBtnClicked = false;
 
-        } else if (isReRollBtnClicked == true){
+        } else if (isReRollBtnClicked == true) {
 
             Toast.makeText(this, "REROLL!!", Toast.LENGTH_SHORT).show();
 
@@ -427,9 +455,35 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
             isReRollBtnClicked = false;
 
 
-        }
+        } else if (upDownBtnClicked == true) {
 
-        else {
+            if(isUpBtnPressed == true || isDownBtnPressed == true) {
+                //save value of clicked boardsquare
+                int intValueOfBs = boardSquare.getDiceRollValue();
+
+                //input int to method and receive new flipped int
+                int upOrDownValue = upDownAbility(intValueOfBs);
+
+
+                // after they click, set the adapter to not selecting
+                updateColumnAdaptersToSelecting(false);
+
+                // update the adapters
+                setAdaptersFromGameMatt(matt);
+
+                //update boardsquare with new flipped int
+                matt.updateBoardSquare(boardSquare, upOrDownValue);
+
+                abilityUpBtn.setVisibility(View.GONE);
+                abilityDownBtn.setVisibility(View.GONE);
+
+
+                upDownBtnClicked = false;
+                isUpBtnPressed = false;
+                isDownBtnPressed = false;
+            }
+
+        } else {
 
 
             //make rollBtn able to go to next round
@@ -510,11 +564,25 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         disableAbilityBtns();
     }
 
-    private void upDownAbility() {
+    private int upDownAbility( int diceValueForAbility) {
 
-        //TODO: UP/Down
-        Toast.makeText(GameMattActivity.this, "up/down", Toast.LENGTH_SHORT).show();
-        disableAbilityBtns();
+
+        if (isUpBtnPressed == true) {
+            if (diceValueForAbility == 6) {
+                Toast.makeText(this, "Not Allowed", Toast.LENGTH_SHORT).show();
+                return diceValueForAbility;
+            }
+            return diceValueForAbility + 1;
+        } else if (isDownBtnPressed == true) {
+            if (diceValueForAbility == 1) {
+                Toast.makeText(this, "Not Allowed", Toast.LENGTH_SHORT).show();
+                return diceValueForAbility;
+            }
+            return diceValueForAbility - 1;
+        }
+
+
+        return diceValueForAbility;
     }
 
     private int flipAbility(int diceValueForAbility) {
