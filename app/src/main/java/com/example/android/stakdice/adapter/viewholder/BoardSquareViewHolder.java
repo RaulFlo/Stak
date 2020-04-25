@@ -67,7 +67,7 @@ public class BoardSquareViewHolder extends RecyclerView.ViewHolder implements Vi
             case 6:
                 return (R.drawable.dice6);
             default:
-                return (R.drawable.ic_face_black_24dp);
+                return (R.drawable.ic_crop_din_black_24dp);
 
         }
 
