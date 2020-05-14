@@ -38,6 +38,9 @@ public class GameMattViewModel extends AndroidViewModel {
     public MutableLiveData<Integer> diceImageRes = new MutableLiveData<>(0);
     public MutableLiveData<Integer> diceRollValue = new MutableLiveData<>(0);
 
+    // validate
+    public MutableLiveData<Boolean> validateBtnVisible = new MutableLiveData<>(false);
+
     // show dialogs
     public MutableLiveData<Boolean> showPassDialog = new MutableLiveData<>(false);
     public MutableLiveData<Boolean> showFailDialog = new MutableLiveData<>(false);

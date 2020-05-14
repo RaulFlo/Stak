@@ -93,7 +93,6 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         rollButton = findViewById(R.id.button_roll);
         setupRecyclerAdapterView();
 
-
         //get intent
         Intent intent = getIntent();
         final String stakCardId = intent.getStringExtra(STAK_CARD_ID_EXTRA);
@@ -102,11 +101,6 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         gameMattViewModel = ViewModelProviders.of(this).get(GameMattViewModel.class);
 
         observeViewModel(gameMattViewModel, stakCardId);
-
-        //Visibility
-        imageViewDice.setVisibility(View.INVISIBLE);
-        validateBtn.setVisibility(View.INVISIBLE);
-
 
         //buttons
         rollButton.setOnClickListener(new View.OnClickListener() {
@@ -401,7 +395,16 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
                 updateColumnAdaptersToSelecting(aBoolean);
             }
         });
-
+        gameMattViewModel.validateBtnVisible.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean) {
+                    validateBtn.setVisibility(View.VISIBLE);
+                } else {
+                    validateBtn.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
     }
 
     private void showFailDialog() {
@@ -419,26 +422,6 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 //        if (currentClicks == 10) {
 //            validateBtn.setVisibility(View.VISIBLE);
 //            hideDiceImage();
-//        }
-//    }
-
-//    private void columnPicked() {
-//
-//        SimpleGameMatt.StakColumn lastColumn = matt.returnStakColumn(lastBoardSquare);
-//
-//        switch (lastColumn) {
-//            case STRENGTH:
-//                switchBtn.setEnabled(true);
-//                break;
-//            case TOUGHNESS:
-//                upDownBtn.setEnabled(true);
-//                break;
-//            case AGILITY:
-//                flipBtn.setEnabled(true);
-//                break;
-//            case KNOWLEDGE:
-//                reRollBtn.setEnabled(true);
-//                break;
 //        }
 //    }
 
@@ -617,10 +600,6 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         tViewText.setText(String.valueOf(tSumTotal));
         aViewText.setText(String.valueOf(aSumTotal));
         kViewText.setText(String.valueOf(kSumTotal));
-    }
-
-    private void hideDiceImage() {
-        imageViewDice.setVisibility(View.INVISIBLE);
     }
 
     private void disableAbilityBtns() {
