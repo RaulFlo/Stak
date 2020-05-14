@@ -11,7 +11,7 @@ import com.example.android.stakdice.R;
 
 public class StakHolder extends RecyclerView.ViewHolder {
 
-    interface StakHolderListener {
+    public interface StakHolderListener {
         void onItemClicked(int adapterPosition);
     }
 
