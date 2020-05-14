@@ -1,4 +1,4 @@
-package com.example.android.stakdice.adapter;
+package com.example.android.stakdice.adapter.viewholder;
 
 import android.view.View;
 import android.widget.ImageView;
