@@ -29,6 +29,9 @@ public class GameMattViewModel extends AndroidViewModel {
     public MutableLiveData<Boolean> flipEnabled = new MutableLiveData<>(false);
     public MutableLiveData<Boolean> reRollEnabled = new MutableLiveData<>(false);
 
+    public MutableLiveData<Boolean> rollButtonEnabled = new MutableLiveData<>(true);
+    public MutableLiveData<Boolean> undoButtonEnabled = new MutableLiveData<>(false);
+
     // dice
     public MutableLiveData<Boolean> diceViewVisible = new MutableLiveData<>(false);
     public MutableLiveData<Integer> diceImageRes = new MutableLiveData<>(0);
@@ -37,6 +40,10 @@ public class GameMattViewModel extends AndroidViewModel {
     // show dialogs
     public MutableLiveData<Boolean> showPassDialog = new MutableLiveData<>(false);
     public MutableLiveData<Boolean> showFailDialog = new MutableLiveData<>(false);
+
+
+    private int round = 0;
+    private int lastDiceRoll = 0;
 
 
     private Random rng = new Random();
@@ -61,13 +68,19 @@ public class GameMattViewModel extends AndroidViewModel {
         }
     }
 
-    public void rollDice() {
+    public void onRollDiceButtonClicked() {
+        // increment round
+        round++;
+        // disable abilities
+        disableAbilities();
+        // disable undo
+        undoButtonEnabled.setValue(false);
+        updateDiceValuesToNewRollAndShowDiceImage();
+    }
+
+    public int getDiceRollValue() {
         // get roll number
-        int randomNumber = rng.nextInt(6) + 1;
-        // set dice roll value
-        diceRollValue.setValue(randomNumber);
-        // set dice image based on roll
-        diceImageRes.setValue(getDiceImageByRollAmount(randomNumber));
+        return rng.nextInt(6) + 1;
     }
 
     public void onShowDialogShown() {
@@ -76,6 +89,24 @@ public class GameMattViewModel extends AndroidViewModel {
 
     public void onFailDialogShown() {
         showFailDialog.setValue(false);
+    }
+
+    private void updateDiceValuesToNewRollAndShowDiceImage() {
+        // get new dice roll value
+        lastDiceRoll = getDiceRollValue();
+        // set dice roll value
+        diceRollValue.setValue(lastDiceRoll);
+        // set dice image based on roll
+        diceImageRes.setValue(getDiceImageByRollAmount(lastDiceRoll));
+        // show dice image
+        diceViewVisible.setValue(true);
+    }
+
+    private void disableAbilities() {
+        switchEnabled.setValue(false);
+        upDownEnabled.setValue(false);
+        flipEnabled.setValue(false);
+        reRollEnabled.setValue(false);
     }
 
     private void onStakCardBeaten(StakCard stakCard) {

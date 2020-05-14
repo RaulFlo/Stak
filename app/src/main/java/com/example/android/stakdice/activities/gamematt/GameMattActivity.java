@@ -46,6 +46,7 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
     private Button rollButton;
     private int maxClicks = 10;
     private int currentClicks = 0;
+    private StakCardView stakCardView;
     private Button validateBtn;
     private Button undoBtn;
     private Button switchBtn;
@@ -82,9 +83,8 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_matt);
-
-        final StakCardView cardView = findViewById(R.id.stak_card_view);
         //link views
+        stakCardView = findViewById(R.id.stak_card_view);
         validateBtn = findViewById(R.id.debug_validate_btn);
         undoBtn = findViewById(R.id.button_undo);
         switchBtn = findViewById(R.id.btn_view_switch);
@@ -101,36 +101,16 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         roundView = findViewById(R.id.game_matt_text_view_round);
         imageViewDice = findViewById(R.id.image_view_dice);
         rollButton = findViewById(R.id.button_roll);
-        RecyclerView sColumnsRv = findViewById(R.id.s_column_rv);
-        RecyclerView tColumnsRv = findViewById(R.id.t_column_rv);
-        RecyclerView aColumnsRv = findViewById(R.id.a_column_rv);
-        RecyclerView kColumnsRv = findViewById(R.id.k_column_rv);
 
 
         //get intent
         Intent intent = getIntent();
         final String stakCardId = intent.getStringExtra(STAK_CARD_ID_EXTRA);
 
-
         //ask sys for new ViewModel, scopes it to this activity and destroys when this activity destroyed
         gameMattViewModel = ViewModelProviders.of(this).get(GameMattViewModel.class);
 
-        gameMattViewModel.getSingleStak(stakCardId).observe(this, new Observer<StakCard>() {
-            @Override
-            public void onChanged(final StakCard stakCard) {
-                //set current stakCard to view
-                cardView.setStakCard(stakCard);
-
-                validateBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        validateCard(stakCard);
-                    }
-                });
-
-
-            }
-        });
+        observeViewModel(gameMattViewModel, stakCardId);
 
         //Visibility
         imageViewDice.setVisibility(View.INVISIBLE);
@@ -141,12 +121,12 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         rollButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                imageViewDice.setVisibility(View.VISIBLE);
-
-                //disable ability buttons
-                disableAbilityBtns();
-
-                rollBtnClicked();
+                //update textview
+                updateViewTotal();
+                matt.enableAllSelectableSquares();
+                setAdaptersFromGameMatt(matt);
+                gameMattViewModel.onRollDiceButtonClicked();
+                updateColumnAdaptersToSelecting(true);
             }
         });
 
@@ -277,26 +257,31 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
             }
         });
 
-
-        //link adapters
-        sBoardSquareAdapter = new BoardSquareAdapter(this);
-        tBoardSquareAdapter = new BoardSquareAdapter(this);
-        aBoardSquareAdapter = new BoardSquareAdapter(this);
-        kBoardSquareAdapter = new BoardSquareAdapter(this);
-
-        setupRecyclerViewSettings(sColumnsRv, sBoardSquareAdapter);
-        setupRecyclerViewSettings(tColumnsRv, tBoardSquareAdapter);
-        setupRecyclerViewSettings(aColumnsRv, aBoardSquareAdapter);
-        setupRecyclerViewSettings(kColumnsRv, kBoardSquareAdapter);
-
-        setAdaptersFromGameMatt(matt);
-
+        initializeAdapters(matt);
     }
 
-    private void setupRecyclerViewSettings(RecyclerView rv, BoardSquareAdapter adapter) {
-        rv.setAdapter(adapter);
-        rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        rv.setNestedScrollingEnabled(false);
+    private void observeViewModel(final GameMattViewModel gameMattViewModel, String stakCardId) {
+        // observe main stak card
+        gameMattViewModel.getSingleStak(stakCardId).observe(this, new Observer<StakCard>() {
+            @Override
+            public void onChanged(final StakCard stakCard) {
+                //set current stakCard to view
+                stakCardView.setStakCard(stakCard);
+
+                validateBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        updateViewTotal();
+
+                        int sValue = sBoardSquareAdapter.getColumnSum();
+                        int tValue = tBoardSquareAdapter.getColumnSum();
+                        int aValue = aBoardSquareAdapter.getColumnSum();
+                        int kValue = kBoardSquareAdapter.getColumnSum();
+                        gameMattViewModel.validateCard(stakCard, sValue, tValue, aValue, kValue);
+                    }
+                });
+            }
+        });
     }
 
 
@@ -316,67 +301,6 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
             validateBtn.setVisibility(View.VISIBLE);
             hideDiceImage();
         }
-    }
-
-
-    private void rollBtnClicked() {
-
-        //update textview
-        updateViewTotal();
-
-        matt.enableAllSelectableSquares();
-        setAdaptersFromGameMatt(matt);
-
-        if (currentClicks == maxClicks) {
-            rollButton.setEnabled(false);
-            rollButton.setVisibility(View.GONE);
-            revealValidateButton();
-        } else {
-
-            roundView.setText("Round: " + (currentClicks + 1));
-
-
-            // update the dice roll
-            lastDiceRolled = rollDice();
-            // tell adapters we're selecting now
-            updateColumnAdaptersToSelecting(true);
-
-            currentClicks++;
-        }
-
-        //undo btn set to false after every round
-        undoBtn.setEnabled(false);
-
-        //set false cant go to next round till a boardsquare is selcted
-        rollButton.setEnabled(false);
-
-    }
-
-
-    private int rollDice() {
-        int randomNumber = rng.nextInt(6) + 1;
-
-        switch (randomNumber) {
-            case 1:
-                imageViewDice.setImageResource(R.drawable.dice1);
-                break;
-            case 2:
-                imageViewDice.setImageResource(R.drawable.dice2);
-                break;
-            case 3:
-                imageViewDice.setImageResource(R.drawable.dice3);
-                break;
-            case 4:
-                imageViewDice.setImageResource(R.drawable.dice4);
-                break;
-            case 5:
-                imageViewDice.setImageResource(R.drawable.dice5);
-                break;
-            case 6:
-                imageViewDice.setImageResource(R.drawable.dice6);
-                break;
-        }
-        return randomNumber;
     }
 
     private void columnPicked() {
@@ -432,7 +356,7 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 
 
             //input int to method and receive new reroll int
-            int reRolledValue = rollDice();
+            int reRolledValue = 0; //FIXME: rollDice();
 
             // after they click, set the adapter to not selecting
             updateColumnAdaptersToSelecting(false);
@@ -508,24 +432,6 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 
     }
 
-
-    private void validateCard(StakCard stakCard) {
-        updateViewTotal();
-
-        int sValue = sBoardSquareAdapter.getColumnSum();
-        int tValue = tBoardSquareAdapter.getColumnSum();
-        int aValue = aBoardSquareAdapter.getColumnSum();
-        int kValue = kBoardSquareAdapter.getColumnSum();
-
-        if (stakCard.isValid(sValue, tValue, aValue, kValue)) {
-            openPassDialog();
-            gameMattViewModel.onStakCardBeaten(stakCard);
-        } else {
-            openFailDialog();
-        }
-
-    }
-
     private void switchAbility() {
 
         //TODO: SWITCH
@@ -581,7 +487,6 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 
     }
 
-
     private void updateViewTotal() {
         int sSumTotal = sBoardSquareAdapter.getColumnSum();
         int tSumTotal = tBoardSquareAdapter.getColumnSum();
@@ -603,6 +508,32 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         upDownBtn.setEnabled(false);
         flipBtn.setEnabled(false);
         reRollBtn.setEnabled(false);
+    }
+
+    private void initializeAdapters(GameMatt gameMatt) {
+        RecyclerView sColumnsRv = findViewById(R.id.s_column_rv);
+        RecyclerView tColumnsRv = findViewById(R.id.t_column_rv);
+        RecyclerView aColumnsRv = findViewById(R.id.a_column_rv);
+        RecyclerView kColumnsRv = findViewById(R.id.k_column_rv);
+
+        //link adapters
+        sBoardSquareAdapter = new BoardSquareAdapter(this);
+        tBoardSquareAdapter = new BoardSquareAdapter(this);
+        aBoardSquareAdapter = new BoardSquareAdapter(this);
+        kBoardSquareAdapter = new BoardSquareAdapter(this);
+
+        setupRecyclerViewSettings(sColumnsRv, sBoardSquareAdapter);
+        setupRecyclerViewSettings(tColumnsRv, tBoardSquareAdapter);
+        setupRecyclerViewSettings(aColumnsRv, aBoardSquareAdapter);
+        setupRecyclerViewSettings(kColumnsRv, kBoardSquareAdapter);
+
+        setAdaptersFromGameMatt(gameMatt);
+    }
+
+    private void setupRecyclerViewSettings(RecyclerView rv, BoardSquareAdapter adapter) {
+        rv.setAdapter(adapter);
+        rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        rv.setNestedScrollingEnabled(false);
     }
 
     private void updateColumnAdaptersToSelecting(boolean isSelecting) {
