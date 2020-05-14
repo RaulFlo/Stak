@@ -22,7 +22,6 @@ import com.example.android.stakdice.dialogs.FailedDialog;
 import com.example.android.stakdice.dialogs.PassedDialog;
 import com.example.android.stakdice.models.GameMatt;
 import com.example.android.stakdice.models.StakCard;
-import com.example.android.stakdice.models.attribute.Attribute;
 import com.example.android.stakdice.models.boardsquare.BoardSquare;
 
 import java.util.Random;
@@ -39,13 +38,9 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         return intent;
     }
 
-
     private ImageView imageViewDice;
     private TextView roundView;
-    private Random rng = new Random();
     private Button rollButton;
-    private int maxClicks = 10;
-    private int currentClicks = 0;
     private StakCardView stakCardView;
     private Button validateBtn;
     private Button undoBtn;
@@ -54,30 +49,27 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
     private Button flipBtn;
     private Button abilityUpBtn;
     private Button abilityDownBtn;
-    private boolean isFlipBtnClicked;
-    private boolean isReRollBtnClicked;
-    private boolean upDownBtnClicked;
     private Button reRollBtn;
-
-    private boolean isUpBtnPressed;
-    private boolean isDownBtnPressed;
-
-
     private TextView sViewText;
     private TextView tViewText;
     private TextView aViewText;
     private TextView kViewText;
-
 
     private BoardSquareAdapter sBoardSquareAdapter;
     private BoardSquareAdapter tBoardSquareAdapter;
     private BoardSquareAdapter aBoardSquareAdapter;
     private BoardSquareAdapter kBoardSquareAdapter;
     GameMatt matt = new SimpleGameMatt(); // different matts for diff creatures
+    private int maxClicks = 10;
+    private int currentClicks = 0;
+    private boolean isFlipBtnClicked;
+    private boolean upDownBtnClicked;
+    private boolean isReRollBtnClicked;
+    private boolean isUpBtnPressed;
+    private boolean isDownBtnPressed;
     private int lastDiceRolled = 0;
 
     private BoardSquare lastBoardSquare; // for undo button
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -282,15 +274,130 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
                 });
             }
         });
+
+        gameMattViewModel.sTotal.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                sViewText.setText(String.valueOf(integer));
+            }
+        });
+
+        gameMattViewModel.tTotal.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                tViewText.setText(String.valueOf(integer));
+            }
+        });
+
+        gameMattViewModel.aTotal.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                aViewText.setText(String.valueOf(integer));
+            }
+        });
+
+        gameMattViewModel.kTotal.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                kViewText.setText(String.valueOf(integer));
+            }
+        });
+
+        gameMattViewModel.switchEnabled.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                switchBtn.setEnabled(aBoolean);
+            }
+        });
+        gameMattViewModel.upDownEnabled.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                upDownBtn.setEnabled(aBoolean);
+            }
+        });
+        gameMattViewModel.flipEnabled.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                flipBtn.setEnabled(aBoolean);
+            }
+        });
+
+        gameMattViewModel.reRollEnabled.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                reRollBtn.setEnabled(aBoolean);
+            }
+        });
+
+        gameMattViewModel.rollButtonEnabled.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                rollButton.setEnabled(aBoolean);
+            }
+        });
+        gameMattViewModel.undoButtonEnabled.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                undoBtn.setEnabled(aBoolean);
+            }
+        });
+        gameMattViewModel.diceViewVisible.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean) {
+                    imageViewDice.setVisibility(View.VISIBLE);
+                } else {
+                    imageViewDice.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+        gameMattViewModel.diceImageRes.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                imageViewDice.setImageResource(integer);
+            }
+        });
+        gameMattViewModel.diceRollValue.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                // todo:
+            }
+        });
+
+        gameMattViewModel.roundLv.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                roundView.setText("Round: " + integer);
+            }
+        });
+
+        gameMattViewModel.showFailDialog.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean) {
+                    showFailDialog();
+                    gameMattViewModel.onFailDialogShown();
+                }
+            }
+        });
+        gameMattViewModel.showPassDialog.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean) {
+                    showPassDialog();
+                    gameMattViewModel.onPassDialogShown();
+                }
+            }
+        });
+
     }
 
-
-    private void openFailDialog() {
+    private void showFailDialog() {
         FailedDialog failedDialog = new FailedDialog();
         failedDialog.show(getSupportFragmentManager(), "failed dialog");
     }
 
-    private void openPassDialog() {
+    private void showPassDialog() {
         PassedDialog passedDialog = new PassedDialog();
         passedDialog.show(getSupportFragmentManager(), "passed dialog");
 
@@ -327,7 +434,7 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
     @Override
     public void onBoardSquareClicked(BoardSquare boardSquare) {
 
-        if (isFlipBtnClicked == true) {
+        if (isFlipBtnClicked) {
 
 
             Toast.makeText(this, "FLIP!", Toast.LENGTH_SHORT).show();
@@ -350,7 +457,7 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 
             isFlipBtnClicked = false;
 
-        } else if (isReRollBtnClicked == true) {
+        } else if (isReRollBtnClicked) {
 
             Toast.makeText(this, "REROLL!!", Toast.LENGTH_SHORT).show();
 
@@ -371,9 +478,9 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
             isReRollBtnClicked = false;
 
 
-        } else if (upDownBtnClicked == true) {
+        } else if (upDownBtnClicked) {
 
-            if (isUpBtnPressed == true || isDownBtnPressed == true) {
+            if (isUpBtnPressed || isDownBtnPressed) {
                 //save value of clicked boardsquare
                 int intValueOfBs = boardSquare.getDiceRollValue();
 

@@ -41,6 +41,9 @@ public class GameMattViewModel extends AndroidViewModel {
     public MutableLiveData<Boolean> showPassDialog = new MutableLiveData<>(false);
     public MutableLiveData<Boolean> showFailDialog = new MutableLiveData<>(false);
 
+    // round
+    public MutableLiveData<Integer> roundLv = new MutableLiveData<>(0);
+
 
     private int round = 0;
     private int lastDiceRoll = 0;
@@ -71,6 +74,7 @@ public class GameMattViewModel extends AndroidViewModel {
     public void onRollDiceButtonClicked() {
         // increment round
         round++;
+        roundLv.setValue(round);
         // disable abilities
         disableAbilities();
         // disable undo
@@ -83,7 +87,7 @@ public class GameMattViewModel extends AndroidViewModel {
         return rng.nextInt(6) + 1;
     }
 
-    public void onShowDialogShown() {
+    public void onPassDialogShown() {
         showPassDialog.setValue(false);
     }
 
