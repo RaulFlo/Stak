@@ -90,7 +90,7 @@ public class SimpleGameMatt implements GameMatt {
     }
 
     @Override
-    public StakColumn returnLastColumn(BoardSquare boardSquare) {
+    public StakColumn returnStakColumn(BoardSquare boardSquare) {
         if (sBoardSquares.contains(boardSquare)) {
             return StakColumn.STRENGTH;
         } else if (tBoardSquares.contains(boardSquare)) {

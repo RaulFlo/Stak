@@ -24,8 +24,6 @@ import com.example.android.stakdice.models.GameMatt;
 import com.example.android.stakdice.models.StakCard;
 import com.example.android.stakdice.models.boardsquare.BoardSquare;
 
-import java.util.Random;
-
 public class GameMattActivity extends AppCompatActivity implements BoardSquareAdapter.Listener {
 
     private static String STAK_CARD_ID_EXTRA = "StakCardID";
@@ -93,6 +91,7 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         roundView = findViewById(R.id.game_matt_text_view_round);
         imageViewDice = findViewById(R.id.image_view_dice);
         rollButton = findViewById(R.id.button_roll);
+        setupRecyclerAdapterView();
 
 
         //get intent
@@ -113,143 +112,143 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         rollButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //update textview
-                updateViewTotal();
-                matt.enableAllSelectableSquares();
-                setAdaptersFromGameMatt(matt);
                 gameMattViewModel.onRollDiceButtonClicked();
-                updateColumnAdaptersToSelecting(true);
             }
         });
 
-        undoBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+//        undoBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                //set rollBtn to false
+//                rollButton.setEnabled(false);
+//
+//                // disable ability btn
+//                disableAbilityBtns();
+//
+//                //make dice image reappear with last dice shown
+//                imageViewDice.setVisibility(View.VISIBLE);
+//
+//                //set last boardsquare to 0 and make it able to be available for selecting
+//                matt.undoLastBoardSquare(lastBoardSquare);
+//
+//
+//                // update the adapters
+//                setAdaptersFromGameMatt(matt);
+//
+//                // make boardsquare able to be selected
+//                updateColumnAdaptersToSelecting(true);
+//
+//                //update boolean that boardsquare does not have a dice value anymore
+//                lastBoardSquare.setHasDiceValue(false);
+//
+//                updateViewTotal();
+//            }
+//        });
 
-                //set rollBtn to false
-                rollButton.setEnabled(false);
+//        switchBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                undoBtn.setEnabled(false);
+//
+//                //make boardsquare with dice values able to be selected
+//                matt.makeBoardSquareSelectableForAbility();
+//
+//                //make boardsquare able to be selectable
+//                updateColumnAdaptersToSelecting(true);
+//
+//                //disable all Ability buttons
+//                disableAbilityBtns();
+//
+//                switchAbility();
+//                updateViewTotal();
+//
+//            }
+//        });
+//
+//        upDownBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                undoBtn.setEnabled(false);
+//
+//                //make boardsquare with dice values able to be selected
+//                matt.makeBoardSquareSelectableForAbility();
+//
+//                //make boardsquare able to be selectable
+//                updateColumnAdaptersToSelecting(true);
+//
+//                //disable all Ability buttons
+//                disableAbilityBtns();
+//
+//
+//                abilityUpBtn.setVisibility(View.VISIBLE);
+//                abilityDownBtn.setVisibility(View.VISIBLE);
+//
+//
+//                abilityUpBtn.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        isUpBtnPressed = true;
+//                    }
+//                });
+//
+//                abilityDownBtn.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        isDownBtnPressed = true;
+//                    }
+//                });
+//
+//                upDownBtnClicked = true;
+//                updateViewTotal();
+//            }
+//        });
+//
+//        flipBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                undoBtn.setEnabled(false);
+//
+//                //make boardsquare with dice values able to be selected
+//                matt.makeBoardSquareSelectableForAbility();
+//
+//                //make boardsquare able to be selectable
+//                updateColumnAdaptersToSelecting(true);
+//
+//                //update adapters
+//                setAdaptersFromGameMatt(matt);
+//
+//                //disable all Ability buttons
+//                disableAbilityBtns();
+//
+//                isFlipBtnClicked = true;
+//                updateViewTotal();
+//
+//            }
+//        });
+//
+//        reRollBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                undoBtn.setEnabled(false);
+//
+//                //make boardsquare with dice values able to be selected
+//                matt.makeBoardSquareSelectableForAbility();
+//
+//                //make boardsquare able to be selectable
+//                updateColumnAdaptersToSelecting(true);
+//
+//                //update adapters
+//                setAdaptersFromGameMatt(matt);
+//
+//                //disable all Ability buttons
+//                disableAbilityBtns();
+//
+//                isReRollBtnClicked = true;
+//                updateViewTotal();
+//            }
+//        });
 
-                // disable ability btn
-                disableAbilityBtns();
-
-                //make dice image reappear with last dice shown
-                imageViewDice.setVisibility(View.VISIBLE);
-
-                //set last boardsquare to 0 and make it able to be available for selecting
-                matt.undoLastBoardSquare(lastBoardSquare);
-
-
-                // update the adapters
-                setAdaptersFromGameMatt(matt);
-
-                // make boardsquare able to be selected
-                updateColumnAdaptersToSelecting(true);
-
-                //update boolean that boardsquare does not have a dice value anymore
-                lastBoardSquare.setHasDiceValue(false);
-            }
-        });
-
-        switchBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                undoBtn.setEnabled(false);
-
-                //make boardsquare with dice values able to be selected
-                matt.makeBoardSquareSelectableForAbility();
-
-                //make boardsquare able to be selectable
-                updateColumnAdaptersToSelecting(true);
-
-                //disable all Ability buttons
-                disableAbilityBtns();
-
-                switchAbility();
-            }
-        });
-
-        upDownBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                undoBtn.setEnabled(false);
-
-                //make boardsquare with dice values able to be selected
-                matt.makeBoardSquareSelectableForAbility();
-
-                //make boardsquare able to be selectable
-                updateColumnAdaptersToSelecting(true);
-
-                //disable all Ability buttons
-                disableAbilityBtns();
-
-
-                abilityUpBtn.setVisibility(View.VISIBLE);
-                abilityDownBtn.setVisibility(View.VISIBLE);
-
-
-                abilityUpBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        isUpBtnPressed = true;
-                    }
-                });
-
-                abilityDownBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        isDownBtnPressed = true;
-                    }
-                });
-
-                upDownBtnClicked = true;
-
-            }
-        });
-
-        flipBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                undoBtn.setEnabled(false);
-
-                //make boardsquare with dice values able to be selected
-                matt.makeBoardSquareSelectableForAbility();
-
-                //make boardsquare able to be selectable
-                updateColumnAdaptersToSelecting(true);
-
-                //update adapters
-                setAdaptersFromGameMatt(matt);
-
-                //disable all Ability buttons
-                disableAbilityBtns();
-
-                isFlipBtnClicked = true;
-
-            }
-        });
-
-        reRollBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                undoBtn.setEnabled(false);
-
-                //make boardsquare with dice values able to be selected
-                matt.makeBoardSquareSelectableForAbility();
-
-                //make boardsquare able to be selectable
-                updateColumnAdaptersToSelecting(true);
-
-                //update adapters
-                setAdaptersFromGameMatt(matt);
-
-                //disable all Ability buttons
-                disableAbilityBtns();
-
-                isReRollBtnClicked = true;
-            }
-        });
-
-        initializeAdapters(matt);
     }
 
     private void observeViewModel(final GameMattViewModel gameMattViewModel, String stakCardId) {
@@ -389,6 +388,19 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
                 }
             }
         });
+        gameMattViewModel.gameMattMutableLiveData.observe(this, new Observer<GameMatt>() {
+            @Override
+            public void onChanged(GameMatt gameMatt) {
+                setAdaptersFromGameMatt(gameMatt);
+            }
+        });
+
+        gameMattViewModel.setAdaptersToSelecting.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                updateColumnAdaptersToSelecting(aBoolean);
+            }
+        });
 
     }
 
@@ -403,140 +415,141 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 
     }
 
-    public void revealValidateButton() {
-        if (currentClicks == 10) {
-            validateBtn.setVisibility(View.VISIBLE);
-            hideDiceImage();
-        }
-    }
+//    public void revealValidateButton() {
+//        if (currentClicks == 10) {
+//            validateBtn.setVisibility(View.VISIBLE);
+//            hideDiceImage();
+//        }
+//    }
 
-    private void columnPicked() {
-
-        SimpleGameMatt.StakColumn lastColumn = matt.returnLastColumn(lastBoardSquare);
-
-        switch (lastColumn) {
-            case STRENGTH:
-                switchBtn.setEnabled(true);
-                break;
-            case TOUGHNESS:
-                upDownBtn.setEnabled(true);
-                break;
-            case AGILITY:
-                flipBtn.setEnabled(true);
-                break;
-            case KNOWLEDGE:
-                reRollBtn.setEnabled(true);
-                break;
-        }
-    }
+//    private void columnPicked() {
+//
+//        SimpleGameMatt.StakColumn lastColumn = matt.returnStakColumn(lastBoardSquare);
+//
+//        switch (lastColumn) {
+//            case STRENGTH:
+//                switchBtn.setEnabled(true);
+//                break;
+//            case TOUGHNESS:
+//                upDownBtn.setEnabled(true);
+//                break;
+//            case AGILITY:
+//                flipBtn.setEnabled(true);
+//                break;
+//            case KNOWLEDGE:
+//                reRollBtn.setEnabled(true);
+//                break;
+//        }
+//    }
 
 
     @Override
     public void onBoardSquareClicked(BoardSquare boardSquare) {
 
-        if (isFlipBtnClicked) {
+//        if (isFlipBtnClicked) {
+//
+//
+//            Toast.makeText(this, "FLIP!", Toast.LENGTH_SHORT).show();
+//
+//            //save value of clicked boardsquare
+//            int intValueOfBs = boardSquare.getDiceRollValue();
+//
+//            //input int to method and receive new flipped int
+//            int flippedValue = flipAbility(intValueOfBs);
+//
+//            // after they click, set the adapter to not selecting
+//            updateColumnAdaptersToSelecting(false);
+//
+//            // update the adapters
+//            setAdaptersFromGameMatt(matt);
+//
+//            //update boardsquare with new flipped int
+//            matt.updateBoardSquare(boardSquare, flippedValue);
+//
+//
+//            isFlipBtnClicked = false;
+//
+//        } else if (isReRollBtnClicked) {
+//
+//            Toast.makeText(this, "REROLL!!", Toast.LENGTH_SHORT).show();
+//
+//
+//            //input int to method and receive new reroll int
+//            int reRolledValue = 0; //FIXME: rollDice();
+//
+//            // after they click, set the adapter to not selecting
+//            updateColumnAdaptersToSelecting(false);
+//
+//            // update the adapters
+//            setAdaptersFromGameMatt(matt);
+//
+//            //update boardsquare with new flipped int
+//            matt.updateBoardSquare(boardSquare, reRolledValue);
+//
+//
+//            isReRollBtnClicked = false;
+//
+//
+//        } else if (upDownBtnClicked) {
+//
+//            if (isUpBtnPressed || isDownBtnPressed) {
+//                //save value of clicked boardsquare
+//                int intValueOfBs = boardSquare.getDiceRollValue();
+//
+//                //input int to method and receive new flipped int
+//                int upOrDownValue = upDownAbility(intValueOfBs);
+//
+//
+//                // after they click, set the adapter to not selecting
+//                updateColumnAdaptersToSelecting(false);
+//
+//                // update the adapters
+//                setAdaptersFromGameMatt(matt);
+//
+//                //update boardsquare with new flipped int
+//                matt.updateBoardSquare(boardSquare, upOrDownValue);
+//
+//                abilityUpBtn.setVisibility(View.GONE);
+//                abilityDownBtn.setVisibility(View.GONE);
+//
+//
+//                upDownBtnClicked = false;
+//                isUpBtnPressed = false;
+//                isDownBtnPressed = false;
+//            }
+//
+//        } else {
+//
+//
+//            //make rollBtn able to go to next round
+//            rollButton.setEnabled(true);
+//
+//            //enable undo btn
+//            undoBtn.setEnabled(true);
+//
+//            // after they click, set the adapter to not selecting
+//            updateColumnAdaptersToSelecting(false);
+//
+//            //update boolean that boardsquare has a dice value
+//            boardSquare.setHasDiceValue(true);
+//
+//            //hide Image
+//            hideDiceImage();
+//
+//            lastBoardSquare = boardSquare;
+//
+//            // update the board
+//            matt.updateBoardSquare(boardSquare, lastDiceRolled);
+//
+//            //column picked
+//            columnPicked();
+//
+//            // update the adapters
+//            setAdaptersFromGameMatt(matt);
+//        }
 
-
-            Toast.makeText(this, "FLIP!", Toast.LENGTH_SHORT).show();
-
-            //save value of clicked boardsquare
-            int intValueOfBs = boardSquare.getDiceRollValue();
-
-            //input int to method and receive new flipped int
-            int flippedValue = flipAbility(intValueOfBs);
-
-            // after they click, set the adapter to not selecting
-            updateColumnAdaptersToSelecting(false);
-
-            // update the adapters
-            setAdaptersFromGameMatt(matt);
-
-            //update boardsquare with new flipped int
-            matt.updateBoardSquare(boardSquare, flippedValue);
-
-
-            isFlipBtnClicked = false;
-
-        } else if (isReRollBtnClicked) {
-
-            Toast.makeText(this, "REROLL!!", Toast.LENGTH_SHORT).show();
-
-
-            //input int to method and receive new reroll int
-            int reRolledValue = 0; //FIXME: rollDice();
-
-            // after they click, set the adapter to not selecting
-            updateColumnAdaptersToSelecting(false);
-
-            // update the adapters
-            setAdaptersFromGameMatt(matt);
-
-            //update boardsquare with new flipped int
-            matt.updateBoardSquare(boardSquare, reRolledValue);
-
-
-            isReRollBtnClicked = false;
-
-
-        } else if (upDownBtnClicked) {
-
-            if (isUpBtnPressed || isDownBtnPressed) {
-                //save value of clicked boardsquare
-                int intValueOfBs = boardSquare.getDiceRollValue();
-
-                //input int to method and receive new flipped int
-                int upOrDownValue = upDownAbility(intValueOfBs);
-
-
-                // after they click, set the adapter to not selecting
-                updateColumnAdaptersToSelecting(false);
-
-                // update the adapters
-                setAdaptersFromGameMatt(matt);
-
-                //update boardsquare with new flipped int
-                matt.updateBoardSquare(boardSquare, upOrDownValue);
-
-                abilityUpBtn.setVisibility(View.GONE);
-                abilityDownBtn.setVisibility(View.GONE);
-
-
-                upDownBtnClicked = false;
-                isUpBtnPressed = false;
-                isDownBtnPressed = false;
-            }
-
-        } else {
-
-
-            //make rollBtn able to go to next round
-            rollButton.setEnabled(true);
-
-            //enable undo btn
-            undoBtn.setEnabled(true);
-
-            // after they click, set the adapter to not selecting
-            updateColumnAdaptersToSelecting(false);
-
-            //update boolean that boardsquare has a dice value
-            boardSquare.setHasDiceValue(true);
-
-            //hide Image
-            hideDiceImage();
-
-            lastBoardSquare = boardSquare;
-
-            // update the board
-            matt.updateBoardSquare(boardSquare, lastDiceRolled);
-
-            //column picked
-            columnPicked();
-
-            // update the adapters
-            setAdaptersFromGameMatt(matt);
-        }
-
-
+        gameMattViewModel.onBoardSquareClicked(boardSquare);
+        updateViewTotal();
     }
 
     private void switchAbility() {
@@ -617,7 +630,7 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         reRollBtn.setEnabled(false);
     }
 
-    private void initializeAdapters(GameMatt gameMatt) {
+    private void setupRecyclerAdapterView() {
         RecyclerView sColumnsRv = findViewById(R.id.s_column_rv);
         RecyclerView tColumnsRv = findViewById(R.id.t_column_rv);
         RecyclerView aColumnsRv = findViewById(R.id.a_column_rv);
@@ -633,8 +646,6 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         setupRecyclerViewSettings(tColumnsRv, tBoardSquareAdapter);
         setupRecyclerViewSettings(aColumnsRv, aBoardSquareAdapter);
         setupRecyclerViewSettings(kColumnsRv, kBoardSquareAdapter);
-
-        setAdaptersFromGameMatt(gameMatt);
     }
 
     private void setupRecyclerViewSettings(RecyclerView rv, BoardSquareAdapter adapter) {

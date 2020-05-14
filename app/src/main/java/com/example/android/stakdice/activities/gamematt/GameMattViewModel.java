@@ -8,10 +8,11 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.android.stakdice.R;
+import com.example.android.stakdice.activities.gamematt.SimpleGameMatt.StakColumn;
+import com.example.android.stakdice.models.GameMatt;
 import com.example.android.stakdice.models.StakCard;
+import com.example.android.stakdice.models.boardsquare.BoardSquare;
 import com.example.android.stakdice.repos.StakRepo;
-
-import org.jetbrains.annotations.Contract;
 
 import java.util.Random;
 
@@ -44,6 +45,10 @@ public class GameMattViewModel extends AndroidViewModel {
     // round
     public MutableLiveData<Integer> roundLv = new MutableLiveData<>(0);
 
+    private GameMatt matt = new SimpleGameMatt();
+    // game matt rows
+    public MutableLiveData<GameMatt> gameMattMutableLiveData = new MutableLiveData<>(matt);
+    public MutableLiveData<Boolean> setAdaptersToSelecting = new MutableLiveData<>(false);
 
     private int round = 0;
     private int lastDiceRoll = 0;
@@ -79,7 +84,45 @@ public class GameMattViewModel extends AndroidViewModel {
         disableAbilities();
         // disable undo
         undoButtonEnabled.setValue(false);
+
+        // tell the matt to enable the selectable squares
+        matt.enableAllSelectableSquares();
+        // set the live data so view gets updated
+        gameMattMutableLiveData.setValue(matt);
+
         updateDiceValuesToNewRollAndShowDiceImage();
+
+        // set adapters to selecting
+        setAdaptersToSelecting.setValue(true);
+    }
+
+    public void onBoardSquareClicked(BoardSquare boardSquare) {
+        rollButtonEnabled.setValue(true);
+        undoButtonEnabled.setValue(true);
+        setAdaptersToSelecting.setValue(false);
+        diceViewVisible.setValue(false);
+
+        matt.updateBoardSquare(boardSquare, lastDiceRoll);
+        StakColumn stakColumn = matt.returnStakColumn(boardSquare);
+        enablePower(stakColumn);
+        gameMattMutableLiveData.setValue(matt);
+    }
+
+    private void enablePower(StakColumn stakColumn) {
+        switch (stakColumn) {
+            case STRENGTH:
+                switchEnabled.setValue(true);
+                break;
+            case TOUGHNESS:
+                upDownEnabled.setValue(true);
+                break;
+            case AGILITY:
+                flipEnabled.setValue(true);
+                break;
+            case KNOWLEDGE:
+                reRollEnabled.setValue(true);
+                break;
+        }
     }
 
     public int getDiceRollValue() {
