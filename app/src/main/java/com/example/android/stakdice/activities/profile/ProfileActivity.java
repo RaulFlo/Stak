@@ -54,7 +54,9 @@ public class ProfileActivity extends AppCompatActivity {
         firebaseRepo.getUserProfileLiveData().observe(this, new Observer<UserProfile>() {
             @Override
             public void onChanged(UserProfile userProfile) {
-                Log.d("Profile", userProfile.displayName);
+                if (userProfile != null && userProfile.displayName != null) {
+                    Log.d("Profile", userProfile.displayName);
+                }
             }
         });
 
