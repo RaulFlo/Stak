@@ -13,10 +13,17 @@ public class BasicRollBoardAction implements BoardAction {
 
     private int lastDiceRoll = 0;
     private Random rng = new Random();
+    private boolean isActive = false;
 
 
     @Override
+    public boolean isActive() {
+        return isActive;
+    }
+
+    @Override
     public void onButtonClicked(MutableLiveData<GameMattViewStateK> mutableLiveData, GameMattViewStateK gameMattViewState) {
+        isActive = true;
         // not really needed but it's a bit more immutable so hopefully easier to debug
         GameMattViewStateK newState = gameMattViewState.getAnExactCopy();
 
@@ -43,6 +50,7 @@ public class BasicRollBoardAction implements BoardAction {
 
     @Override
     public void onBoardSquareClicked(BoardSquare boardSquareClicked, MutableLiveData<GameMattViewStateK> mutableLiveData, GameMattViewStateK gameMattViewState) {
+        isActive = false;
         // not really needed but it's a bit more immutable so hopefully easier to debug
         GameMattViewStateK newState = gameMattViewState.getAnExactCopy();
 

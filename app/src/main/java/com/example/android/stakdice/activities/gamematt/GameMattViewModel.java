@@ -46,13 +46,13 @@ public class GameMattViewModel extends AndroidViewModel {
     BasicRollBoardAction rollBoardAction = new BasicRollBoardAction();
 
     public void onRollDiceButtonClicked() {
-        if (true) { // still in game
+        if (true) {
             rollBoardAction.onButtonClicked(gameMattViewState, gameMattViewState.getValue());
         }
     }
 
     public void onBoardSquareClicked(BoardSquare boardSquare) {
-        if (true) {
+        if (rollBoardAction.isActive()) {
             rollBoardAction.onBoardSquareClicked(boardSquare, gameMattViewState, gameMattViewState.getValue());
         }
     }
@@ -71,3 +71,6 @@ public class GameMattViewModel extends AndroidViewModel {
     }
 
 }
+//* validate
+//        * first power up
+

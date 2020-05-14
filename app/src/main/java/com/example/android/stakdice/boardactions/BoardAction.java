@@ -6,6 +6,9 @@ import com.example.android.stakdice.models.GameMattViewStateK;
 import com.example.android.stakdice.models.boardsquare.BoardSquare;
 
 public interface BoardAction {
+
+    boolean isActive();
+
     void onButtonClicked(MutableLiveData<GameMattViewStateK> mutableLiveData, GameMattViewStateK gameMattViewState);
 
     void onBoardSquareClicked(BoardSquare boardSquareClicked, MutableLiveData<GameMattViewStateK> mutableLiveData, GameMattViewStateK gameMattViewState);
