@@ -118,7 +118,6 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         gameMattViewModel.getSingleStak(stakCardId).observe(this, new Observer<StakCard>() {
             @Override
             public void onChanged(final StakCard stakCard) {
-                stakCard.getCardName();
                 //set current stakCard to view
                 cardView.setStakCard(stakCard);
 
@@ -285,26 +284,19 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         aBoardSquareAdapter = new BoardSquareAdapter(this);
         kBoardSquareAdapter = new BoardSquareAdapter(this);
 
-
-        sColumnsRv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        sColumnsRv.setNestedScrollingEnabled(false);
-
-        tColumnsRv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        tColumnsRv.setNestedScrollingEnabled(false);
-
-        aColumnsRv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        aColumnsRv.setNestedScrollingEnabled(false);
-
-        kColumnsRv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        kColumnsRv.setNestedScrollingEnabled(false);
-
-        sColumnsRv.setAdapter(sBoardSquareAdapter);
-        tColumnsRv.setAdapter(tBoardSquareAdapter);
-        aColumnsRv.setAdapter(aBoardSquareAdapter);
-        kColumnsRv.setAdapter(kBoardSquareAdapter);
+        setupRecyclerViewSettings(sColumnsRv, sBoardSquareAdapter);
+        setupRecyclerViewSettings(tColumnsRv, tBoardSquareAdapter);
+        setupRecyclerViewSettings(aColumnsRv, aBoardSquareAdapter);
+        setupRecyclerViewSettings(kColumnsRv, kBoardSquareAdapter);
 
         setAdaptersFromGameMatt(matt);
 
+    }
+
+    private void setupRecyclerViewSettings(RecyclerView rv, BoardSquareAdapter adapter) {
+        rv.setAdapter(adapter);
+        rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        rv.setNestedScrollingEnabled(false);
     }
 
 
@@ -457,7 +449,7 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 
         } else if (upDownBtnClicked == true) {
 
-            if(isUpBtnPressed == true || isDownBtnPressed == true) {
+            if (isUpBtnPressed == true || isDownBtnPressed == true) {
                 //save value of clicked boardsquare
                 int intValueOfBs = boardSquare.getDiceRollValue();
 
@@ -516,41 +508,18 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 
     }
 
-    private void updateColumnAdaptersToSelecting(boolean isSelecting) {
-        sBoardSquareAdapter.setSelecting(isSelecting);
-        tBoardSquareAdapter.setSelecting(isSelecting);
-        aBoardSquareAdapter.setSelecting(isSelecting);
-        kBoardSquareAdapter.setSelecting(isSelecting);
-    }
-
-    private void setAdaptersFromGameMatt(GameMatt gameMatt) {
-        sBoardSquareAdapter.setBoardSquares(gameMatt.getSColumnBoards());
-        tBoardSquareAdapter.setBoardSquares(gameMatt.getTColumnBoards());
-        aBoardSquareAdapter.setBoardSquares(gameMatt.getAColumnBoards());
-        kBoardSquareAdapter.setBoardSquares(gameMatt.getKColumnBoards());
-    }
 
     private void validateCard(StakCard stakCard) {
         updateViewTotal();
-
-        Attribute stakCardStrength = stakCard.getStrength();
-        Attribute stakCardToughness = stakCard.getToughness();
-        Attribute stakCardAgility = stakCard.getAgility();
-        Attribute stakCardKnowledge = stakCard.getKnowledge();
 
         int sValue = sBoardSquareAdapter.getColumnSum();
         int tValue = tBoardSquareAdapter.getColumnSum();
         int aValue = aBoardSquareAdapter.getColumnSum();
         int kValue = kBoardSquareAdapter.getColumnSum();
 
-
-        if (stakCardStrength.isValid(sValue) && stakCardToughness.isValid(tValue)
-                && stakCardAgility.isValid(aValue) && stakCardKnowledge.isValid(kValue)) {
+        if (stakCard.isValid(sValue, tValue, aValue, kValue)) {
             openPassDialog();
-
-            //Change the isBeaten on the card to true, commented out for now
-            stakCard.setBeaten(true);
-            gameMattViewModel.update(stakCard);
+            gameMattViewModel.onStakCardBeaten(stakCard);
         } else {
             openFailDialog();
         }
@@ -564,7 +533,7 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         disableAbilityBtns();
     }
 
-    private int upDownAbility( int diceValueForAbility) {
+    private int upDownAbility(int diceValueForAbility) {
 
 
         if (isUpBtnPressed == true) {
@@ -634,5 +603,19 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         upDownBtn.setEnabled(false);
         flipBtn.setEnabled(false);
         reRollBtn.setEnabled(false);
+    }
+
+    private void updateColumnAdaptersToSelecting(boolean isSelecting) {
+        sBoardSquareAdapter.setSelecting(isSelecting);
+        tBoardSquareAdapter.setSelecting(isSelecting);
+        aBoardSquareAdapter.setSelecting(isSelecting);
+        kBoardSquareAdapter.setSelecting(isSelecting);
+    }
+
+    private void setAdaptersFromGameMatt(GameMatt gameMatt) {
+        sBoardSquareAdapter.setBoardSquares(gameMatt.getSColumnBoards());
+        tBoardSquareAdapter.setBoardSquares(gameMatt.getTColumnBoards());
+        aBoardSquareAdapter.setBoardSquares(gameMatt.getAColumnBoards());
+        kBoardSquareAdapter.setBoardSquares(gameMatt.getKColumnBoards());
     }
 }

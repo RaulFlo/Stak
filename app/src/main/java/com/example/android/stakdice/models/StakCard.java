@@ -88,4 +88,9 @@ public class StakCard implements Serializable {
     public void setBeaten(boolean beaten) {
         isBeaten = beaten;
     }
+
+    public boolean isValid(Integer sValue, Integer tValue, Integer aValue, Integer kValue) {
+        return strength.isValid(sValue) && toughness.isValid(tValue)
+                && agility.isValid(aValue) && knowledge.isValid(kValue)
+    }
 }
