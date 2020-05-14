@@ -21,6 +21,7 @@ import com.example.android.stakdice.customviews.StakCardView;
 import com.example.android.stakdice.dialogs.FailedDialog;
 import com.example.android.stakdice.dialogs.PassedDialog;
 import com.example.android.stakdice.models.GameMatt;
+import com.example.android.stakdice.models.GameMattViewStateK;
 import com.example.android.stakdice.models.StakCard;
 import com.example.android.stakdice.models.boardsquare.BoardSquare;
 
@@ -268,143 +269,45 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
             }
         });
 
-        gameMattViewModel.sTotal.observe(this, new Observer<Integer>() {
+        gameMattViewModel.gameMattViewState.observe(this, new Observer<GameMattViewStateK>() {
             @Override
-            public void onChanged(Integer integer) {
-                sViewText.setText(String.valueOf(integer));
-            }
-        });
-
-        gameMattViewModel.tTotal.observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                tViewText.setText(String.valueOf(integer));
-            }
-        });
-
-        gameMattViewModel.aTotal.observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                aViewText.setText(String.valueOf(integer));
-            }
-        });
-
-        gameMattViewModel.kTotal.observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                kViewText.setText(String.valueOf(integer));
-            }
-        });
-
-        gameMattViewModel.switchEnabled.observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                switchBtn.setEnabled(aBoolean);
-            }
-        });
-        gameMattViewModel.upDownEnabled.observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                upDownBtn.setEnabled(aBoolean);
-            }
-        });
-        gameMattViewModel.flipEnabled.observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                flipBtn.setEnabled(aBoolean);
-            }
-        });
-
-        gameMattViewModel.reRollEnabled.observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                reRollBtn.setEnabled(aBoolean);
-            }
-        });
-
-        gameMattViewModel.rollButtonEnabled.observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                rollButton.setEnabled(aBoolean);
-            }
-        });
-        gameMattViewModel.undoButtonEnabled.observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                undoBtn.setEnabled(aBoolean);
-            }
-        });
-        gameMattViewModel.diceViewVisible.observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                if (aBoolean) {
+            public void onChanged(GameMattViewStateK gameMattViewState) {
+                sViewText.setText(String.valueOf(gameMattViewState.getAdapterTotalsViewState().getSTotal()));
+                tViewText.setText(String.valueOf(gameMattViewState.getAdapterTotalsViewState().getTTotal()));
+                aViewText.setText(String.valueOf(gameMattViewState.getAdapterTotalsViewState().getATotal()));
+                kViewText.setText(String.valueOf(gameMattViewState.getAdapterTotalsViewState().getKTotal()));
+                switchBtn.setEnabled(gameMattViewState.getPowerUpsViewState().getSwitchEnabled());
+                upDownBtn.setEnabled(gameMattViewState.getPowerUpsViewState().getUpDownEnabled());
+                flipBtn.setEnabled(gameMattViewState.getPowerUpsViewState().getFlipEnabled());
+                reRollBtn.setEnabled(gameMattViewState.getPowerUpsViewState().getReRollEnabled());
+                rollButton.setEnabled(gameMattViewState.getRollButtonEnabled());
+                undoBtn.setEnabled(gameMattViewState.getUndoButtonEnabled());
+                if (gameMattViewState.getDiceImageViewState().getDiceImageVisibility()) {
                     imageViewDice.setVisibility(View.VISIBLE);
                 } else {
                     imageViewDice.setVisibility(View.INVISIBLE);
                 }
-            }
-        });
-        gameMattViewModel.diceImageRes.observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                imageViewDice.setImageResource(integer);
-            }
-        });
-        gameMattViewModel.diceRollValue.observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                // todo:
-            }
-        });
 
-        gameMattViewModel.roundLv.observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                roundView.setText("Round: " + integer);
-            }
-        });
-
-        gameMattViewModel.showFailDialog.observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                if (aBoolean) {
+                imageViewDice.setImageResource(gameMattViewState.getDiceImageViewState().getDiceImageRes());
+                roundView.setText("Round: " + gameMattViewState.getRoundValue());
+                if (gameMattViewState.getValidateViewState().getShowFailDialog()) {
                     showFailDialog();
                     gameMattViewModel.onFailDialogShown();
                 }
-            }
-        });
-        gameMattViewModel.showPassDialog.observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                if (aBoolean) {
+                if (gameMattViewState.getValidateViewState().getShowPassDialog()) {
                     showPassDialog();
                     gameMattViewModel.onPassDialogShown();
                 }
-            }
-        });
-        gameMattViewModel.gameMattMutableLiveData.observe(this, new Observer<GameMatt>() {
-            @Override
-            public void onChanged(GameMatt gameMatt) {
-                setAdaptersFromGameMatt(gameMatt);
-            }
-        });
-
-        gameMattViewModel.setAdaptersToSelecting.observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                updateColumnAdaptersToSelecting(aBoolean);
-            }
-        });
-        gameMattViewModel.validateBtnVisible.observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                if (aBoolean) {
+                setAdaptersFromGameMatt(gameMattViewState.getGameMatt());
+                updateColumnAdaptersToSelecting(gameMattViewState.getSetAdapterToSelecting());
+                if (gameMattViewState.getValidateViewState().getValidateBtnVisible()) {
                     validateBtn.setVisibility(View.VISIBLE);
                 } else {
                     validateBtn.setVisibility(View.INVISIBLE);
                 }
             }
         });
+
     }
 
     private void showFailDialog() {
