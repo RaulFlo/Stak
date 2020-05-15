@@ -21,6 +21,7 @@ import com.example.android.stakdice.models.boardsquare.BoardSquare;
 import com.example.android.stakdice.repos.StakRepo;
 
 public class GameMattViewModel extends AndroidViewModel {
+    private static final int GAME_OVER_ROUND = 10;
 
     private GameMatt matt = new SimpleGameMatt();
     private MainRollUndoBoardAction rollBoardAction = new MainRollUndoBoardAction();
@@ -41,22 +42,12 @@ public class GameMattViewModel extends AndroidViewModel {
         return repository.getSingleStak(id);
     }
 
-    public void validateCard(StakCard stakCard) {
-        GameMattViewStateK newState = viewState.getValue().getAnExactCopy();
-        GmAdapterTotalsViewState totalsViewState = newState.getAdapterTotalsViewState();
-        if (stakCard.isValid(totalsViewState.getSTotal(), totalsViewState.getTTotal(), totalsViewState.getATotal(), totalsViewState.getKTotal())) {
-            onStakCardBeaten(stakCard);
-            newState.getValidateViewState().setShowPassDialog(true);
-        } else {
-            newState.getValidateViewState().setShowFailDialog(true);
-        }
-        viewState.setValue(newState);
-    }
-
-
     public void onRollDiceButtonClicked() {
-        if (true) {
+        if (!isGameOver()) {
             rollBoardAction.onButtonClicked(viewState);
+        } else {
+//            // game over , validate
+//            viewState.getValue().setValidateViewState();
         }
     }
 
@@ -108,6 +99,22 @@ public class GameMattViewModel extends AndroidViewModel {
         viewState.setValue(newState);
     }
 
+    public void validateCard(StakCard stakCard) {
+        GameMattViewStateK newState = viewState.getValue().getAnExactCopy();
+        GmAdapterTotalsViewState totalsViewState = newState.getAdapterTotalsViewState();
+        if (stakCard.isValid(totalsViewState.getSTotal(), totalsViewState.getTTotal(), totalsViewState.getATotal(), totalsViewState.getKTotal())) {
+            onStakCardBeaten(stakCard);
+            newState.getValidateViewState().setShowPassDialog(true);
+        } else {
+            newState.getValidateViewState().setShowFailDialog(true);
+        }
+        viewState.setValue(newState);
+    }
+
+    private boolean isGameOver() {
+        return viewState.getValue().getRoundValue() >= GAME_OVER_ROUND)
+    }
+
     private void updateColumnTotals() {
         GameMattViewStateK newState = viewState.getValue();
         GameMatt gameMatt = newState.getGameMatt();
@@ -123,6 +130,7 @@ public class GameMattViewModel extends AndroidViewModel {
 
         viewState.setValue(newState);
     }
+
 
     private void onStakCardBeaten(StakCard stakCard) {
         stakCard.setBeaten(true);
