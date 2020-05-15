@@ -58,11 +58,12 @@ public class GameMattViewModel extends AndroidViewModel {
         updateColumnTotals();
     }
 
+
     public void onFlipAbilityClicked() {
-        if (true) {
+        if (gameMattViewState.getValue().getAbilityViewState().getFlipEnabled()) {
             flipBoardAction.onButtonClicked(gameMattViewState, gameMattViewState.getValue());
+            updateColumnTotals();
         }
-        updateColumnTotals();
     }
 
     public void onBoardSquareClicked(BoardSquare boardSquare) {

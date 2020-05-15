@@ -267,10 +267,10 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
                 tViewText.setText(String.valueOf(gameMattViewState.getAdapterTotalsViewState().getTTotal()));
                 aViewText.setText(String.valueOf(gameMattViewState.getAdapterTotalsViewState().getATotal()));
                 kViewText.setText(String.valueOf(gameMattViewState.getAdapterTotalsViewState().getKTotal()));
-                switchBtn.setEnabled(gameMattViewState.getPowerUpsViewState().getSwitchEnabled());
-                upDownBtn.setEnabled(gameMattViewState.getPowerUpsViewState().getUpDownEnabled());
-                flipBtn.setEnabled(gameMattViewState.getPowerUpsViewState().getFlipEnabled());
-                reRollBtn.setEnabled(gameMattViewState.getPowerUpsViewState().getReRollEnabled());
+                switchBtn.setEnabled(gameMattViewState.getAbilityViewState().getSwitchEnabled());
+                upDownBtn.setEnabled(gameMattViewState.getAbilityViewState().getUpDownEnabled());
+                flipBtn.setEnabled(gameMattViewState.getAbilityViewState().getFlipEnabled());
+                reRollBtn.setEnabled(gameMattViewState.getAbilityViewState().getReRollEnabled());
                 rollButton.setEnabled(gameMattViewState.getRollButtonEnabled());
                 undoBtn.setEnabled(gameMattViewState.getUndoButtonEnabled());
                 if (gameMattViewState.getDiceImageViewState().getDiceImageVisibility()) {
