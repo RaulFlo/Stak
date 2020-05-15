@@ -23,6 +23,7 @@ public class FlipAbilityBoardAction implements BoardAction {
         newState.getGameMatt().makeBoardSquareSelectableForAbility();
         newState.setSetAdapterToSelecting(true);
         ViewStateUtils.disableAbilities(newState);
+        mutableLiveData.setValue(newState);
     }
 
     @Override
@@ -41,6 +42,7 @@ public class FlipAbilityBoardAction implements BoardAction {
 
         //update boardsquare with new flipped int
         newState.getGameMatt().updateBoardSquare(boardSquareClicked, flippedValue);
+        mutableLiveData.setValue(newState);
     }
 
     private int flipAbility(int diceValueForAbility) {

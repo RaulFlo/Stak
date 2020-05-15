@@ -8,7 +8,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.android.stakdice.ViewStateUtils;
-import com.example.android.stakdice.boardactions.BasicRollBoardAction;
+import com.example.android.stakdice.boardactions.MainRollUndoBoardAction;
 import com.example.android.stakdice.boardactions.FlipAbilityBoardAction;
 import com.example.android.stakdice.models.GameMatt;
 import com.example.android.stakdice.models.GameMattViewStateK;
@@ -20,7 +20,7 @@ import com.example.android.stakdice.repos.StakRepo;
 public class GameMattViewModel extends AndroidViewModel {
 
     private GameMatt matt = new SimpleGameMatt();
-    private BasicRollBoardAction rollBoardAction = new BasicRollBoardAction();
+    private MainRollUndoBoardAction rollBoardAction = new MainRollUndoBoardAction();
     private FlipAbilityBoardAction flipBoardAction = new FlipAbilityBoardAction();
     public MutableLiveData<GameMattViewStateK> gameMattViewState = new MutableLiveData<>(new GameMattViewStateK(matt));
 
@@ -53,10 +53,16 @@ public class GameMattViewModel extends AndroidViewModel {
         }
     }
 
+    public void onUndoButtonClicked() {
+        rollBoardAction.undoSettingSquare(gameMattViewState, gameMattViewState.getValue());
+        updateColumnTotals();
+    }
+
     public void onFlipAbilityClicked() {
         if (true) {
             flipBoardAction.onButtonClicked(gameMattViewState, gameMattViewState.getValue());
         }
+        updateColumnTotals();
     }
 
     public void onBoardSquareClicked(BoardSquare boardSquare) {

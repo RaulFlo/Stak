@@ -10,11 +10,12 @@ import com.example.android.stakdice.models.boardsquare.BoardSquare;
 
 import java.util.Random;
 
-public class BasicRollBoardAction implements BoardAction {
+public class MainRollUndoBoardAction implements BoardAction {
 
     private int lastDiceRoll = 0;
     private Random rng = new Random();
     private boolean isActive = false;
+    private BoardSquare lastBoardSquareClicked;
 
 
     @Override
@@ -52,18 +53,29 @@ public class BasicRollBoardAction implements BoardAction {
     @Override
     public void onBoardSquareClicked(BoardSquare boardSquareClicked, MutableLiveData<GameMattViewStateK> mutableLiveData, GameMattViewStateK gameMattViewState) {
         isActive = false;
+        lastBoardSquareClicked = boardSquareClicked;
         // not really needed but it's a bit more immutable so hopefully easier to debug
         GameMattViewStateK newState = gameMattViewState.getAnExactCopy();
-
-        newState.setRollButtonEnabled(true);
         newState.setUndoButtonEnabled(true);
+        newState.setRollButtonEnabled(true);
         newState.setSetAdapterToSelecting(false);
         newState.getDiceImageViewState().setDiceImageVisibility(false);
         newState.getGameMatt().updateBoardSquare(boardSquareClicked, lastDiceRoll);
         SimpleGameMatt.StakColumn stakColumn = newState.getGameMatt().returnStakColumn(boardSquareClicked);
         ViewStateUtils.enablePower(newState, stakColumn);
 
+        // set new state
         mutableLiveData.setValue(newState);
+    }
+
+    public void undoSettingSquare(MutableLiveData<GameMattViewStateK> mutableLiveData, GameMattViewStateK viewState) {
+        if (lastBoardSquareClicked != null) {
+            GameMattViewStateK newState = viewState.getAnExactCopy();
+            newState.getGameMatt().updateBoardSquare(lastBoardSquareClicked, 0);
+            lastBoardSquareClicked = null;
+            newState.setUndoButtonEnabled(false);
+            mutableLiveData.setValue(newState);
+        }
     }
 
     private int getDiceRollValue() {

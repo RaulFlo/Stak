@@ -111,6 +111,13 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
             }
         });
 
+        undoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gameMattViewModel.onUndoButtonClicked();
+            }
+        });
+
 //        undoBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -205,28 +212,6 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
                 gameMattViewModel.onFlipAbilityClicked();
             }
         });
-//        flipBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                undoBtn.setEnabled(false);
-//
-//                //make boardsquare with dice values able to be selected
-//                matt.makeBoardSquareSelectableForAbility();
-//
-//                //make boardsquare able to be selectable
-//                updateColumnAdaptersToSelecting(true);
-//
-//                //update adapters
-//                setAdaptersFromGameMatt(matt);
-//
-//                //disable all Ability buttons
-//                disableAbilityBtns();
-//
-//                isFlipBtnClicked = true;
-//                updateViewTotal();
-//
-//            }
-//        });
 //
 //        reRollBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
