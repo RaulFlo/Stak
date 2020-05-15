@@ -20,7 +20,7 @@ import com.example.android.stakdice.customviews.StakCardView;
 import com.example.android.stakdice.dialogs.FailedDialog;
 import com.example.android.stakdice.dialogs.PassedDialog;
 import com.example.android.stakdice.models.GameMatt;
-import com.example.android.stakdice.models.GameMattViewStateK;
+import com.example.android.stakdice.models.GameMattViewState;
 import com.example.android.stakdice.models.StakCard;
 import com.example.android.stakdice.models.boardsquare.BoardSquare;
 
@@ -165,9 +165,9 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
             }
         });
 
-        viewModel.viewState.observe(this, new Observer<GameMattViewStateK>() {
+        viewModel.viewState.observe(this, new Observer<GameMattViewState>() {
             @Override
-            public void onChanged(GameMattViewStateK viewState) {
+            public void onChanged(GameMattViewState viewState) {
                 sViewText.setText(String.valueOf(viewState.getAdapterTotalsViewState().getSTotal()));
                 tViewText.setText(String.valueOf(viewState.getAdapterTotalsViewState().getTTotal()));
                 aViewText.setText(String.valueOf(viewState.getAdapterTotalsViewState().getATotal()));

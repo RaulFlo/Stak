@@ -1,7 +1,7 @@
 package com.example.android.stakdice.models
 
 
-data class GameMattViewStateK @JvmOverloads constructor(
+data class GameMattViewState @JvmOverloads constructor(
         var gameMatt: GameMatt,
         var rollButtonEnabled: Boolean = true, var undoButtonEnabled: Boolean = false,
         var diceRollValue: Int = 0, var roundValue: Int = 0, var setAdapterToSelecting: Boolean = false,
@@ -11,7 +11,7 @@ data class GameMattViewStateK @JvmOverloads constructor(
         var diceImageViewState: GmDiceImageViewState = GmDiceImageViewState(),
         var validateViewState: GmValidateViewState = GmValidateViewState()) {
 
-    fun getAnExactCopy(): GameMattViewStateK {
+    fun getAnExactCopy(): GameMattViewState {
         return copy()
     }
 }

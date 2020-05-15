@@ -1,7 +1,7 @@
 package com.example.android.stakdice.boardactions;
 
 import com.example.android.stakdice.ViewStateUtils;
-import com.example.android.stakdice.models.GameMattViewStateK;
+import com.example.android.stakdice.models.GameMattViewState;
 import com.example.android.stakdice.models.boardsquare.BoardSquare;
 
 public class UpDownBoardAction extends BaseBoardAction {
@@ -9,14 +9,14 @@ public class UpDownBoardAction extends BaseBoardAction {
     private boolean isDownClicked = false;
 
     @Override
-    void modifyViewStateOnButtonClick(GameMattViewStateK newState) {
+    void modifyViewStateOnButtonClick(GameMattViewState newState) {
         newState.setUndoButtonEnabled(false);
         ViewStateUtils.disableAbilities(newState);
         newState.setUpBtnVisible(true);
         newState.setDownBtnVisible(true);
     }
 
-    public void onUpBtnClicked(GameMattViewStateK newState) {
+    public void onUpBtnClicked(GameMattViewState newState) {
         isUpClicked = true;
         newState.getGameMatt().makeBoardSquareSelectableForAbility();
         newState.setSetAdapterToSelecting(true);
@@ -24,7 +24,7 @@ public class UpDownBoardAction extends BaseBoardAction {
         newState.setDownBtnVisible(false);
     }
 
-    public void onDownBtnClicked(GameMattViewStateK newState) {
+    public void onDownBtnClicked(GameMattViewState newState) {
         isDownClicked = true;
         newState.getGameMatt().makeBoardSquareSelectableForAbility();
         newState.setSetAdapterToSelecting(true);
@@ -33,7 +33,7 @@ public class UpDownBoardAction extends BaseBoardAction {
     }
 
     @Override
-    void modifyViewStateOnBoardSquareClicked(BoardSquare boardSquareClicked, GameMattViewStateK newState) {
+    void modifyViewStateOnBoardSquareClicked(BoardSquare boardSquareClicked, GameMattViewState newState) {
         newState.setUndoButtonEnabled(true);
         newState.setSetAdapterToSelecting(false);
 

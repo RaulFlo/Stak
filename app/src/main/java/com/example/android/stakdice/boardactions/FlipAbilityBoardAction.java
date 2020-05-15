@@ -1,7 +1,7 @@
 package com.example.android.stakdice.boardactions;
 
 import com.example.android.stakdice.ViewStateUtils;
-import com.example.android.stakdice.models.GameMattViewStateK;
+import com.example.android.stakdice.models.GameMattViewState;
 import com.example.android.stakdice.models.boardsquare.BoardSquare;
 
 import java.util.HashMap;
@@ -19,7 +19,7 @@ public class FlipAbilityBoardAction extends BaseBoardAction {
     }
 
     @Override
-    void modifyViewStateOnButtonClick(GameMattViewStateK newState) {
+    void modifyViewStateOnButtonClick(GameMattViewState newState) {
         newState.setUndoButtonEnabled(false);
         //make boardsquare with dice values able to be selected
         newState.getGameMatt().makeBoardSquareSelectableForAbility();
@@ -28,7 +28,7 @@ public class FlipAbilityBoardAction extends BaseBoardAction {
     }
 
     @Override
-    void modifyViewStateOnBoardSquareClicked(BoardSquare boardSquareClicked, GameMattViewStateK newState) {
+    void modifyViewStateOnBoardSquareClicked(BoardSquare boardSquareClicked, GameMattViewState newState) {
         //save value of clicked boardsquare
         int intValueOfBs = boardSquareClicked.getDiceRollValue();
 

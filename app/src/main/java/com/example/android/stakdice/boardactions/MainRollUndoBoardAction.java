@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.android.stakdice.ViewStateUtils;
 import com.example.android.stakdice.activities.gamematt.SimpleGameMatt;
-import com.example.android.stakdice.models.GameMattViewStateK;
+import com.example.android.stakdice.models.GameMattViewState;
 import com.example.android.stakdice.models.boardsquare.BoardSquare;
 
 public class MainRollUndoBoardAction extends BaseBoardAction {
@@ -13,7 +13,7 @@ public class MainRollUndoBoardAction extends BaseBoardAction {
     private BoardSquare lastBoardSquareClicked;
 
     @Override
-    void modifyViewStateOnButtonClick(GameMattViewStateK newState) {
+    void modifyViewStateOnButtonClick(GameMattViewState newState) {
         lastDiceRoll = ViewStateUtils.getDiceRollValue();
         // update round
         newState.setRoundValue(newState.getRoundValue() + 1);
@@ -33,7 +33,7 @@ public class MainRollUndoBoardAction extends BaseBoardAction {
     }
 
     @Override
-    void modifyViewStateOnBoardSquareClicked(BoardSquare boardSquareClicked, GameMattViewStateK newState) {
+    void modifyViewStateOnBoardSquareClicked(BoardSquare boardSquareClicked, GameMattViewState newState) {
         lastBoardSquareClicked = boardSquareClicked;
 
         newState.setUndoButtonEnabled(true);
@@ -45,9 +45,9 @@ public class MainRollUndoBoardAction extends BaseBoardAction {
         ViewStateUtils.enablePower(newState, stakColumn);
     }
 
-    public void undoSettingSquare(MutableLiveData<GameMattViewStateK> mutableLiveData, GameMattViewStateK viewState) {
+    public void undoSettingSquare(MutableLiveData<GameMattViewState> mutableLiveData, GameMattViewState viewState) {
         if (lastBoardSquareClicked != null) {
-            GameMattViewStateK newState = viewState.getAnExactCopy();
+            GameMattViewState newState = viewState.getAnExactCopy();
             newState.getGameMatt().updateBoardSquare(lastBoardSquareClicked, 0);
             lastBoardSquareClicked = null;
             newState.setUndoButtonEnabled(false);

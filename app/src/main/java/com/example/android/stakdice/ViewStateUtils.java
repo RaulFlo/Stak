@@ -1,7 +1,7 @@
 package com.example.android.stakdice;
 
 import com.example.android.stakdice.activities.gamematt.SimpleGameMatt;
-import com.example.android.stakdice.models.GameMattViewStateK;
+import com.example.android.stakdice.models.GameMattViewState;
 import com.example.android.stakdice.models.boardsquare.BoardSquare;
 
 import java.util.List;
@@ -10,14 +10,14 @@ import java.util.Random;
 public class ViewStateUtils {
     private static Random rng = new Random();
 
-    public static void disableAbilities(GameMattViewStateK viewState) {
+    public static void disableAbilities(GameMattViewState viewState) {
         viewState.getAbilityViewState().setFlipEnabled(false);
         viewState.getAbilityViewState().setReRollEnabled(false);
         viewState.getAbilityViewState().setSwitchEnabled(false);
         viewState.getAbilityViewState().setUpDownEnabled(false);
     }
 
-    public static void enablePower(GameMattViewStateK viewState, SimpleGameMatt.StakColumn stakColumn) {
+    public static void enablePower(GameMattViewState viewState, SimpleGameMatt.StakColumn stakColumn) {
         switch (stakColumn) {
             case STRENGTH:
                 viewState.getAbilityViewState().setSwitchEnabled(true);
