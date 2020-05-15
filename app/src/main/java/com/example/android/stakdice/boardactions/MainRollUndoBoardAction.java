@@ -74,6 +74,7 @@ public class MainRollUndoBoardAction implements BoardAction {
             newState.getGameMatt().updateBoardSquare(lastBoardSquareClicked, 0);
             lastBoardSquareClicked = null;
             newState.setUndoButtonEnabled(false);
+            ViewStateUtils.disableAbilities(newState);
             mutableLiveData.setValue(newState);
         }
     }
