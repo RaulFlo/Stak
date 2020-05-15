@@ -5,8 +5,11 @@ import com.example.android.stakdice.models.GameMattViewStateK;
 import com.example.android.stakdice.models.boardsquare.BoardSquare;
 
 import java.util.List;
+import java.util.Random;
 
 public class ViewStateUtils {
+    private static Random rng = new Random();
+
     public static void disableAbilities(GameMattViewStateK viewState) {
         viewState.getAbilityViewState().setFlipEnabled(false);
         viewState.getAbilityViewState().setReRollEnabled(false);
@@ -56,5 +59,9 @@ public class ViewStateUtils {
             total += boardSquare.getDiceRollValue();
         }
         return total;
+    }
+
+    public static int getDiceRollValue() {
+        return rng.nextInt(6) + 1;
     }
 }

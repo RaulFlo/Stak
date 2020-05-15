@@ -13,12 +13,11 @@ import java.util.Random;
 public class MainRollUndoBoardAction extends BaseBoardAction {
 
     private int lastDiceRoll = 0;
-    private Random rng = new Random();
     private BoardSquare lastBoardSquareClicked;
 
     @Override
     void modifyViewStateOnButtonClick(GameMattViewStateK newState) {
-        lastDiceRoll = getDiceRollValue();
+        lastDiceRoll = ViewStateUtils.getDiceRollValue();
         // update round
         newState.setRoundValue(newState.getRoundValue() + 1);
         // disable abilities
@@ -58,9 +57,5 @@ public class MainRollUndoBoardAction extends BaseBoardAction {
             ViewStateUtils.disableAbilities(newState);
             mutableLiveData.setValue(newState);
         }
-    }
-
-    private int getDiceRollValue() {
-        return rng.nextInt(6) + 1;
     }
 }

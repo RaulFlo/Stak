@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.android.stakdice.ViewStateUtils;
 import com.example.android.stakdice.boardactions.MainRollUndoBoardAction;
 import com.example.android.stakdice.boardactions.FlipAbilityBoardAction;
+import com.example.android.stakdice.boardactions.ReRollBoardAction;
 import com.example.android.stakdice.models.GameMatt;
 import com.example.android.stakdice.models.GameMattViewStateK;
 import com.example.android.stakdice.models.GmAdapterTotalsViewState;
@@ -22,7 +23,8 @@ public class GameMattViewModel extends AndroidViewModel {
     private GameMatt matt = new SimpleGameMatt();
     private MainRollUndoBoardAction rollBoardAction = new MainRollUndoBoardAction();
     private FlipAbilityBoardAction flipBoardAction = new FlipAbilityBoardAction();
-    public MutableLiveData<GameMattViewStateK> gameMattViewState = new MutableLiveData<>(new GameMattViewStateK(matt));
+    private ReRollBoardAction reRollBoardAction = new ReRollBoardAction();
+    public MutableLiveData<GameMattViewStateK> viewState = new MutableLiveData<>(new GameMattViewStateK(matt));
 
     private StakRepo repository;
 
@@ -36,49 +38,69 @@ public class GameMattViewModel extends AndroidViewModel {
     }
 
     public void validateCard(StakCard stakCard, int sValue, int tValue, int aValue, int kValue) {
-        GameMattViewStateK newState = gameMattViewState.getValue().getAnExactCopy();
+        GameMattViewStateK newState = viewState.getValue().getAnExactCopy();
         if (stakCard.isValid(sValue, tValue, aValue, kValue)) {
             onStakCardBeaten(stakCard);
             newState.getValidateViewState().setShowPassDialog(true);
         } else {
             newState.getValidateViewState().setShowFailDialog(true);
         }
-        gameMattViewState.setValue(newState);
+        viewState.setValue(newState);
     }
 
 
     public void onRollDiceButtonClicked() {
         if (true) {
-            rollBoardAction.onButtonClicked(gameMattViewState);
+            rollBoardAction.onButtonClicked(viewState);
         }
     }
 
     public void onUndoButtonClicked() {
-        rollBoardAction.undoSettingSquare(gameMattViewState, gameMattViewState.getValue());
+        rollBoardAction.undoSettingSquare(viewState, viewState.getValue());
         updateColumnTotals();
     }
 
-
     public void onFlipAbilityClicked() {
-        if (gameMattViewState.getValue().getAbilityViewState().getFlipEnabled()) {
-            flipBoardAction.onButtonClicked(gameMattViewState);
+        if (viewState.getValue().getAbilityViewState().getFlipEnabled()) {
+            flipBoardAction.onButtonClicked(viewState);
+            updateColumnTotals();
+        }
+    }
+
+    public void onReRollClicked() {
+        if (viewState.getValue().getAbilityViewState().getReRollEnabled()) {
+            reRollBoardAction.onButtonClicked(viewState);
             updateColumnTotals();
         }
     }
 
     public void onBoardSquareClicked(BoardSquare boardSquare) {
-        if (flipBoardAction.isActive()) {
-            flipBoardAction.onBoardSquareClicked(boardSquare, gameMattViewState);
+        if (reRollBoardAction.isActive()) {
+            reRollBoardAction.onBoardSquareClicked(boardSquare, viewState);
+        } else if (flipBoardAction.isActive()) {
+            flipBoardAction.onBoardSquareClicked(boardSquare, viewState);
         } else if (rollBoardAction.isActive()) {
-            rollBoardAction.onBoardSquareClicked(boardSquare, gameMattViewState);
+            rollBoardAction.onBoardSquareClicked(boardSquare, viewState);
         }
 
         // always update the correct count
         updateColumnTotals();
     }
 
+    public void onPassDialogShown() {
+        GameMattViewStateK newState = viewState.getValue().getAnExactCopy();
+        newState.getValidateViewState().setShowPassDialog(false);
+        viewState.setValue(newState);
+    }
+
+    public void onFailDialogShown() {
+        GameMattViewStateK newState = viewState.getValue().getAnExactCopy();
+        newState.getValidateViewState().setShowFailDialog(false);
+        viewState.setValue(newState);
+    }
+
     private void updateColumnTotals() {
-        GameMattViewStateK newState = gameMattViewState.getValue();
+        GameMattViewStateK newState = viewState.getValue();
         GameMatt gameMatt = newState.getGameMatt();
         int sTotal = ViewStateUtils.getBoardSquareSum(gameMatt.getSColumnBoards());
         int tTotal = ViewStateUtils.getBoardSquareSum(gameMatt.getTColumnBoards());
@@ -90,19 +112,7 @@ public class GameMattViewModel extends AndroidViewModel {
         adapterTotals.setATotal(aTotal);
         adapterTotals.setKTotal(kTotal);
 
-        gameMattViewState.setValue(newState);
-    }
-
-    public void onPassDialogShown() {
-        GameMattViewStateK newState = gameMattViewState.getValue().getAnExactCopy();
-        newState.getValidateViewState().setShowPassDialog(false);
-        gameMattViewState.setValue(newState);
-    }
-
-    public void onFailDialogShown() {
-        GameMattViewStateK newState = gameMattViewState.getValue().getAnExactCopy();
-        newState.getValidateViewState().setShowFailDialog(false);
-        gameMattViewState.setValue(newState);
+        viewState.setValue(newState);
     }
 
     private void onStakCardBeaten(StakCard stakCard) {

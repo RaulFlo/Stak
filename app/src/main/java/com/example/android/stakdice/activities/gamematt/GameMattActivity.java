@@ -29,7 +29,7 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 
     private static String STAK_CARD_ID_EXTRA = "StakCardID";
 
-    private GameMattViewModel gameMattViewModel;
+    private GameMattViewModel viewModel;
 
     public static Intent newIntent(Context context, StakCard stakCard) {
         Intent intent = new Intent(context, GameMattActivity.class);
@@ -99,35 +99,36 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         final String stakCardId = intent.getStringExtra(STAK_CARD_ID_EXTRA);
 
         //ask sys for new ViewModel, scopes it to this activity and destroys when this activity destroyed
-        gameMattViewModel = ViewModelProviders.of(this).get(GameMattViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(GameMattViewModel.class);
 
-        observeViewModel(gameMattViewModel, stakCardId);
+        observeViewModel(viewModel, stakCardId);
 
         //buttons
         rollButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gameMattViewModel.onRollDiceButtonClicked();
+                viewModel.onRollDiceButtonClicked();
             }
         });
 
         undoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gameMattViewModel.onUndoButtonClicked();
+                viewModel.onUndoButtonClicked();
             }
         });
 
         flipBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gameMattViewModel.onFlipAbilityClicked();
+                viewModel.onFlipAbilityClicked();
             }
         });
 
         reRollBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                viewModel.onReRollClicked();
                 //                undoBtn.setEnabled(false);
 //
 //                //make boardsquare with dice values able to be selected
@@ -244,7 +245,7 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
             }
         });
 
-        gameMattViewModel.gameMattViewState.observe(this, new Observer<GameMattViewStateK>() {
+        gameMattViewModel.viewState.observe(this, new Observer<GameMattViewStateK>() {
             @Override
             public void onChanged(GameMattViewStateK gameMattViewState) {
                 sViewText.setText(String.valueOf(gameMattViewState.getAdapterTotalsViewState().getSTotal()));
@@ -387,7 +388,7 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 //            setAdaptersFromGameMatt(matt);
 //        }
 
-        gameMattViewModel.onBoardSquareClicked(boardSquare);
+        viewModel.onBoardSquareClicked(boardSquare);
 //        updateViewTotal();
     }
 

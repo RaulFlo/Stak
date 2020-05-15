@@ -34,6 +34,4 @@ abstract public class BaseBoardAction implements BoardAction {
 
     abstract void modifyViewStateOnButtonClick(GameMattViewStateK newState);
     abstract void modifyViewStateOnBoardSquareClicked(BoardSquare boardSquareClicked, GameMattViewStateK newState);
-
-
 }
