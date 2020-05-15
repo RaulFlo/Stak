@@ -45,8 +45,8 @@ public class GameMattViewModel extends AndroidViewModel {
         if (!isGameOver()) {
             rollBoardAction.onButtonClicked(viewState);
         } else {
-//            // game over , validate
-//            viewState.getValue().setValidateViewState();
+            viewState.getValue().setValidateBtnVisible(true);
+            viewState.getValue().setRollButtonEnabled(false);
         }
     }
 
