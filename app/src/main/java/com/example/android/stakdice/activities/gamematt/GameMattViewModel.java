@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.android.stakdice.boardactions.BasicRollBoardAction;
+import com.example.android.stakdice.boardactions.FlipAbilityBoardAction;
 import com.example.android.stakdice.models.GameMatt;
 import com.example.android.stakdice.models.GameMattViewStateK;
 import com.example.android.stakdice.models.StakCard;
@@ -18,6 +19,7 @@ public class GameMattViewModel extends AndroidViewModel {
 
     private GameMatt matt = new SimpleGameMatt();
     private BasicRollBoardAction rollBoardAction = new BasicRollBoardAction();
+    private FlipAbilityBoardAction flipBoardAction = new FlipAbilityBoardAction();
     public MutableLiveData<GameMattViewStateK> gameMattViewState = new MutableLiveData<>(new GameMattViewStateK(matt));
 
     private StakRepo repository;
@@ -49,8 +51,16 @@ public class GameMattViewModel extends AndroidViewModel {
         }
     }
 
+    public void onFlipAbilityClicked() {
+        if (true) {
+            flipBoardAction.onButtonClicked(gameMattViewState, gameMattViewState.getValue());
+        }
+    }
+
     public void onBoardSquareClicked(BoardSquare boardSquare) {
-        if (rollBoardAction.isActive()) {
+        if (flipBoardAction.isActive()) {
+            flipBoardAction.onBoardSquareClicked(boardSquare, gameMattViewState, gameMattViewState.getValue());
+        } else if (rollBoardAction.isActive()) {
             rollBoardAction.onBoardSquareClicked(boardSquare, gameMattViewState, gameMattViewState.getValue());
         }
     }

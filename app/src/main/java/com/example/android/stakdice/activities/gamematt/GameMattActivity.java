@@ -199,6 +199,12 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 //            }
 //        });
 //
+        flipBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gameMattViewModel.onFlipAbilityClicked();
+            }
+        });
 //        flipBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -318,7 +324,6 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
     private void showPassDialog() {
         PassedDialog passedDialog = new PassedDialog();
         passedDialog.show(getSupportFragmentManager(), "passed dialog");
-
     }
 
 //    public void revealValidateButton() {
