@@ -263,7 +263,7 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
                 validateBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        updateViewTotal();
+//                        updateViewTotal();
 
                         int sValue = sBoardSquareAdapter.getColumnSum();
                         int tValue = tBoardSquareAdapter.getColumnSum();
@@ -338,27 +338,6 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
     public void onBoardSquareClicked(BoardSquare boardSquare) {
 
 //        if (isFlipBtnClicked) {
-//
-//
-//            Toast.makeText(this, "FLIP!", Toast.LENGTH_SHORT).show();
-//
-//            //save value of clicked boardsquare
-//            int intValueOfBs = boardSquare.getDiceRollValue();
-//
-//            //input int to method and receive new flipped int
-//            int flippedValue = flipAbility(intValueOfBs);
-//
-//            // after they click, set the adapter to not selecting
-//            updateColumnAdaptersToSelecting(false);
-//
-//            // update the adapters
-//            setAdaptersFromGameMatt(matt);
-//
-//            //update boardsquare with new flipped int
-//            matt.updateBoardSquare(boardSquare, flippedValue);
-//
-//
-//            isFlipBtnClicked = false;
 //
 //        } else if (isReRollBtnClicked) {
 //
@@ -440,7 +419,7 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 //        }
 
         gameMattViewModel.onBoardSquareClicked(boardSquare);
-        updateViewTotal();
+//        updateViewTotal();
     }
 
     private void switchAbility() {
@@ -469,45 +448,6 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
 
 
         return diceValueForAbility;
-    }
-
-    private int flipAbility(int diceValueForAbility) {
-
-
-        switch (diceValueForAbility) {
-            case 6:
-                return 1;
-            case 5:
-                return 2;
-
-            case 4:
-                return 3;
-
-            case 3:
-                return 4;
-
-            case 2:
-                return 5;
-
-            case 1:
-                return 6;
-
-
-        }
-        return 0;
-
-    }
-
-    private void updateViewTotal() {
-        int sSumTotal = sBoardSquareAdapter.getColumnSum();
-        int tSumTotal = tBoardSquareAdapter.getColumnSum();
-        int aSumTotal = aBoardSquareAdapter.getColumnSum();
-        int kSumTotal = kBoardSquareAdapter.getColumnSum();
-
-        sViewText.setText(String.valueOf(sSumTotal));
-        tViewText.setText(String.valueOf(tSumTotal));
-        aViewText.setText(String.valueOf(aSumTotal));
-        kViewText.setText(String.valueOf(kSumTotal));
     }
 
     private void disableAbilityBtns() {

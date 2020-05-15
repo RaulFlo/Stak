@@ -2,6 +2,9 @@ package com.example.android.stakdice;
 
 import com.example.android.stakdice.activities.gamematt.SimpleGameMatt;
 import com.example.android.stakdice.models.GameMattViewStateK;
+import com.example.android.stakdice.models.boardsquare.BoardSquare;
+
+import java.util.List;
 
 public class ViewStateUtils {
     public static void disableAbilities(GameMattViewStateK viewState) {
@@ -45,5 +48,13 @@ public class ViewStateUtils {
         }
 
         return 0;
+    }
+
+    public static int getBoardSquareSum(List<BoardSquare> boardSquares) {
+        int total = 0;
+        for (BoardSquare boardSquare : boardSquares) {
+            total += boardSquare.getDiceRollValue();
+        }
+        return total;
     }
 }
