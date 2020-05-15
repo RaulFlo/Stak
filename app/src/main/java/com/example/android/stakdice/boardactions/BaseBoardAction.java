@@ -7,7 +7,7 @@ import com.example.android.stakdice.models.boardsquare.BoardSquare;
 
 abstract public class BaseBoardAction implements BoardAction {
 
-    private boolean isActive = false;
+    protected boolean isActive = false;
 
     @Override
     public boolean isActive() {
@@ -33,5 +33,6 @@ abstract public class BaseBoardAction implements BoardAction {
     }
 
     abstract void modifyViewStateOnButtonClick(GameMattViewStateK newState);
+
     abstract void modifyViewStateOnBoardSquareClicked(BoardSquare boardSquareClicked, GameMattViewStateK newState);
 }

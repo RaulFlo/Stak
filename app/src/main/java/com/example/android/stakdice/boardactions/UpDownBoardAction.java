@@ -35,7 +35,7 @@ public class UpDownBoardAction extends BaseBoardAction {
     @Override
     void modifyViewStateOnBoardSquareClicked(BoardSquare boardSquareClicked, GameMattViewStateK newState) {
         newState.setUndoButtonEnabled(true);
-        newState.setSetAdapterToSelecting(true);
+        newState.setSetAdapterToSelecting(false);
 
         int oldDiceRollValue = boardSquareClicked.getDiceRollValue();
         int newDiceRollValue;

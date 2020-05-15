@@ -11,6 +11,7 @@ import com.example.android.stakdice.ViewStateUtils;
 import com.example.android.stakdice.boardactions.MainRollUndoBoardAction;
 import com.example.android.stakdice.boardactions.FlipAbilityBoardAction;
 import com.example.android.stakdice.boardactions.ReRollBoardAction;
+import com.example.android.stakdice.boardactions.SwitchBoardAction;
 import com.example.android.stakdice.boardactions.UpDownBoardAction;
 import com.example.android.stakdice.models.GameMatt;
 import com.example.android.stakdice.models.GameMattViewStateK;
@@ -26,6 +27,7 @@ public class GameMattViewModel extends AndroidViewModel {
     private FlipAbilityBoardAction flipBoardAction = new FlipAbilityBoardAction();
     private ReRollBoardAction reRollBoardAction = new ReRollBoardAction();
     private UpDownBoardAction upDownBoardAction = new UpDownBoardAction();
+    private SwitchBoardAction switchBoardAction = new SwitchBoardAction();
     public MutableLiveData<GameMattViewStateK> viewState = new MutableLiveData<>(new GameMattViewStateK(matt));
 
     private StakRepo repository;
@@ -78,7 +80,9 @@ public class GameMattViewModel extends AndroidViewModel {
     }
 
     public void onBoardSquareClicked(BoardSquare boardSquare) {
-        if (upDownBoardAction.isActive()) {
+        if (switchBoardAction.isActive()) {
+            switchBoardAction.onBoardSquareClicked(boardSquare, viewState);
+        } else if (upDownBoardAction.isActive()) {
             upDownBoardAction.onBoardSquareClicked(boardSquare, viewState);
         } else if (reRollBoardAction.isActive()) {
             reRollBoardAction.onBoardSquareClicked(boardSquare, viewState);
@@ -126,8 +130,9 @@ public class GameMattViewModel extends AndroidViewModel {
     }
 
     public void onSwitchAbilityClicked() {
-
-
+        if (viewState.getValue().getAbilityViewState().getSwitchEnabled()) {
+            switchBoardAction.onButtonClicked(viewState);
+        }
     }
 
     public void onUpDownAbilityClicked() {
