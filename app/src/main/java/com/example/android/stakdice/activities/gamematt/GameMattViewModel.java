@@ -112,7 +112,7 @@ public class GameMattViewModel extends AndroidViewModel {
     }
 
     private boolean isGameOver() {
-        return viewState.getValue().getRoundValue() >= GAME_OVER_ROUND)
+        return viewState.getValue().getRoundValue() >= GAME_OVER_ROUND;
     }
 
     private void updateColumnTotals() {
