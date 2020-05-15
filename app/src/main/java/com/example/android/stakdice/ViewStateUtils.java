@@ -11,25 +11,25 @@ public class ViewStateUtils {
     private static Random rng = new Random();
 
     public static void disableAbilities(GameMattViewState viewState) {
-        viewState.getAbilityViewState().setFlipEnabled(false);
-        viewState.getAbilityViewState().setReRollEnabled(false);
-        viewState.getAbilityViewState().setSwitchEnabled(false);
-        viewState.getAbilityViewState().setUpDownEnabled(false);
+        viewState.setFlipEnabled(false);
+        viewState.setReRollEnabled(false);
+        viewState.setSwitchEnabled(false);
+        viewState.setUpDownEnabled(false);
     }
 
     public static void enablePower(GameMattViewState viewState, SimpleGameMatt.StakColumn stakColumn) {
         switch (stakColumn) {
             case STRENGTH:
-                viewState.getAbilityViewState().setSwitchEnabled(true);
+                viewState.setSwitchEnabled(true);
                 break;
             case TOUGHNESS:
-                viewState.getAbilityViewState().setUpDownEnabled(true);
+                viewState.setUpDownEnabled(true);
                 break;
             case AGILITY:
-                viewState.getAbilityViewState().setFlipEnabled(true);
+                viewState.setFlipEnabled(true);
                 break;
             case KNOWLEDGE:
-                viewState.getAbilityViewState().setReRollEnabled(true);
+                viewState.setReRollEnabled(true);
                 break;
         }
     }

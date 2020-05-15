@@ -168,35 +168,35 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         viewModel.viewState.observe(this, new Observer<GameMattViewState>() {
             @Override
             public void onChanged(GameMattViewState viewState) {
-                sViewText.setText(String.valueOf(viewState.getAdapterTotalsViewState().getSTotal()));
-                tViewText.setText(String.valueOf(viewState.getAdapterTotalsViewState().getTTotal()));
-                aViewText.setText(String.valueOf(viewState.getAdapterTotalsViewState().getATotal()));
-                kViewText.setText(String.valueOf(viewState.getAdapterTotalsViewState().getKTotal()));
-                switchBtn.setEnabled(viewState.getAbilityViewState().getSwitchEnabled());
-                upDownBtn.setEnabled(viewState.getAbilityViewState().getUpDownEnabled());
-                flipBtn.setEnabled(viewState.getAbilityViewState().getFlipEnabled());
-                reRollBtn.setEnabled(viewState.getAbilityViewState().getReRollEnabled());
+                sViewText.setText(String.valueOf(viewState.getSTotal()));
+                tViewText.setText(String.valueOf(viewState.getTTotal()));
+                aViewText.setText(String.valueOf(viewState.getATotal()));
+                kViewText.setText(String.valueOf(viewState.getKTotal()));
+                switchBtn.setEnabled(viewState.getSwitchEnabled());
+                upDownBtn.setEnabled(viewState.getUpDownEnabled());
+                flipBtn.setEnabled(viewState.getFlipEnabled());
+                reRollBtn.setEnabled(viewState.getReRollEnabled());
                 rollButton.setEnabled(viewState.getRollButtonEnabled());
                 undoBtn.setEnabled(viewState.getUndoButtonEnabled());
-                if (viewState.getDiceImageViewState().getDiceImageVisibility()) {
+                if (viewState.getDiceImageVisibility()) {
                     imageViewDice.setVisibility(View.VISIBLE);
                 } else {
                     imageViewDice.setVisibility(View.INVISIBLE);
                 }
 
-                imageViewDice.setImageResource(viewState.getDiceImageViewState().getDiceImageRes());
+                imageViewDice.setImageResource(viewState.getDiceImageRes());
                 roundView.setText("Round: " + viewState.getRoundValue());
-                if (viewState.getValidateViewState().getShowFailDialog()) {
+                if (viewState.getShowFailDialog()) {
                     showFailDialog();
                     viewModel.onFailDialogShown();
                 }
-                if (viewState.getValidateViewState().getShowPassDialog()) {
+                if (viewState.getShowPassDialog()) {
                     showPassDialog();
                     viewModel.onPassDialogShown();
                 }
                 setAdaptersFromGameMatt(viewState.getGameMatt());
                 updateColumnAdaptersToSelecting(viewState.getSetAdapterToSelecting());
-                if (viewState.getValidateViewState().getValidateBtnVisible()) {
+                if (viewState.getValidateBtnVisible()) {
                     validateBtn.setVisibility(View.VISIBLE);
                 } else {
                     validateBtn.setVisibility(View.INVISIBLE);

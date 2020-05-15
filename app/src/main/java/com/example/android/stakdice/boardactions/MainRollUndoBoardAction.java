@@ -26,9 +26,9 @@ public class MainRollUndoBoardAction extends BaseBoardAction {
         // set new dice value
         newState.setDiceRollValue(lastDiceRoll);
         // update dice image
-        newState.getDiceImageViewState().setDiceImageRes(ViewStateUtils.getDiceImageByRollAmount(lastDiceRoll));
+        newState.setDiceImageRes(ViewStateUtils.getDiceImageByRollAmount(lastDiceRoll));
         // update dice visibility to visible
-        newState.getDiceImageViewState().setDiceImageVisibility(true);
+        newState.setDiceImageVisibility(true);
         newState.setSetAdapterToSelecting(true);
     }
 
@@ -39,7 +39,7 @@ public class MainRollUndoBoardAction extends BaseBoardAction {
         newState.setUndoButtonEnabled(true);
         newState.setRollButtonEnabled(true);
         newState.setSetAdapterToSelecting(false);
-        newState.getDiceImageViewState().setDiceImageVisibility(false);
+        newState.setDiceImageVisibility(false);
         newState.getGameMatt().updateBoardSquare(boardSquareClicked, lastDiceRoll);
         SimpleGameMatt.StakColumn stakColumn = newState.getGameMatt().returnStakColumn(boardSquareClicked);
         ViewStateUtils.enablePower(newState, stakColumn);

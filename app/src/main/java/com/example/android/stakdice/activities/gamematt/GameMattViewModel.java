@@ -15,7 +15,6 @@ import com.example.android.stakdice.boardactions.SwitchBoardAction;
 import com.example.android.stakdice.boardactions.UpDownBoardAction;
 import com.example.android.stakdice.models.GameMatt;
 import com.example.android.stakdice.models.GameMattViewState;
-import com.example.android.stakdice.models.GmAdapterTotalsViewState;
 import com.example.android.stakdice.models.StakCard;
 import com.example.android.stakdice.models.boardsquare.BoardSquare;
 import com.example.android.stakdice.repos.StakRepo;
@@ -57,14 +56,14 @@ public class GameMattViewModel extends AndroidViewModel {
     }
 
     public void onFlipAbilityClicked() {
-        if (viewState.getValue().getAbilityViewState().getFlipEnabled()) {
+        if (viewState.getValue().getFlipEnabled()) {
             flipBoardAction.onButtonClicked(viewState);
             updateColumnTotals();
         }
     }
 
     public void onReRollClicked() {
-        if (viewState.getValue().getAbilityViewState().getReRollEnabled()) {
+        if (viewState.getValue().getReRollEnabled()) {
             reRollBoardAction.onButtonClicked(viewState);
             updateColumnTotals();
         }
@@ -89,24 +88,23 @@ public class GameMattViewModel extends AndroidViewModel {
 
     public void onPassDialogShown() {
         GameMattViewState newState = viewState.getValue().getAnExactCopy();
-        newState.getValidateViewState().setShowPassDialog(false);
+        newState.setShowPassDialog(false);
         viewState.setValue(newState);
     }
 
     public void onFailDialogShown() {
         GameMattViewState newState = viewState.getValue().getAnExactCopy();
-        newState.getValidateViewState().setShowFailDialog(false);
+        newState.setShowFailDialog(false);
         viewState.setValue(newState);
     }
 
     public void validateCard(StakCard stakCard) {
         GameMattViewState newState = viewState.getValue().getAnExactCopy();
-        GmAdapterTotalsViewState totalsViewState = newState.getAdapterTotalsViewState();
-        if (stakCard.isValid(totalsViewState.getSTotal(), totalsViewState.getTTotal(), totalsViewState.getATotal(), totalsViewState.getKTotal())) {
+        if (stakCard.isValid(newState.getSTotal(), newState.getTTotal(), newState.getATotal(), newState.getKTotal())) {
             onStakCardBeaten(stakCard);
-            newState.getValidateViewState().setShowPassDialog(true);
+            newState.setShowPassDialog(true);
         } else {
-            newState.getValidateViewState().setShowFailDialog(true);
+            newState.setShowFailDialog(true);
         }
         viewState.setValue(newState);
     }
@@ -122,11 +120,10 @@ public class GameMattViewModel extends AndroidViewModel {
         int tTotal = ViewStateUtils.getBoardSquareSum(gameMatt.getTColumnBoards());
         int aTotal = ViewStateUtils.getBoardSquareSum(gameMatt.getAColumnBoards());
         int kTotal = ViewStateUtils.getBoardSquareSum(gameMatt.getKColumnBoards());
-        GmAdapterTotalsViewState adapterTotals = newState.getAdapterTotalsViewState();
-        adapterTotals.setSTotal(sTotal);
-        adapterTotals.setTTotal(tTotal);
-        adapterTotals.setATotal(aTotal);
-        adapterTotals.setKTotal(kTotal);
+        newState.setSTotal(sTotal);
+        newState.setTTotal(tTotal);
+        newState.setATotal(aTotal);
+        newState.setKTotal(kTotal);
 
         viewState.setValue(newState);
     }
@@ -138,13 +135,13 @@ public class GameMattViewModel extends AndroidViewModel {
     }
 
     public void onSwitchAbilityClicked() {
-        if (viewState.getValue().getAbilityViewState().getSwitchEnabled()) {
+        if (viewState.getValue().getSwitchEnabled()) {
             switchBoardAction.onButtonClicked(viewState);
         }
     }
 
     public void onUpDownAbilityClicked() {
-        if (viewState.getValue().getAbilityViewState().getUpDownEnabled()) {
+        if (viewState.getValue().getUpDownEnabled()) {
             upDownBoardAction.onButtonClicked(viewState);
         }
     }
