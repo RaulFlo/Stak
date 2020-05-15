@@ -47,6 +47,7 @@ public class GameMattViewModel extends AndroidViewModel {
         } else {
             viewState.getValue().setValidateBtnVisible(true);
             viewState.getValue().setRollButtonEnabled(false);
+            viewState.setValue(viewState.getValue());
         }
     }
 

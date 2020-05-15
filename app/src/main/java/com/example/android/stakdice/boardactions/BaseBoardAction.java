@@ -20,7 +20,7 @@ abstract public class BaseBoardAction implements BoardAction {
         // not really needed but it's a bit more immutable so hopefully easier to debug
         GameMattViewState newState = mutableLiveData.getValue().getAnExactCopy();
         modifyViewStateOnButtonClick(newState);
-        mutableLiveData.postValue(newState);
+        mutableLiveData.setValue(newState);
     }
 
     @Override
@@ -29,7 +29,7 @@ abstract public class BaseBoardAction implements BoardAction {
         // not really needed but it's a bit more immutable so hopefully easier to debug
         GameMattViewState newState = mutableLiveData.getValue().getAnExactCopy();
         modifyViewStateOnBoardSquareClicked(boardSquareClicked, newState);
-        mutableLiveData.postValue(newState);
+        mutableLiveData.setValue(newState);
     }
 
     abstract void modifyViewStateOnButtonClick(GameMattViewState newState);

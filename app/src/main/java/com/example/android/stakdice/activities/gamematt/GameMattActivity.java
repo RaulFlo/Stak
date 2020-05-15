@@ -226,14 +226,6 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
         passedDialog.show(getSupportFragmentManager(), "passed dialog");
     }
 
-//    public void revealValidateButton() {
-//        if (currentClicks == 10) {
-//            validateBtn.setVisibility(View.VISIBLE);
-//            hideDiceImage();
-//        }
-//    }
-
-
     @Override
     public void onBoardSquareClicked(BoardSquare boardSquare) {
         viewModel.onBoardSquareClicked(boardSquare);
