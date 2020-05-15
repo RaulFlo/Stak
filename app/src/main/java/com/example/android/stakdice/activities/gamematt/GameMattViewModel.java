@@ -11,6 +11,7 @@ import com.example.android.stakdice.ViewStateUtils;
 import com.example.android.stakdice.boardactions.MainRollUndoBoardAction;
 import com.example.android.stakdice.boardactions.FlipAbilityBoardAction;
 import com.example.android.stakdice.boardactions.ReRollBoardAction;
+import com.example.android.stakdice.boardactions.UpDownBoardAction;
 import com.example.android.stakdice.models.GameMatt;
 import com.example.android.stakdice.models.GameMattViewStateK;
 import com.example.android.stakdice.models.GmAdapterTotalsViewState;
@@ -24,6 +25,7 @@ public class GameMattViewModel extends AndroidViewModel {
     private MainRollUndoBoardAction rollBoardAction = new MainRollUndoBoardAction();
     private FlipAbilityBoardAction flipBoardAction = new FlipAbilityBoardAction();
     private ReRollBoardAction reRollBoardAction = new ReRollBoardAction();
+    private UpDownBoardAction upDownBoardAction = new UpDownBoardAction();
     public MutableLiveData<GameMattViewStateK> viewState = new MutableLiveData<>(new GameMattViewStateK(matt));
 
     private StakRepo repository;
@@ -37,9 +39,10 @@ public class GameMattViewModel extends AndroidViewModel {
         return repository.getSingleStak(id);
     }
 
-    public void validateCard(StakCard stakCard, int sValue, int tValue, int aValue, int kValue) {
+    public void validateCard(StakCard stakCard) {
         GameMattViewStateK newState = viewState.getValue().getAnExactCopy();
-        if (stakCard.isValid(sValue, tValue, aValue, kValue)) {
+        GmAdapterTotalsViewState totalsViewState = newState.getAdapterTotalsViewState();
+        if (stakCard.isValid(totalsViewState.getSTotal(), totalsViewState.getTTotal(), totalsViewState.getATotal(), totalsViewState.getKTotal())) {
             onStakCardBeaten(stakCard);
             newState.getValidateViewState().setShowPassDialog(true);
         } else {
@@ -75,7 +78,9 @@ public class GameMattViewModel extends AndroidViewModel {
     }
 
     public void onBoardSquareClicked(BoardSquare boardSquare) {
-        if (reRollBoardAction.isActive()) {
+        if (upDownBoardAction.isActive()) {
+            upDownBoardAction.onBoardSquareClicked(boardSquare, viewState);
+        } else if (reRollBoardAction.isActive()) {
             reRollBoardAction.onBoardSquareClicked(boardSquare, viewState);
         } else if (flipBoardAction.isActive()) {
             flipBoardAction.onBoardSquareClicked(boardSquare, viewState);
@@ -118,5 +123,32 @@ public class GameMattViewModel extends AndroidViewModel {
     private void onStakCardBeaten(StakCard stakCard) {
         stakCard.setBeaten(true);
         repository.update(stakCard);
+    }
+
+    public void onSwitchAbilityClicked() {
+
+
+    }
+
+    public void onUpDownAbilityClicked() {
+        if (viewState.getValue().getAbilityViewState().getUpDownEnabled()) {
+            upDownBoardAction.onButtonClicked(viewState);
+        }
+    }
+
+    public void onAbilityDownClicked() {
+        if (viewState.getValue().getDownBtnVisible() && upDownBoardAction.isActive()) {
+            GameMattViewStateK newState = viewState.getValue().getAnExactCopy();
+            upDownBoardAction.onDownBtnClicked(newState);
+            viewState.setValue(newState);
+        }
+    }
+
+    public void onAbilityUpClicked() {
+        if (viewState.getValue().getDownBtnVisible() && upDownBoardAction.isActive()) {
+            GameMattViewStateK newState = viewState.getValue().getAnExactCopy();
+            upDownBoardAction.onUpBtnClicked(newState);
+            viewState.setValue(newState);
+        }
     }
 }

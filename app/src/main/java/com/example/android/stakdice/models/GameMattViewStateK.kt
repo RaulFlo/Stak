@@ -5,11 +5,12 @@ data class GameMattViewStateK @JvmOverloads constructor(
         var gameMatt: GameMatt,
         var rollButtonEnabled: Boolean = true, var undoButtonEnabled: Boolean = false,
         var diceRollValue: Int = 0, var roundValue: Int = 0, var setAdapterToSelecting: Boolean = false,
+        var upBtnVisible: Boolean = false, var downBtnVisible: Boolean = false,
         var adapterTotalsViewState: GmAdapterTotalsViewState = GmAdapterTotalsViewState(),
         var abilityViewState: GmAbilityViewState = GmAbilityViewState(),
         var diceImageViewState: GmDiceImageViewState = GmDiceImageViewState(),
         var validateViewState: GmValidateViewState = GmValidateViewState()) {
-    
+
     fun getAnExactCopy(): GameMattViewStateK {
         return copy()
     }
