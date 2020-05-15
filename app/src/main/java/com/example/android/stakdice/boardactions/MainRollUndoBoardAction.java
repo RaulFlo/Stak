@@ -10,25 +10,14 @@ import com.example.android.stakdice.models.boardsquare.BoardSquare;
 
 import java.util.Random;
 
-public class MainRollUndoBoardAction implements BoardAction {
+public class MainRollUndoBoardAction extends BaseBoardAction {
 
     private int lastDiceRoll = 0;
     private Random rng = new Random();
-    private boolean isActive = false;
     private BoardSquare lastBoardSquareClicked;
 
-
     @Override
-    public boolean isActive() {
-        return isActive;
-    }
-
-    @Override
-    public void onButtonClicked(MutableLiveData<GameMattViewStateK> mutableLiveData, GameMattViewStateK gameMattViewState) {
-        isActive = true;
-        // not really needed but it's a bit more immutable so hopefully easier to debug
-        GameMattViewStateK newState = gameMattViewState.getAnExactCopy();
-
+    void modifyViewStateOnButtonClick(GameMattViewStateK newState) {
         lastDiceRoll = getDiceRollValue();
         // update round
         newState.setRoundValue(newState.getRoundValue() + 1);
@@ -45,17 +34,12 @@ public class MainRollUndoBoardAction implements BoardAction {
         // update dice visibility to visible
         newState.getDiceImageViewState().setDiceImageVisibility(true);
         newState.setSetAdapterToSelecting(true);
-
-        // set new state
-        mutableLiveData.setValue(newState);
     }
 
     @Override
-    public void onBoardSquareClicked(BoardSquare boardSquareClicked, MutableLiveData<GameMattViewStateK> mutableLiveData, GameMattViewStateK gameMattViewState) {
-        isActive = false;
+    void modifyViewStateOnBoardSquareClicked(BoardSquare boardSquareClicked, GameMattViewStateK newState) {
         lastBoardSquareClicked = boardSquareClicked;
-        // not really needed but it's a bit more immutable so hopefully easier to debug
-        GameMattViewStateK newState = gameMattViewState.getAnExactCopy();
+
         newState.setUndoButtonEnabled(true);
         newState.setRollButtonEnabled(true);
         newState.setSetAdapterToSelecting(false);
@@ -63,9 +47,6 @@ public class MainRollUndoBoardAction implements BoardAction {
         newState.getGameMatt().updateBoardSquare(boardSquareClicked, lastDiceRoll);
         SimpleGameMatt.StakColumn stakColumn = newState.getGameMatt().returnStakColumn(boardSquareClicked);
         ViewStateUtils.enablePower(newState, stakColumn);
-
-        // set new state
-        mutableLiveData.setValue(newState);
     }
 
     public void undoSettingSquare(MutableLiveData<GameMattViewStateK> mutableLiveData, GameMattViewStateK viewState) {

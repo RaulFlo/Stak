@@ -9,7 +9,8 @@ public interface BoardAction {
 
     boolean isActive();
 
-    void onButtonClicked(MutableLiveData<GameMattViewStateK> mutableLiveData, GameMattViewStateK gameMattViewState);
+    void onButtonClicked(MutableLiveData<GameMattViewStateK> mutableLiveData);
 
-    void onBoardSquareClicked(BoardSquare boardSquareClicked, MutableLiveData<GameMattViewStateK> mutableLiveData, GameMattViewStateK gameMattViewState);
+    void onBoardSquareClicked(BoardSquare boardSquareClicked, MutableLiveData<GameMattViewStateK> mutableLiveData);
 }
+

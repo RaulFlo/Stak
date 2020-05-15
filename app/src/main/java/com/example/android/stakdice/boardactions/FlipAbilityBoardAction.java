@@ -1,36 +1,21 @@
 package com.example.android.stakdice.boardactions;
 
-import androidx.lifecycle.MutableLiveData;
-
 import com.example.android.stakdice.ViewStateUtils;
 import com.example.android.stakdice.models.GameMattViewStateK;
 import com.example.android.stakdice.models.boardsquare.BoardSquare;
 
-public class FlipAbilityBoardAction implements BoardAction {
-    private boolean isActive = false;
-
+public class FlipAbilityBoardAction extends BaseBoardAction {
     @Override
-    public boolean isActive() {
-        return isActive;
-    }
-
-    @Override
-    public void onButtonClicked(MutableLiveData<GameMattViewStateK> mutableLiveData, GameMattViewStateK gameMattViewState) {
-        isActive = true;
-        GameMattViewStateK newState = gameMattViewState.getAnExactCopy();
+    void modifyViewStateOnButtonClick(GameMattViewStateK newState) {
         newState.setUndoButtonEnabled(false);
         //make boardsquare with dice values able to be selected
         newState.getGameMatt().makeBoardSquareSelectableForAbility();
         newState.setSetAdapterToSelecting(true);
         ViewStateUtils.disableAbilities(newState);
-        mutableLiveData.setValue(newState);
     }
 
     @Override
-    public void onBoardSquareClicked(BoardSquare boardSquareClicked, MutableLiveData<GameMattViewStateK> mutableLiveData, GameMattViewStateK gameMattViewState) {
-        isActive = false;
-        GameMattViewStateK newState = gameMattViewState.getAnExactCopy();
-
+    void modifyViewStateOnBoardSquareClicked(BoardSquare boardSquareClicked, GameMattViewStateK newState) {
         //save value of clicked boardsquare
         int intValueOfBs = boardSquareClicked.getDiceRollValue();
 
@@ -42,7 +27,6 @@ public class FlipAbilityBoardAction implements BoardAction {
 
         //update boardsquare with new flipped int
         newState.getGameMatt().updateBoardSquare(boardSquareClicked, flippedValue);
-        mutableLiveData.setValue(newState);
     }
 
     private int flipAbility(int diceValueForAbility) {

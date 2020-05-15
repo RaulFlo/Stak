@@ -49,7 +49,7 @@ public class GameMattViewModel extends AndroidViewModel {
 
     public void onRollDiceButtonClicked() {
         if (true) {
-            rollBoardAction.onButtonClicked(gameMattViewState, gameMattViewState.getValue());
+            rollBoardAction.onButtonClicked(gameMattViewState);
         }
     }
 
@@ -61,16 +61,16 @@ public class GameMattViewModel extends AndroidViewModel {
 
     public void onFlipAbilityClicked() {
         if (gameMattViewState.getValue().getAbilityViewState().getFlipEnabled()) {
-            flipBoardAction.onButtonClicked(gameMattViewState, gameMattViewState.getValue());
+            flipBoardAction.onButtonClicked(gameMattViewState);
             updateColumnTotals();
         }
     }
 
     public void onBoardSquareClicked(BoardSquare boardSquare) {
         if (flipBoardAction.isActive()) {
-            flipBoardAction.onBoardSquareClicked(boardSquare, gameMattViewState, gameMattViewState.getValue());
+            flipBoardAction.onBoardSquareClicked(boardSquare, gameMattViewState);
         } else if (rollBoardAction.isActive()) {
-            rollBoardAction.onBoardSquareClicked(boardSquare, gameMattViewState, gameMattViewState.getValue());
+            rollBoardAction.onBoardSquareClicked(boardSquare, gameMattViewState);
         }
 
         // always update the correct count
