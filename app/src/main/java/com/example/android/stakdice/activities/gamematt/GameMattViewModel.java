@@ -7,8 +7,6 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.android.stakdice.R;
-import com.example.android.stakdice.activities.gamematt.SimpleGameMatt.StakColumn;
 import com.example.android.stakdice.boardactions.BasicRollBoardAction;
 import com.example.android.stakdice.models.GameMatt;
 import com.example.android.stakdice.models.GameMattViewStateK;
@@ -16,11 +14,10 @@ import com.example.android.stakdice.models.StakCard;
 import com.example.android.stakdice.models.boardsquare.BoardSquare;
 import com.example.android.stakdice.repos.StakRepo;
 
-import java.util.Random;
-
 public class GameMattViewModel extends AndroidViewModel {
 
     private GameMatt matt = new SimpleGameMatt();
+    private BasicRollBoardAction rollBoardAction = new BasicRollBoardAction();
     public MutableLiveData<GameMattViewStateK> gameMattViewState = new MutableLiveData<>(new GameMattViewStateK(matt));
 
     private StakRepo repository;
@@ -35,15 +32,16 @@ public class GameMattViewModel extends AndroidViewModel {
     }
 
     public void validateCard(StakCard stakCard, int sValue, int tValue, int aValue, int kValue) {
+        GameMattViewStateK newState = gameMattViewState.getValue().getAnExactCopy();
         if (stakCard.isValid(sValue, tValue, aValue, kValue)) {
             onStakCardBeaten(stakCard);
-//            showPassDialog.setValue(true);
+            newState.getValidateViewState().setShowPassDialog(true);
         } else {
-//            showFailDialog.setValue(true);
+            newState.getValidateViewState().setShowFailDialog(true);
         }
+        gameMattViewState.setValue(newState);
     }
 
-    BasicRollBoardAction rollBoardAction = new BasicRollBoardAction();
 
     public void onRollDiceButtonClicked() {
         if (true) {
@@ -58,19 +56,19 @@ public class GameMattViewModel extends AndroidViewModel {
     }
 
     public void onPassDialogShown() {
-//        showPassDialog.setValue(false);
+        GameMattViewStateK newState = gameMattViewState.getValue().getAnExactCopy();
+        newState.getValidateViewState().setShowPassDialog(false);
+        gameMattViewState.setValue(newState);
     }
 
     public void onFailDialogShown() {
-//        showFailDialog.setValue(false);
+        GameMattViewStateK newState = gameMattViewState.getValue().getAnExactCopy();
+        newState.getValidateViewState().setShowFailDialog(false);
+        gameMattViewState.setValue(newState);
     }
 
     private void onStakCardBeaten(StakCard stakCard) {
         stakCard.setBeaten(true);
         repository.update(stakCard);
     }
-
 }
-//* validate
-//        * first power up
-
