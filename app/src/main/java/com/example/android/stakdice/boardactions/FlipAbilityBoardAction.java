@@ -4,7 +4,20 @@ import com.example.android.stakdice.ViewStateUtils;
 import com.example.android.stakdice.models.GameMattViewStateK;
 import com.example.android.stakdice.models.boardsquare.BoardSquare;
 
+import java.util.HashMap;
+
 public class FlipAbilityBoardAction extends BaseBoardAction {
+    private HashMap<Integer, Integer> flipMap = new HashMap<>();
+
+    public FlipAbilityBoardAction() {
+        flipMap.put(6, 1);
+        flipMap.put(5, 2);
+        flipMap.put(4, 3);
+        flipMap.put(3, 4);
+        flipMap.put(2, 5);
+        flipMap.put(1, 6);
+    }
+
     @Override
     void modifyViewStateOnButtonClick(GameMattViewStateK newState) {
         newState.setUndoButtonEnabled(false);
@@ -20,39 +33,12 @@ public class FlipAbilityBoardAction extends BaseBoardAction {
         int intValueOfBs = boardSquareClicked.getDiceRollValue();
 
         //input int to method and receive new flipped int
-        int flippedValue = flipAbility(intValueOfBs);
+        Integer flippedValue = flipMap.getOrDefault(intValueOfBs, 0);
 
         // after they click, set the adapter to not selecting
         newState.setSetAdapterToSelecting(false);
 
         //update boardsquare with new flipped int
         newState.getGameMatt().updateBoardSquare(boardSquareClicked, flippedValue);
-    }
-
-    private int flipAbility(int diceValueForAbility) {
-
-
-        switch (diceValueForAbility) {
-            case 6:
-                return 1;
-            case 5:
-                return 2;
-
-            case 4:
-                return 3;
-
-            case 3:
-                return 4;
-
-            case 2:
-                return 5;
-
-            case 1:
-                return 6;
-
-
-        }
-        return 0;
-
     }
 }

@@ -2,13 +2,10 @@ package com.example.android.stakdice.boardactions;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.android.stakdice.R;
 import com.example.android.stakdice.ViewStateUtils;
 import com.example.android.stakdice.activities.gamematt.SimpleGameMatt;
 import com.example.android.stakdice.models.GameMattViewStateK;
 import com.example.android.stakdice.models.boardsquare.BoardSquare;
-
-import java.util.Random;
 
 public class MainRollUndoBoardAction extends BaseBoardAction {
 

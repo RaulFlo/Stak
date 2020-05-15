@@ -7,7 +7,7 @@ import com.example.android.stakdice.models.boardsquare.BoardSquare;
 
 abstract public class BaseBoardAction implements BoardAction {
 
-    protected boolean isActive = false;
+    boolean isActive = false;
 
     @Override
     public boolean isActive() {
