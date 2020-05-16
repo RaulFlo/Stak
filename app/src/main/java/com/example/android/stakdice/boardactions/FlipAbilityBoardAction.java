@@ -19,16 +19,17 @@ public class FlipAbilityBoardAction extends BaseBoardAction {
     }
 
     @Override
-    void modifyViewStateOnButtonClick(GameMattViewState newState) {
-        newState.setUndoButtonEnabled(false);
+    GameMattViewState getButtonClickedViewState(GameMattViewState currentState) {
+        currentState.setUndoButtonEnabled(false);
         //make boardsquare with dice values able to be selected
-        newState.getGameMatt().makeBoardSquareSelectableForAbility();
-        newState.setSetAdapterToSelecting(true);
-        ViewStateUtils.disableAbilities(newState);
+        currentState.getGameMatt().makeBoardSquareSelectableForAbility();
+        currentState.setSetAdapterToSelecting(true);
+        ViewStateUtils.disableAbilities(currentState);
+        return currentState;
     }
 
     @Override
-    void modifyViewStateOnBoardSquareClicked(BoardSquare boardSquareClicked, GameMattViewState newState) {
+    GameMattViewState getBoardClickedViewState(BoardSquare boardSquareClicked, GameMattViewState currentState) {
         //save value of clicked boardsquare
         int intValueOfBs = boardSquareClicked.getDiceRollValue();
 
@@ -36,9 +37,10 @@ public class FlipAbilityBoardAction extends BaseBoardAction {
         Integer flippedValue = flipMap.getOrDefault(intValueOfBs, 0);
 
         // after they click, set the adapter to not selecting
-        newState.setSetAdapterToSelecting(false);
+        currentState.setSetAdapterToSelecting(false);
 
         //update boardsquare with new flipped int
-        newState.getGameMatt().updateBoardSquare(boardSquareClicked, flippedValue);
+        currentState.getGameMatt().updateBoardSquare(boardSquareClicked, flippedValue);
+        return currentState;
     }
 }

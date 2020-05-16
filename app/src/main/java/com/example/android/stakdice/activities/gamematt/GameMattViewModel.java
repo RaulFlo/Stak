@@ -28,7 +28,7 @@ public class GameMattViewModel extends AndroidViewModel {
     private ReRollBoardAction reRollBoardAction = new ReRollBoardAction();
     private UpDownBoardAction upDownBoardAction = new UpDownBoardAction();
     private SwitchBoardAction switchBoardAction = new SwitchBoardAction();
-    public MutableLiveData<GameMattViewState> viewState = new MutableLiveData<>(new GameMattViewState(matt));
+    public MutableLiveData<GameMattViewState> viewStateMutableLiveData = new MutableLiveData<>(new GameMattViewState(matt));
 
     private StakRepo repository;
 
@@ -43,92 +43,97 @@ public class GameMattViewModel extends AndroidViewModel {
 
     public void onRollDiceButtonClicked() {
         if (!isGameOver()) {
-            rollBoardAction.onButtonClicked(viewState);
+            GameMattViewState newState = rollBoardAction.onButtonClicked(getCopyState());
+            updateWithState(newState);
         } else {
-            viewState.getValue().setValidateBtnVisible(true);
-            viewState.getValue().setRollButtonEnabled(false);
-            viewState.setValue(viewState.getValue());
+            GameMattViewState newState = getCopyState();
+            newState.setValidateBtnVisible(true);
+            newState.setRollButtonEnabled(false);
+            updateWithState(newState);
         }
     }
 
     public void onUndoButtonClicked() {
-        rollBoardAction.undoSettingSquare(viewState, viewState.getValue());
-        updateColumnTotals();
+        GameMattViewState newState = rollBoardAction.undoSettingSquare(getCopyState());
+        updateColumnTotals(newState);
+        updateWithState(newState);
     }
 
     public void onFlipAbilityClicked() {
-        if (viewState.getValue().getFlipEnabled()) {
-            flipBoardAction.onButtonClicked(viewState);
-            updateColumnTotals();
+        if (getCurrentState().getFlipEnabled()) {
+            GameMattViewState newState = flipBoardAction.onButtonClicked(getCopyState());
+            updateColumnTotals(newState);
+            updateWithState(newState);
         }
     }
 
     public void onReRollClicked() {
-        if (viewState.getValue().getReRollEnabled()) {
-            reRollBoardAction.onButtonClicked(viewState);
-            updateColumnTotals();
+        if (getCurrentState().getReRollEnabled()) {
+            GameMattViewState newState = reRollBoardAction.onButtonClicked(getCopyState());
+            updateColumnTotals(newState);
+            updateWithState(newState);
         }
     }
 
     public void onBoardSquareClicked(BoardSquare boardSquare) {
+        GameMattViewState newState = null;
         if (switchBoardAction.isActive()) {
-            switchBoardAction.onBoardSquareClicked(boardSquare, viewState);
+            newState = switchBoardAction.onBoardSquareClicked(boardSquare, getCopyState());
         } else if (upDownBoardAction.isActive()) {
-            upDownBoardAction.onBoardSquareClicked(boardSquare, viewState);
+            newState = upDownBoardAction.onBoardSquareClicked(boardSquare, getCopyState());
         } else if (reRollBoardAction.isActive()) {
-            reRollBoardAction.onBoardSquareClicked(boardSquare, viewState);
+            newState = reRollBoardAction.onBoardSquareClicked(boardSquare, getCopyState());
         } else if (flipBoardAction.isActive()) {
-            flipBoardAction.onBoardSquareClicked(boardSquare, viewState);
+            newState = flipBoardAction.onBoardSquareClicked(boardSquare, getCopyState());
         } else if (rollBoardAction.isActive()) {
-            rollBoardAction.onBoardSquareClicked(boardSquare, viewState);
+            newState = rollBoardAction.onBoardSquareClicked(boardSquare, getCopyState());
         }
 
-        // always update the correct count
-        updateColumnTotals();
+        if (newState != null) {
+            // always update the correct count
+            updateColumnTotals(newState);
+            updateWithState(newState);
+        }
     }
 
     public void onPassDialogShown() {
-        GameMattViewState newState = viewState.getValue().getAnExactCopy();
+        GameMattViewState newState = getCopyState();
         newState.setShowPassDialog(false);
-        viewState.setValue(newState);
+        updateWithState(newState);
     }
 
     public void onFailDialogShown() {
-        GameMattViewState newState = viewState.getValue().getAnExactCopy();
+        GameMattViewState newState = getCopyState();
         newState.setShowFailDialog(false);
-        viewState.setValue(newState);
+        updateWithState(newState);
     }
 
     public void validateCard(StakCard stakCard) {
-        GameMattViewState newState = viewState.getValue().getAnExactCopy();
+        GameMattViewState newState = getCopyState();
         if (stakCard.isValid(newState.getSTotal(), newState.getTTotal(), newState.getATotal(), newState.getKTotal())) {
             onStakCardBeaten(stakCard);
             newState.setShowPassDialog(true);
         } else {
             newState.setShowFailDialog(true);
         }
-        viewState.setValue(newState);
+        updateWithState(newState);
     }
 
     private boolean isGameOver() {
-        return viewState.getValue().getRoundValue() >= GAME_OVER_ROUND;
+        return getCurrentState().getRoundValue() >= GAME_OVER_ROUND;
     }
 
-    private void updateColumnTotals() {
-        GameMattViewState newState = viewState.getValue();
-        GameMatt gameMatt = newState.getGameMatt();
+    private void updateColumnTotals(GameMattViewState currentState) {
+        GameMatt gameMatt = currentState.getGameMatt();
         int sTotal = ViewStateUtils.getBoardSquareSum(gameMatt.getSColumnBoards());
         int tTotal = ViewStateUtils.getBoardSquareSum(gameMatt.getTColumnBoards());
         int aTotal = ViewStateUtils.getBoardSquareSum(gameMatt.getAColumnBoards());
         int kTotal = ViewStateUtils.getBoardSquareSum(gameMatt.getKColumnBoards());
-        newState.setSTotal(sTotal);
-        newState.setTTotal(tTotal);
-        newState.setATotal(aTotal);
-        newState.setKTotal(kTotal);
-
-        viewState.setValue(newState);
+        currentState.setSTotal(sTotal);
+        currentState.setTTotal(tTotal);
+        currentState.setATotal(aTotal);
+        currentState.setKTotal(kTotal);
     }
-
 
     private void onStakCardBeaten(StakCard stakCard) {
         stakCard.setBeaten(true);
@@ -136,30 +141,42 @@ public class GameMattViewModel extends AndroidViewModel {
     }
 
     public void onSwitchAbilityClicked() {
-        if (viewState.getValue().getSwitchEnabled()) {
-            switchBoardAction.onButtonClicked(viewState);
+        if (getCurrentState().getSwitchEnabled()) {
+            GameMattViewState newState = switchBoardAction.onButtonClicked(getCopyState());
+            updateWithState(newState);
         }
     }
 
     public void onUpDownAbilityClicked() {
-        if (viewState.getValue().getUpDownEnabled()) {
-            upDownBoardAction.onButtonClicked(viewState);
+        if (getCurrentState().getUpDownEnabled()) {
+            GameMattViewState newState = upDownBoardAction.onButtonClicked(getCopyState());
+            updateWithState(newState);
         }
     }
 
     public void onAbilityDownClicked() {
-        if (viewState.getValue().getDownBtnVisible() && upDownBoardAction.isActive()) {
-            GameMattViewState newState = viewState.getValue().getAnExactCopy();
-            upDownBoardAction.onDownBtnClicked(newState);
-            viewState.setValue(newState);
+        if (getCurrentState().getDownBtnVisible() && upDownBoardAction.isActive()) {
+            GameMattViewState newState = upDownBoardAction.onDownBtnClicked(getCopyState());
+            updateWithState(newState);
         }
     }
 
     public void onAbilityUpClicked() {
-        if (viewState.getValue().getDownBtnVisible() && upDownBoardAction.isActive()) {
-            GameMattViewState newState = viewState.getValue().getAnExactCopy();
-            upDownBoardAction.onUpBtnClicked(newState);
-            viewState.setValue(newState);
+        if (getCurrentState().getDownBtnVisible() && upDownBoardAction.isActive()) {
+            GameMattViewState newState = upDownBoardAction.onUpBtnClicked(getCopyState());
+            updateWithState(newState);
         }
+    }
+
+    private GameMattViewState getCopyState() {
+        return viewStateMutableLiveData.getValue().getAnExactCopy();
+    }
+
+    private GameMattViewState getCurrentState() {
+        return viewStateMutableLiveData.getValue();
+    }
+
+    private void updateWithState(GameMattViewState newState) {
+        viewStateMutableLiveData.setValue(newState);
     }
 }

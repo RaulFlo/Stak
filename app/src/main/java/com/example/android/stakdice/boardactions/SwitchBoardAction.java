@@ -1,48 +1,45 @@
 package com.example.android.stakdice.boardactions;
 
-import androidx.lifecycle.MutableLiveData;
-
 import com.example.android.stakdice.ViewStateUtils;
 import com.example.android.stakdice.models.GameMattViewState;
 import com.example.android.stakdice.models.boardsquare.BoardSquare;
 
-public class SwitchBoardAction extends BaseBoardAction {
+public class SwitchBoardAction implements BoardAction {
 
     private BoardSquare firstBoardSquareChosen;
+    private boolean isActive;
 
     @Override
-    void modifyViewStateOnButtonClick(GameMattViewState newState) {
-        newState.setUndoButtonEnabled(false);
-        ViewStateUtils.disableAbilities(newState);
-        newState.getGameMatt().makeBoardSquareSelectableForAbility();
-        newState.setSetAdapterToSelecting(true);
-    }
-
-    // not calling super because we're going to handle setting isActive back to false when we're ready
-    @Override
-    public void onBoardSquareClicked(BoardSquare boardSquareClicked, MutableLiveData<GameMattViewState> mutableLiveData) {
-        // not really needed but it's a bit more immutable so hopefully easier to debug
-        GameMattViewState newState = mutableLiveData.getValue().getAnExactCopy();
-        modifyViewStateOnBoardSquareClicked(boardSquareClicked, newState);
-        mutableLiveData.postValue(newState);
+    public boolean isActive() {
+        return isActive;
     }
 
     @Override
-    void modifyViewStateOnBoardSquareClicked(BoardSquare boardSquareClicked, GameMattViewState newState) {
+    public GameMattViewState onButtonClicked(GameMattViewState currentState) {
+        isActive = true;
+        currentState.setUndoButtonEnabled(false);
+        ViewStateUtils.disableAbilities(currentState);
+        currentState.getGameMatt().makeBoardSquareSelectableForAbility();
+        currentState.setSetAdapterToSelecting(true);
+        return currentState;
+    }
+
+    @Override
+    public GameMattViewState onBoardSquareClicked(BoardSquare boardSquareClicked, GameMattViewState currentState) {
         if (firstBoardSquareChosen == null) {
             firstBoardSquareChosen = boardSquareClicked;
         } else {
             BoardSquare secondBoardSquareChosen = boardSquareClicked;
             int tempSecondaryValue = secondBoardSquareChosen.getDiceRollValue();
             int tempFirstValue = firstBoardSquareChosen.getDiceRollValue();
-            newState.getGameMatt().updateBoardSquare(firstBoardSquareChosen, tempSecondaryValue);
-            newState.getGameMatt().updateBoardSquare(secondBoardSquareChosen, tempFirstValue);
-
-            newState.setUndoButtonEnabled(true);
-            newState.setSetAdapterToSelecting(false);
-            isActive = false;
+            currentState.getGameMatt().updateBoardSquare(firstBoardSquareChosen, tempSecondaryValue);
+            currentState.getGameMatt().updateBoardSquare(secondBoardSquareChosen, tempFirstValue);
+            currentState.setUndoButtonEnabled(true);
+            currentState.setSetAdapterToSelecting(false);
             // reset state
+            isActive = false;
             firstBoardSquareChosen = null;
         }
+        return currentState;
     }
 }

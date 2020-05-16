@@ -7,17 +7,19 @@ import com.example.android.stakdice.models.boardsquare.BoardSquare;
 public class ReRollBoardAction extends BaseBoardAction {
 
     @Override
-    void modifyViewStateOnButtonClick(GameMattViewState newState) {
-        newState.getGameMatt().makeBoardSquareSelectableForAbility();
-        newState.setSetAdapterToSelecting(true);
-        ViewStateUtils.disableAbilities(newState);
+    GameMattViewState getButtonClickedViewState(GameMattViewState currentState) {
+        currentState.getGameMatt().makeBoardSquareSelectableForAbility();
+        currentState.setSetAdapterToSelecting(true);
+        ViewStateUtils.disableAbilities(currentState);
+        return currentState;
     }
 
     @Override
-    void modifyViewStateOnBoardSquareClicked(BoardSquare boardSquareClicked, GameMattViewState newState) {
+    GameMattViewState getBoardClickedViewState(BoardSquare boardSquareClicked, GameMattViewState currentState) {
         int rerolledValue = ViewStateUtils.getDiceRollValue();
-        newState.setSetAdapterToSelecting(false);
-        newState.getGameMatt().updateBoardSquare(boardSquareClicked, rerolledValue);
+        currentState.setSetAdapterToSelecting(false);
+        currentState.getGameMatt().updateBoardSquare(boardSquareClicked, rerolledValue);
+        return currentState;
     }
 
 }

@@ -9,33 +9,36 @@ public class UpDownBoardAction extends BaseBoardAction {
     private boolean isDownClicked = false;
 
     @Override
-    void modifyViewStateOnButtonClick(GameMattViewState newState) {
-        newState.setUndoButtonEnabled(false);
-        ViewStateUtils.disableAbilities(newState);
-        newState.setUpBtnVisible(true);
-        newState.setDownBtnVisible(true);
+    GameMattViewState getButtonClickedViewState(GameMattViewState currentState) {
+        currentState.setUndoButtonEnabled(false);
+        ViewStateUtils.disableAbilities(currentState);
+        currentState.setUpBtnVisible(true);
+        currentState.setDownBtnVisible(true);
+        return currentState;
     }
 
-    public void onUpBtnClicked(GameMattViewState newState) {
+    public GameMattViewState onUpBtnClicked(GameMattViewState newState) {
         isUpClicked = true;
         newState.getGameMatt().makeBoardSquareSelectableForAbility();
         newState.setSetAdapterToSelecting(true);
         newState.setUpBtnVisible(false);
         newState.setDownBtnVisible(false);
+        return newState;
     }
 
-    public void onDownBtnClicked(GameMattViewState newState) {
+    public GameMattViewState onDownBtnClicked(GameMattViewState newState) {
         isDownClicked = true;
         newState.getGameMatt().makeBoardSquareSelectableForAbility();
         newState.setSetAdapterToSelecting(true);
         newState.setUpBtnVisible(false);
         newState.setDownBtnVisible(false);
+        return newState;
     }
 
     @Override
-    void modifyViewStateOnBoardSquareClicked(BoardSquare boardSquareClicked, GameMattViewState newState) {
-        newState.setUndoButtonEnabled(true);
-        newState.setSetAdapterToSelecting(false);
+    GameMattViewState getBoardClickedViewState(BoardSquare boardSquareClicked, GameMattViewState currentState) {
+        currentState.setUndoButtonEnabled(true);
+        currentState.setSetAdapterToSelecting(false);
 
         int oldDiceRollValue = boardSquareClicked.getDiceRollValue();
         int newDiceRollValue;
@@ -55,10 +58,9 @@ public class UpDownBoardAction extends BaseBoardAction {
             newDiceRollValue = 1;
         }
 
-        newState.getGameMatt().updateBoardSquare(boardSquareClicked, newDiceRollValue);
+        currentState.getGameMatt().updateBoardSquare(boardSquareClicked, newDiceRollValue);
         isUpClicked = false;
         isDownClicked = false;
+        return currentState;
     }
-
-
 }

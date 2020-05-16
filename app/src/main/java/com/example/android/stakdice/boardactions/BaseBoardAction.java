@@ -1,13 +1,15 @@
 package com.example.android.stakdice.boardactions;
 
-import androidx.lifecycle.MutableLiveData;
-
 import com.example.android.stakdice.models.GameMattViewState;
 import com.example.android.stakdice.models.boardsquare.BoardSquare;
 
+/**
+ * Base class that handles setting isActive to true when the button is clicked and false when the
+ * board square is clicked. This works for most simple actions.
+ */
 abstract public class BaseBoardAction implements BoardAction {
 
-    boolean isActive = false;
+    private boolean isActive = false;
 
     @Override
     public boolean isActive() {
@@ -15,24 +17,18 @@ abstract public class BaseBoardAction implements BoardAction {
     }
 
     @Override
-    public void onButtonClicked(MutableLiveData<GameMattViewState> mutableLiveData) {
+    public GameMattViewState onButtonClicked(GameMattViewState currentState) {
         isActive = true;
-        // not really needed but it's a bit more immutable so hopefully easier to debug
-        GameMattViewState newState = mutableLiveData.getValue().getAnExactCopy();
-        modifyViewStateOnButtonClick(newState);
-        mutableLiveData.setValue(newState);
+        return getButtonClickedViewState(currentState);
     }
 
     @Override
-    public void onBoardSquareClicked(BoardSquare boardSquareClicked, MutableLiveData<GameMattViewState> mutableLiveData) {
+    public GameMattViewState onBoardSquareClicked(BoardSquare boardSquareClicked, GameMattViewState currentState) {
         isActive = false;
-        // not really needed but it's a bit more immutable so hopefully easier to debug
-        GameMattViewState newState = mutableLiveData.getValue().getAnExactCopy();
-        modifyViewStateOnBoardSquareClicked(boardSquareClicked, newState);
-        mutableLiveData.setValue(newState);
+        return getBoardClickedViewState(boardSquareClicked, currentState);
     }
 
-    abstract void modifyViewStateOnButtonClick(GameMattViewState newState);
+    abstract GameMattViewState getButtonClickedViewState(GameMattViewState currentState);
 
-    abstract void modifyViewStateOnBoardSquareClicked(BoardSquare boardSquareClicked, GameMattViewState newState);
+    abstract GameMattViewState getBoardClickedViewState(BoardSquare boardSquareClicked, GameMattViewState currentState);
 }

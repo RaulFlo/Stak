@@ -1,7 +1,5 @@
 package com.example.android.stakdice.boardactions;
 
-import androidx.lifecycle.MutableLiveData;
-
 import com.example.android.stakdice.ViewStateUtils;
 import com.example.android.stakdice.activities.gamematt.SimpleGameMatt;
 import com.example.android.stakdice.models.GameMattViewState;
@@ -13,46 +11,47 @@ public class MainRollUndoBoardAction extends BaseBoardAction {
     private BoardSquare lastBoardSquareClicked;
 
     @Override
-    void modifyViewStateOnButtonClick(GameMattViewState newState) {
+    GameMattViewState getButtonClickedViewState(GameMattViewState currentState) {
         lastDiceRoll = ViewStateUtils.getDiceRollValue();
         // update round
-        newState.setRoundValue(newState.getRoundValue() + 1);
+        currentState.setRoundValue(currentState.getRoundValue() + 1);
         // disable abilities
-        ViewStateUtils.disableAbilities(newState);
+        ViewStateUtils.disableAbilities(currentState);
         // disable undo button
-        newState.setUndoButtonEnabled(false);
+        currentState.setUndoButtonEnabled(false);
         // enable adapter to select
-        newState.getGameMatt().enableAllSelectableSquares();
+        currentState.getGameMatt().enableAllSelectableSquares();
         // set new dice value
-        newState.setDiceRollValue(lastDiceRoll);
+        currentState.setDiceRollValue(lastDiceRoll);
         // update dice image
-        newState.setDiceImageRes(ViewStateUtils.getDiceImageByRollAmount(lastDiceRoll));
+        currentState.setDiceImageRes(ViewStateUtils.getDiceImageByRollAmount(lastDiceRoll));
         // update dice visibility to visible
-        newState.setDiceImageVisibility(true);
-        newState.setSetAdapterToSelecting(true);
+        currentState.setDiceImageVisibility(true);
+        currentState.setSetAdapterToSelecting(true);
+        return currentState;
     }
 
     @Override
-    void modifyViewStateOnBoardSquareClicked(BoardSquare boardSquareClicked, GameMattViewState newState) {
+    GameMattViewState getBoardClickedViewState(BoardSquare boardSquareClicked, GameMattViewState currentState) {
         lastBoardSquareClicked = boardSquareClicked;
 
-        newState.setUndoButtonEnabled(true);
-        newState.setRollButtonEnabled(true);
-        newState.setSetAdapterToSelecting(false);
-        newState.setDiceImageVisibility(false);
-        newState.getGameMatt().updateBoardSquare(boardSquareClicked, lastDiceRoll);
-        SimpleGameMatt.StakColumn stakColumn = newState.getGameMatt().returnStakColumn(boardSquareClicked);
-        ViewStateUtils.enablePower(newState, stakColumn);
+        currentState.setUndoButtonEnabled(true);
+        currentState.setRollButtonEnabled(true);
+        currentState.setSetAdapterToSelecting(false);
+        currentState.setDiceImageVisibility(false);
+        currentState.getGameMatt().updateBoardSquare(boardSquareClicked, lastDiceRoll);
+        SimpleGameMatt.StakColumn stakColumn = currentState.getGameMatt().returnStakColumn(boardSquareClicked);
+        ViewStateUtils.enablePower(currentState, stakColumn);
+        return currentState;
     }
 
-    public void undoSettingSquare(MutableLiveData<GameMattViewState> mutableLiveData, GameMattViewState viewState) {
+    public GameMattViewState undoSettingSquare(GameMattViewState currentState) {
         if (lastBoardSquareClicked != null) {
-            GameMattViewState newState = viewState.getAnExactCopy();
-            newState.getGameMatt().updateBoardSquare(lastBoardSquareClicked, 0);
+            currentState.getGameMatt().updateBoardSquare(lastBoardSquareClicked, 0);
             lastBoardSquareClicked = null;
-            newState.setUndoButtonEnabled(false);
-            ViewStateUtils.disableAbilities(newState);
-            mutableLiveData.setValue(newState);
+            currentState.setUndoButtonEnabled(false);
+            ViewStateUtils.disableAbilities(currentState);
         }
+        return currentState;
     }
 }

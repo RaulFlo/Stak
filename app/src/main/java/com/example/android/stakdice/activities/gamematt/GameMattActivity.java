@@ -165,7 +165,7 @@ public class GameMattActivity extends AppCompatActivity implements BoardSquareAd
             }
         });
 
-        viewModel.viewState.observe(this, new Observer<GameMattViewState>() {
+        viewModel.viewStateMutableLiveData.observe(this, new Observer<GameMattViewState>() {
             @Override
             public void onChanged(GameMattViewState viewState) {
                 sViewText.setText(String.valueOf(viewState.getSTotal()));
