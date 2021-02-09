@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ListAdapter;
 
 import com.bumptech.glide.Glide;
 import com.example.android.stakdice.R;
+import com.example.android.stakdice.adapter.viewholder.StakHolder;
 import com.example.android.stakdice.models.StakCard;
 
 import java.util.Objects;

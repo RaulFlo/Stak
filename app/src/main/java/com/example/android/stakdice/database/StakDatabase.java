@@ -25,7 +25,7 @@ import com.example.android.stakdice.models.attribute.ThreeValueAttribute;
 @TypeConverters({StakConverters.class})
 public abstract class StakDatabase extends RoomDatabase {
 
-
+    private static String DATABASE_NAME = "stak_database";
     private static StakDatabase instance;
 
     public abstract StakDao stakDao();
@@ -33,7 +33,7 @@ public abstract class StakDatabase extends RoomDatabase {
     public static synchronized StakDatabase getInstance(Context context) {
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
-                    StakDatabase.class, "stak_database")
+                    StakDatabase.class, DATABASE_NAME)
                     .fallbackToDestructiveMigration()
                     .addCallback(roomCallback)
                     .build();

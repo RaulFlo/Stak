@@ -1,4 +1,4 @@
-package com.example.android.stakdice.adapter;
+package com.example.android.stakdice.adapter.viewholder;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.stakdice.R;
 
-class StakHolder extends RecyclerView.ViewHolder {
+public class StakHolder extends RecyclerView.ViewHolder {
 
-    interface StakHolderListener {
+    public interface StakHolderListener {
         void onItemClicked(int adapterPosition);
     }
 

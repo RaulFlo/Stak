@@ -14,6 +14,7 @@ public class BoardSquare {
 
     public void setDiceRollValue(int _diceRoll) {
         diceRollValue = _diceRoll;
+        hasDiceValue = _diceRoll > 0;
     }
 
     public int getDiceRollValue() {

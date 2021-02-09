@@ -16,9 +16,6 @@ import com.example.android.stakdice.activities.main.MainActivity;
 
 public class FailedDialog extends DialogFragment {
 
-    private Button mainMenuButton;
-    private Button resetButton;
-
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -29,8 +26,8 @@ public class FailedDialog extends DialogFragment {
 
         builder.setView(view);
 
-        mainMenuButton = view.findViewById(R.id.game_matt_main_menu_button_fail);
-        resetButton = view.findViewById(R.id.game_matt_reset_button);
+        Button mainMenuButton = view.findViewById(R.id.game_matt_main_menu_button_fail);
+        Button resetButton = view.findViewById(R.id.game_matt_reset_button);
 
         mainMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override

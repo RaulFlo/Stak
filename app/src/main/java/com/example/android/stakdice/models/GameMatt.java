@@ -18,7 +18,7 @@ public interface GameMatt {
 
     void undoLastBoardSquare(BoardSquare boardSquare);
 
-    SimpleGameMatt.StakColumn returnLastColumn(BoardSquare boardSquare);
+    SimpleGameMatt.StakColumn returnStakColumn(BoardSquare boardSquare);
 
     void makeBoardSquareSelectableForAbility();
 

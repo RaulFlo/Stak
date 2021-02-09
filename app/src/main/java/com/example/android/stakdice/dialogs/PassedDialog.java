@@ -17,9 +17,6 @@ import com.example.android.stakdice.activities.trophyroom.TrophyActivity;
 
 public class PassedDialog extends DialogFragment {
 
-    private Button mainMenuButton;
-    private Button stakCardButton;
-
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -30,8 +27,8 @@ public class PassedDialog extends DialogFragment {
 
         builder.setView(view);
 
-        mainMenuButton = view.findViewById(R.id.game_matt_main_menu_button);
-        stakCardButton = view.findViewById(R.id.game_matt_stack_card_button);
+        Button mainMenuButton = view.findViewById(R.id.game_matt_main_menu_button);
+        Button stakCardButton = view.findViewById(R.id.game_matt_stack_card_button);
 
         mainMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override

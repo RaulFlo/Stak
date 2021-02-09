@@ -1,4 +1,4 @@
-package com.example.android.stakdice.adapter;
+package com.example.android.stakdice.adapter.viewholder;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.stakdice.R;
 
-public class TrophyHolder extends RecyclerView.ViewHolder  {
+public class TrophyHolder extends RecyclerView.ViewHolder {
 
-    interface TrophyHolderListener{
+    public interface TrophyHolderListener {
         void onItemClicked(int adapterPosition);
     }
 
@@ -32,7 +32,7 @@ public class TrophyHolder extends RecyclerView.ViewHolder  {
             @Override
             public void onClick(View view) {
                 int position = getAdapterPosition();
-                if(listener != null && position != RecyclerView.NO_POSITION){
+                if (listener != null && position != RecyclerView.NO_POSITION) {
                     listener.onItemClicked(position);
                 }
             }
